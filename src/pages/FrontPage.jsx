@@ -1,4 +1,5 @@
 import './FrontPage.css';
+import {Link} from 'react-router-dom'
 
 function Header() {
     return(
@@ -26,15 +27,29 @@ function MainFront() {
     return (
         <div className='main-front-wrapper'>
             
+                <FrontPageButton text={"Character Builder"} url={"/CreateChar"} />
+                <FrontPageButton text={"Dice Roller"} url={"/DiceRoller"}/>
+            
         </div>
     );
+}
+
+function FrontPageButton({url, text}) {
+    return (
+        <Link to={url}>
+            <button className='front-page-button'>{text}</button>
+        </Link>
+        );
 }
 
 function FrontPage() {
     return (
         <>
             <Header />
-            <CharacterBrowser />
+            <div id='main-section-wrapper'>
+                <CharacterBrowser />
+                <MainFront />
+            </div>
         </>
     );
 }

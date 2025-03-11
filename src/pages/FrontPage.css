@@ -1,16 +1,45 @@
+*{box-sizing: border-box;}
+
 .header-wrapper {
     display: flex;
-    padding: 0;
+    height: 6rem;
+    padding: 1rem;
     border-bottom: 0.1rem solid black;
+}
+
+#main-section-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(100vh - 7rem);
 }
 
 .browser-wrapper {
     display: flex;
-    width: 35vh;
-    height: 100vh;
-    border-right: 0.1rem solid black;;
+    width: 35%;
+    border-right: 0.1rem solid black;
+    overflow: auto;
 }
 
 .main-front-wrapper {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.front-page-button {
+    width: 10rem;
+    height: 5rem;
+    margin: 2rem;
+    border-radius: 15%;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0.2rem 0.1rem 0.1rem grey;
+    
+}
+
+.front-page-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    
 }
