@@ -1,0 +1,16 @@
+.header-wrapper {
+    display: flex;
+    padding: 0;
+    border-bottom: 0.1rem solid black;
+}
+
+.browser-wrapper {
+    display: flex;
+    width: 35vh;
+    height: 100vh;
+    border-right: 0.1rem solid black;;
+}
+
+.main-front-wrapper {
+    display: flex;
+}
