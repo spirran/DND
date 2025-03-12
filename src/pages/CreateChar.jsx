@@ -31,7 +31,7 @@ https://www.freecodecamp.org/news/how-to-consume-rest-apis-in-react/
 
 //CoPilot
 function CreateChar() {
-    const [classList, setClassList] = useState([]);
+    const [classList, setClassList] = useState([]); 
 
     useEffect(() => { //inbyggd react grej?
         async function fetchClasses() {
@@ -63,7 +63,7 @@ function CreateChar() {
     }, []);
 
     return (
-        <>
+        <> 
             <h1> 
                 VÄLKOMMEN TILL CREATE CHAR
             </h1>
