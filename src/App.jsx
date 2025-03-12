@@ -1,9 +1,9 @@
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import './App.css'
-import FrontPage from './pages/FrontPage.jsx'
-import CharSheet from './pages/CharSheet.jsx';
-import CreateChar from './pages/CreateChar.jsx';
-import DiceRoller from './pages/DiceRoller.jsx';
+import FrontPage from './pages/FrontPage/FrontPage.jsx'
+import CharSheet from './pages/CharSheet/CharSheet.jsx';
+import CreateChar from './pages/CreateChar/CreateChar.jsx';
+import DiceRoller from './pages/DiceRoller/DiceRoller.jsx';
 
 const routeDefinitions = createRoutesFromElements(
   <Route>
