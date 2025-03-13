@@ -1,4 +1,4 @@
-function Header() {
+function FrontPageHeader() {
     return(
     <>
         <div className="header-wrapper">
@@ -10,4 +10,4 @@ function Header() {
     );
 }
 
-export default Header;
+export default FrontPageHeader;

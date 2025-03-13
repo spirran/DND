@@ -4,7 +4,7 @@ function MainFront() {
     return (
         <div className='main-front-wrapper'>
             
-                <FrontPageButton text={"Character Builder"} url={"/CreateChar"} />
+                <FrontPageButton text={"Create New Character"} url={"/CreateChar"} />
                 <FrontPageButton text={"Dice Roller"} url={"/DiceRoller"}/>
             
         </div>
