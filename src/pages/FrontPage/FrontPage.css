@@ -42,7 +42,7 @@ html, body, #root {
     margin-top: 2rem;
     border: 0.1rem solid black;
     box-shadow: 0.2rem 0.1rem 0.1rem grey;
-    border-radius: 10%;
+    border-radius: 100%;
     align-content: center;
     transition: transform 0.2s ease-in-out;
     flex-shrink: 0;
