@@ -1,5 +1,5 @@
 function CharSheet() {
-    return <h1>VÄLKOMMEN TILL CHAR SHEET</h1>;
+    return <h1>VAR HÄLSAD</h1>;
 }
 
 export default CharSheet;
