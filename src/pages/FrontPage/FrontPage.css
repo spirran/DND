@@ -76,3 +76,14 @@ html, body, #root {
     cursor: pointer;
     transform: scale(1.1);
 }
+
+.hidden-text {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.img-placeholder:hover .hidden-text {
+    opacity: 1;
+    visibility: visible;
+}
