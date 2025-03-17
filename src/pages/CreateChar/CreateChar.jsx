@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import ClassDropdown from './components/ClassDropdown';
-import RaceDropdown from './components/RaceDropdown';
-import SkillDropdown from './components/SkillDropdown';
-import Attributes from './components/CharAttributes';
+import ClassDropdown from './components/CreateChar/ClassDropdown';
+import RaceDropdown from './components/CreateChar/RaceDropdown';
+import SkillDropdown from './components/CreateChar/SkillDropdown';
+import Attributes from './components/CreateChar/CharAttributes';
 function CreateChar() {
     return (
     <>
