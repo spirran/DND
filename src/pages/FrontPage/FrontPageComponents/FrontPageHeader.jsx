@@ -5,7 +5,7 @@ function FrontPageHeader() {
         <div className="header-wrapper">
             <header className="header-content">
                 <img src={logo} alt="Logo" className="front-logo"/>
-                <h1>D&D Character Builder</h1>
+                <h1>Dungeons & Dragons - Character Builder</h1>
             </header>
         </div>
     );
