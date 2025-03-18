@@ -1,4 +1,4 @@
-import logo from '../../../assets/react.svg';
+import logo from '../../../assets/images/Dnd_(5).png';
 
 function FrontPageHeader() {
     return(
