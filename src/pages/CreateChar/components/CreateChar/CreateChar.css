@@ -13,3 +13,12 @@
 {
     width:2rem;
 }
+
+label,select{
+display:Flex;
+flex-direction: column;
+}
+
+label{
+    margin-top:1rem;
+}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import './CreateChar.css';
 
-
-function ClassDropdown() {
+function ClassDropdown({selectedClass, onClassChange}) {
     const [classList, setClassList] = useState([]); 
-
+    //const [selectedClass,setSelectedClass] = useState();
     useEffect(() => { //inbyggd react grej?
         async function fetchClasses() {
             try {
@@ -25,26 +25,35 @@ function ClassDropdown() {
 
                 const classData = await response.json();
                 setClassList(classData.results.map(item => item.name));
+                
             } catch (error) {
                 console.error(error);
             }
         }
 
         fetchClasses();
+
     }, []);
-
     return (
-
         <> 
-            <select id="classSelect"> 
+        <section id="classSection">
+        <label>Select Class:</label>
+            <select 
+                id="classSelect" 
+                onChange={(e) => onClassChange(e.target.value)} 
+                value={selectedClass}
+            > 
                 {classList.map((className, index) => (
                     <option key={index} value={className}>
                         {className}
                     </option>
                 ))}
             </select>
+            <p>{selectedClass}</p>
+        </section>
         </>
     );
 }
+
 
 export default ClassDropdown;

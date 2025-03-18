@@ -36,6 +36,7 @@ function SkillDropdown({className}) {
     return (
 
         <>
+        <label>Features: </label>
             <select id="skillSelect">
                 {skillList.map((skillName, index) => (
                     <option key={index} value={skillName}>

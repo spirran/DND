@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function RaceDropdown() {
+function RaceDropdown({selectedRace, onRaceChange}) {
     const [raceList, setRaceList] = useState([]); 
 
     useEffect(() => { //inbyggd react grej?
@@ -35,13 +35,18 @@ function RaceDropdown() {
     return (
 
         <> 
-            <select id="raceSelect"> 
+        <label>Race: </label>
+            <select id="raceSelect"
+            onChange={(e) => onRaceChange(e.target.value)} 
+            value={selectedRace}
+            > 
                 {raceList.map((raceName, index) => (
                     <option key={index} value={raceName}>
                         {raceName}
                     </option>
                 ))}
             </select>
+            <p>{selectedRace}</p>
         </>
     );
 }
