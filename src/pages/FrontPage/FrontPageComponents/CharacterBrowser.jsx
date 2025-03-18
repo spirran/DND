@@ -1,5 +1,6 @@
 import BrowserCard from "./BrowserCard";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -38,12 +39,14 @@ function CharacterBrowser() {
                 <h2>Characters</h2>
                 {characters.map((char, index) => (
                     <div key={index} className="browser-card">
-                        <img src={char.image} alt={char.name} className="browser-portrait" />
-                        <div className="hidden-text-wrapper">
-                            <p className="hidden-text">{char.name}</p>
-                            <p className="hidden-text">Level {char.level}</p>
-                            <p className="hidden-text">{char.class}</p>
-                        </div>
+                        <Link to={'/CharSheet'}>
+                            <img src={char.image} alt={char.name} className="browser-portrait" />
+                            <div className="hidden-text-wrapper">
+                                <p className="hidden-text">{char.name}</p>
+                                <p className="hidden-text">Level {char.level}</p>
+                                <p className="hidden-text">{char.class}</p>
+                            </div>
+                        </Link>
                     </div>
                 ))}
             </div>
