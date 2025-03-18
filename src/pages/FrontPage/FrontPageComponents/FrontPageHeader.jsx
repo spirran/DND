@@ -1,4 +1,4 @@
-import logo from '../../../assets/images/Dnd_(5).png';
+import logo from '../../../assets/images/dnd-logo.png';
 
 function FrontPageHeader() {
     return(
