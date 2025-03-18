@@ -8,7 +8,25 @@ function CreateChar() {
   const [currentClass,setCurrentClass] = useState();
   const [currentRace, setCurrentRace] = useState();
 
-  let message = "Class: " + currentClass + "\n Race: "+currentRace;
+  let initialAttributes = ["","","","","","",""];
+
+  const [currentAttributes,setCurrentAttributes] = useState([initialAttributes]);
+
+  const handleAttrChange = (index,value) =>
+  {
+    const updatedAttributes = [...currentAttributes];
+    updatedAttributes[index] = value;
+    setCurrentAttributes(updatedAttributes);
+
+  }
+
+  let message = "Class: " + currentClass + "\n Race: "+currentRace + "\n Attributes:"
+  +"\n Strength: "+currentAttributes[0] +
+  "\n Dexterity: "+currentAttributes[1] +
+  "\n Constitution: "+currentAttributes[2] +
+  "\n Intelligence: "+currentAttributes[3] +
+  "\n Wisdom: "+currentAttributes[4] +
+  "\n Charisma: "+currentAttributes[5];
     return (
     <>
     <h1>Create your character!</h1>
@@ -16,14 +34,22 @@ function CreateChar() {
        selectedClass ={currentClass}
         onClassChange={(newClass) => setCurrentClass(newClass)} 
       />
+
       <RaceDropdown
       selectedRace = {currentRace}
       onRaceChange = {(newRace) => setCurrentRace(newRace)}
       />
+
        <SkillDropdown
-       className ={"barbarian"} 
+       className ={currentClass} 
         />
-        <Attributes />
+
+        <Attributes  
+        selectedAttributes = {currentAttributes}
+        onAttrChange = {handleAttrChange}
+    
+        />
+
         <button onClick={()=>testFunction(message)}>
         Submit
         </button>
@@ -37,4 +63,7 @@ function testFunction(message)
 {
   console.log(message);
 }
+
+
+
 
