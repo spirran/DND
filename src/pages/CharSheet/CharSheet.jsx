@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './CharSheet.css';
 
@@ -16,10 +16,10 @@ function CharSheet() {
     class: '',
     level: 1,
     background: '',
-    playerName: '',
     race: '',
     alignment: '',
     experiencePoints: 0,
+    portraitUrl: '',
     
     // Ability scores
     strength: 10,
@@ -64,17 +64,38 @@ function CharSheet() {
     featuresAndTraits: '',
   });
 
+  // Use separate state for portrait URL to prevent typing issues
+  const [portraitUrl, setPortraitUrl] = useState('');
+  
+  // Sync the separate portraitUrl state with character state when needed
+  useEffect(() => {
+    setPortraitUrl(character.portraitUrl);
+  }, [character.portraitUrl]);
+
   // Calculate ability modifier
   const getAbilityModifier = (score) => {
     return Math.floor((score - 10) / 2);
   };
 
-  // Handle input changes
+  // Handle input changes for most fields
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setCharacter({
       ...character,
       [name]: type === 'checkbox' ? checked : value
+    });
+  };
+  
+  // Separate handler for portrait URL
+  const handlePortraitUrlChange = (e) => {
+    setPortraitUrl(e.target.value);
+  };
+  
+  // Apply portrait URL to character state only when user is done typing
+  const applyPortraitUrl = () => {
+    setCharacter({
+      ...character,
+      portraitUrl: portraitUrl
     });
   };
 
@@ -93,21 +114,82 @@ function CharSheet() {
       
       <div className="character-sheet">
         <div className="header">
-          <img src="/dnd-logo.png" alt="D&D Logo" className="dnd-logo" />
+          <div className="header-left">
+            <img src="/dnd-logo.png" alt="D&D Logo" className="dnd-logo" />
+          </div>
           <div className="header-title">CHARACTER SHEET</div>
+          <div className="portrait-container">
+            <div className="portrait-box">
+              {character.portraitUrl ? (
+                <img 
+                  src={character.portraitUrl} 
+                  alt="Character Portrait" 
+                  className="character-portrait" 
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = ""; // Clear the src on error
+                    e.target.style.display = 'none';
+                    alert('Error loading image. Please try another URL.');
+                    // Reset the portrait-placeholder div to be visible
+                    const placeholder = e.target.parentNode.querySelector('.portrait-placeholder');
+                    if (placeholder) placeholder.style.display = 'flex';
+                  }}
+                />
+              ) : (
+                <div className="portrait-placeholder">CHARACTER PORTRAIT</div>
+              )}
+            </div>
+            {/* Improved input field with better focus handling */}
+            <div className="portrait-url-wrapper">
+              <input
+                type="text"
+                value={portraitUrl}
+                onChange={handlePortraitUrlChange}
+                onBlur={applyPortraitUrl}
+                onKeyDown={(e) => e.key === 'Enter' && applyPortraitUrl()}
+                placeholder="Enter image URL"
+                className="portrait-url-input"
+                // Make sure this field is clickable and focusable
+                tabIndex={0}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="top-section">
           <div className="char-info">
-            <div className="input-group">
-              <input
-                type="text"
-                name="name"
-                value={character.name}
-                onChange={handleInputChange}
-                className="input-field"
-              />
-              <label>CHARACTER NAME</label>
+            {/* First row with character name and experience points (replacing player name) */}
+            <div className="char-info-row">
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="name"
+                  value={character.name}
+                  onChange={handleInputChange}
+                  className="input-field"
+                />
+                <label>CHARACTER NAME</label>
+              </div>
+              <div className="input-group">
+                <input
+                  type="number"
+                  name="experiencePoints"
+                  value={character.experiencePoints}
+                  onChange={handleInputChange}
+                  className="input-field"
+                />
+                <label>EXPERIENCE POINTS</label>
+              </div>
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="characterSubclass"
+                  placeholder=""
+                  className="input-field"
+                  style={{ visibility: 'hidden' }}
+                />
+                <label style={{ visibility: 'hidden' }}>PLACEHOLDER</label>
+              </div>
             </div>
 
             <div className="char-info-row">
@@ -134,12 +216,12 @@ function CharSheet() {
               <div className="input-group">
                 <input
                   type="text"
-                  name="playerName"
-                  value={character.playerName}
-                  onChange={handleInputChange}
+                  name="extraField"
+                  placeholder=""
                   className="input-field"
+                  style={{ visibility: 'hidden' }}
                 />
-                <label>PLAYER NAME</label>
+                <label style={{ visibility: 'hidden' }}>PLACEHOLDER</label>
               </div>
             </div>
 
@@ -166,13 +248,13 @@ function CharSheet() {
               </div>
               <div className="input-group">
                 <input
-                  type="number"
-                  name="experiencePoints"
-                  value={character.experiencePoints}
-                  onChange={handleInputChange}
+                  type="text"
+                  name="extraField2"
+                  placeholder=""
                   className="input-field"
+                  style={{ visibility: 'hidden' }}
                 />
-                <label>EXPERIENCE POINTS</label>
+                <label style={{ visibility: 'hidden' }}>PLACEHOLDER</label>
               </div>
             </div>
           </div>
@@ -352,7 +434,7 @@ function CharSheet() {
           </div>
 
           <div className="right-column">
-            {/* Features & Traits - Now expanded */}
+            {/* Features & Traits*/}
             <div className="features-section">
               <h3>FEATURES & TRAITS</h3>
               <textarea
