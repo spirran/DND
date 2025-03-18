@@ -67,6 +67,8 @@ html, body, #root {
     height: 5rem;
     margin: 2rem;
     border-radius: 15%;
+    background-color: #7A0000;
+    color: white;
     transition: transform 0.2s ease-in-out;
     box-shadow: 0.2rem 0.1rem 0.1rem grey;
     

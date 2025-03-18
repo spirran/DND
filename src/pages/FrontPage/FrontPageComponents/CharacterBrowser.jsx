@@ -10,20 +10,20 @@ function CharacterBrowser() {
     {
       image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
       name: "Arthas",
-      level: 80,
-      class: "Death Knight"
+      level: 5,
+      class: "Druid"
     },
     {
-      image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
+      image: "https://i.pinimg.com/736x/af/7a/19/af7a194a8f2e759408ddaca3e1f5783e.jpg",
       name: "Jaina",
-      level: 75,
-      class: "Mage"
+      level: 17,
+      class: "Fighter"
     },
     {
       image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
       name: "Thrall",
-      level: 85,
-      class: "Shaman"
+      level: 2,
+      class: "Ranger"
     }
   ];
 
