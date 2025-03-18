@@ -35,10 +35,10 @@ html, body, #root {
     align-items: center;
 }
 
-.img-placeholder {
+.browser-card {
+    position: relative;
     width: 10rem;
     height: 10rem;
-    background-color: red;
     margin-top: 2rem;
     border: 0.1rem solid black;
     box-shadow: 0.2rem 0.1rem 0.1rem grey;
@@ -48,7 +48,7 @@ html, body, #root {
     flex-shrink: 0;
 }
 
-.img-placeholder:hover {
+.browser-card:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -83,7 +83,36 @@ html, body, #root {
     transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
 }
 
-.img-placeholder:hover .hidden-text {
+.hidden-text-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    text-shadow: 
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.browser-card:hover .hidden-text-wrapper {
+    visibility: visible;
+    opacity: 1;
+  } 
+
+.browser-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+.browser-card:hover .hidden-text {
     opacity: 1;
     visibility: visible;
 }
