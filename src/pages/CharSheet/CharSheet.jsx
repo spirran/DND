@@ -21,7 +21,7 @@ function CharSheet() {
     experiencePoints: 0,
     portraitUrl: '',
     
-    // Ability scores
+    // ability scores
     strength: 10,
     dexterity: 10,
     constitution: 10,
@@ -29,7 +29,7 @@ function CharSheet() {
     wisdom: 10,
     charisma: 10,
 
-    // Skills
+    // skills
     acrobatics: false,
     animalHandling: false,
     arcana: false,
@@ -49,7 +49,7 @@ function CharSheet() {
     stealth: false,
     survival: false,
     
-    // Combat stats
+    // stats
     armorClass: 10,
     initiative: 0,
     speed: 30,
@@ -57,17 +57,17 @@ function CharSheet() {
     currentHitPoints: 10,
     temporaryHitPoints: 0,
     
-    // Equipment
+    // equipment
     equipment: '',
     
-    // Features & Traits
+    // features & traits
     featuresAndTraits: '',
   });
 
-  // Use separate state for portrait URL to prevent typing issues
+  // separate state for portrait URL
   const [portraitUrl, setPortraitUrl] = useState('');
   
-  // Sync the separate portraitUrl state with character state when needed
+  // sync the separate portraitUrl state with character state
   useEffect(() => {
     setPortraitUrl(character.portraitUrl);
   }, [character.portraitUrl]);
@@ -77,7 +77,7 @@ function CharSheet() {
     return Math.floor((score - 10) / 2);
   };
 
-  // Handle input changes for most fields
+  // Handle input changes for fields
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setCharacter({
@@ -86,12 +86,12 @@ function CharSheet() {
     });
   };
   
-  // Separate handler for portrait URL
+  // handler for portrait URL
   const handlePortraitUrlChange = (e) => {
     setPortraitUrl(e.target.value);
   };
   
-  // Apply portrait URL to character state only when user is done typing
+  // apply portrait URL to state when user is done typing
   const applyPortraitUrl = () => {
     setCharacter({
       ...character,
@@ -99,7 +99,6 @@ function CharSheet() {
     });
   };
 
-  // Format modifier for display (+2, -1, etc.)
   const formatModifier = (modifier) => {
     return modifier >= 0 ? `+${modifier}` : `${modifier}`;
   };
@@ -127,10 +126,9 @@ function CharSheet() {
                   className="character-portrait" 
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = ""; // Clear the src on error
+                    e.target.src = "";
                     e.target.style.display = 'none';
                     alert('Error loading image. Please try another URL.');
-                    // Reset the portrait-placeholder div to be visible
                     const placeholder = e.target.parentNode.querySelector('.portrait-placeholder');
                     if (placeholder) placeholder.style.display = 'flex';
                   }}
@@ -139,7 +137,6 @@ function CharSheet() {
                 <div className="portrait-placeholder">CHARACTER PORTRAIT</div>
               )}
             </div>
-            {/* Improved input field with better focus handling */}
             <div className="portrait-url-wrapper">
               <input
                 type="text"
@@ -149,7 +146,6 @@ function CharSheet() {
                 onKeyDown={(e) => e.key === 'Enter' && applyPortraitUrl()}
                 placeholder="Enter image URL"
                 className="portrait-url-input"
-                // Make sure this field is clickable and focusable
                 tabIndex={0}
               />
             </div>
@@ -158,7 +154,6 @@ function CharSheet() {
 
         <div className="top-section">
           <div className="char-info">
-            {/* First row with character name and experience points (replacing player name) */}
             <div className="char-info-row">
               <div className="input-group">
                 <input
