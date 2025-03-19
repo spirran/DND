@@ -1,0 +1,24 @@
+
+#attrDiv{
+    
+    margin-right:2rem;
+    margin-top:3rem;
+    border-radius: 0.5rem;
+    padding:0.2rem;
+    border-width: 0.15rem;
+    border-style: solid;
+}
+
+.attrInput
+{
+    width:2rem;
+}
+
+label,select{
+display:Flex;
+flex-direction: column;
+}
+
+label{
+    margin-top:1rem;
+}
