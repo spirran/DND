@@ -79,8 +79,14 @@ margin-top:1.5rem;
     margin-left:2rem;
 }
 
+#alignmentSelect
+{
+    margin-bottom:1rem;
+}
+
+
 .descriptionInput{
-    margin-bottom:5rem;
+    margin-bottom:1rem;
     width:20rem;
     height:10rem;
 }
@@ -98,4 +104,9 @@ margin-top:1.5rem;
 
 .createPageH1{
 margin-left:15rem;
+}
+
+#createSubmitButton
+{
+    margin-left:10rem;
 }

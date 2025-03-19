@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 
 
-function CharacterBrowser() {
+function CharacterBrowser({character}) {
 
   const placeholderCharacters = [
     {
         image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
-        name: "Arthas",
-        level: 5,
-        class: "Druid"
+        name: character.name,
+        level: character.level,
+        class: character.class
       },
       {
         image: "https://i.pinimg.com/736x/af/7a/19/af7a194a8f2e759408ddaca3e1f5783e.jpg",

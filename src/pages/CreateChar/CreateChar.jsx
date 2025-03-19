@@ -10,13 +10,15 @@ import Attributes from './components/CreateChar/CharAttributes';
 import CharNameInput from './components/CreateChar/CharNameInput';
 import CharDescriptionInput from './components/CreateChar/CharacterDescription';
 import ClassLevelInput from './components/CreateChar/ClassLevelInput';
+import AlignmentDropdown from './components/CreateChar/AlignmentDropdown';
 
-function CreateChar() {
+function CreateChar({onCharacterChange}) {
   const [currentClass,setCurrentClass] = useState("Barbarian");
   const [currentLevel, setCurrentLevel] = useState(1);
   const [currentRace, setCurrentRace] = useState("Dragonborn");
   const [currentName, setCurrentName] = useState("player");
   const [currentDescription, setCurrentDescription] = useState("");
+  const [currentAlignment, setCurrentAlignment] = useState("");
   let initialAttributes = [1,1,1,1,1,1,1];
 
   const [currentAttributes,setCurrentAttributes] = useState([initialAttributes]);
@@ -36,10 +38,12 @@ function CreateChar() {
     race:currentRace,
     attributes:currentAttributes,
     description:currentDescription,
+    alignment:currentAlignment,
+    img:"placeholder"
   };
 
   let message = "Name:  "+character.name+ "\n Class: " + character.class + "\n Level:"+ character.level +"\n Race: "+character.race + "\n Attributes:" +
-  "\n Attributes:"+ character.attributes
+  "\n Attributes:"+ character.attributes + "\n Alignment:" + character.alignment
   +"\n Description:"+ character.description
     return (
     <>
@@ -78,7 +82,12 @@ function CreateChar() {
       onDescriptionChange={(newDescription) => setCurrentDescription(newDescription)}
       />
 
-      <button className="createButton" id="createSubmitButton" onClick={()=>testFunction(message)}>
+      <AlignmentDropdown 
+        selectedAlignmnent = {currentAlignment}
+        onAlignmentChange = {(newAlignment) => setCurrentAlignment(newAlignment)}
+      />
+
+      <button className="createButton" id="createSubmitButton" onClick={()=>onCharacterChange(character)}>
       Submit 
       </button>
 
