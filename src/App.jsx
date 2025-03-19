@@ -18,21 +18,27 @@ function App() {
     attributes:[10,10,10,10,10,10],
     description:"this is a test character",
     alignment:"Neutral",
-    img:"placeholder"
+    img:"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
   };
 
-  const [character,setCharacter] = useState(defaultCharacter);
-  console.log(character.name + " is in app");
+  const [characterList, setCharacterList] = useState([]);
 
+  const handleCharacterChange = (character) =>
+    {
+      const newCharacterList = [...characterList];
+      newCharacterList.push(character);
+      setCharacterList(newCharacterList);
+      console.log("Character" + character.name + " added");
+    }
 
   const routeDefinitions = createRoutesFromElements(
     <Route>
       <Route path="/" element={<FrontPage 
-        currentCharacter = {character}
+        currentCharacterList = {characterList}
          />} />
 
       <Route path="/CreateChar" element={<CreateChar 
-      onCharacterChange = {(newCharacter) => setCharacter(newCharacter)}
+      onCharacterChange = {handleCharacterChange}
       />} />
       <Route path="/CharSheet" element={<CharSheet />} />
       <Route path="/DiceRoller" element={<DiceRoller />} />
@@ -40,10 +46,9 @@ function App() {
   );
   
   const router = createBrowserRouter(routeDefinitions);
-
-
-
   return <RouterProvider router={router} />;
 }
+
+
 
 export default App

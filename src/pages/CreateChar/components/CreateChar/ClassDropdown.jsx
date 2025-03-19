@@ -48,7 +48,6 @@ function ClassDropdown({selectedClass, onClassChange}) {
                     </option>
                 ))}
             </select>
-            <p>{selectedClass}</p>
         </section>
         </>
     );

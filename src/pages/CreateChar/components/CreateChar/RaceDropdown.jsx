@@ -46,7 +46,6 @@ function RaceDropdown({selectedRace, onRaceChange}) {
                     </option>
                 ))}
             </select>
-            <p>{selectedRace}</p>
         </>
     );
 }

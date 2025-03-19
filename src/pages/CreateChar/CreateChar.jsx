@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './CreateChar.css';
+import {Link} from 'react-router-dom'
 
 import CreateCharHeader from './components/CreateChar/CreateCharHeader';
 import ClassDropdown from './components/CreateChar/ClassDropdown';
@@ -39,12 +40,9 @@ function CreateChar({onCharacterChange}) {
     attributes:currentAttributes,
     description:currentDescription,
     alignment:currentAlignment,
-    img:"placeholder"
+    img:"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
   };
 
-  let message = "Name:  "+character.name+ "\n Class: " + character.class + "\n Level:"+ character.level +"\n Race: "+character.race + "\n Attributes:" +
-  "\n Attributes:"+ character.attributes + "\n Alignment:" + character.alignment
-  +"\n Description:"+ character.description
     return (
     <>
       <CreateCharHeader />
@@ -87,9 +85,12 @@ function CreateChar({onCharacterChange}) {
         onAlignmentChange = {(newAlignment) => setCurrentAlignment(newAlignment)}
       />
 
+      <Link to={"/"}>
       <button className="createButton" id="createSubmitButton" onClick={()=>onCharacterChange(character)}>
       Submit 
       </button>
+      </Link>
+      
 
       </div>
       
@@ -98,13 +99,6 @@ function CreateChar({onCharacterChange}) {
   };
 
 export default CreateChar;
-//Submit button needs to clear/erase the inputs
-//Need to add level, name and description
-//need a back to home button
-function testFunction(message)
-{
-  console.log(message);
-}
 
 
 
