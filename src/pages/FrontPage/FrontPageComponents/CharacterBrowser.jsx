@@ -1,4 +1,3 @@
-import BrowserCard from "./BrowserCard";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,7 +5,6 @@ import { Link } from "react-router-dom";
 
 function CharacterBrowser() {
 
-    // Placeholder list to simulate data from localStorage
   const placeholderCharacters = [
     {
         image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
