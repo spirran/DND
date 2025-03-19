@@ -35,7 +35,7 @@ function RaceDropdown({selectedRace, onRaceChange}) {
     return (
 
         <> 
-        <label>Race: </label>
+        <label className="createLabel">Race: </label>
             <select id="raceSelect"
             onChange={(e) => onRaceChange(e.target.value)} 
             value={selectedRace}
