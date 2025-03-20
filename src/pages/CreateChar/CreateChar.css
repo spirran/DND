@@ -1,0 +1,112 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+}
+
+#attrDiv{
+    
+    margin-right:2rem;
+    margin-top:3rem;
+    border-radius: 0.5rem;
+    padding:0.2rem;
+    border-width: 0.15rem;
+    border-style: solid;
+}
+
+.attrInput
+{
+    width:2rem;
+}
+
+.createPage-wrapper
+{
+    margin:2rem;
+    border-style:solid;
+    border-radius:15%;
+    padding:3rem;
+    border-width: 0.1rem;
+}
+
+label,select{
+display:Flex;
+flex-direction: column;
+}
+
+.createLabel{
+    margin-top:1rem;
+}
+
+.levelInput
+{
+    width:2.2rem;
+    height:1.4rem;
+    border-radius:1rem;
+}
+.createPage-logo
+{
+    height: 6rem;
+    margin-right: 1.5rem; 
+}
+
+
+.createButton {
+    width: 5rem;
+    height: 3rem;
+    border-radius: 15%;
+    background-color: #7A0000;
+    color: white;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0.2rem 0.1rem 0.1rem rgb(61, 27, 27);
+
+}
+
+.createButton:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+#createHeaderButton
+{
+margin-top:1.5rem;
+}
+
+.classSection{
+    display:flex;
+}
+
+#levelPart
+{
+    margin-left:2rem;
+}
+
+#alignmentSelect
+{
+    margin-bottom:1rem;
+}
+
+
+.descriptionInput{
+    margin-bottom:1rem;
+    width:20rem;
+    height:10rem;
+}
+
+.createHeader-wrapper{
+    height: 6rem;
+    width:100%;
+    border-bottom: 0.1rem solid black;
+}
+.createPageHeader
+{
+    display:flex;
+    margin-top:1rem;
+}
+
+.createPageH1{
+margin-left:15rem;
+}
+
+#createSubmitButton
+{
+    margin-left:10rem;
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './CreateChar.css';
 
 function ClassDropdown({selectedClass, onClassChange}) {
     const [classList, setClassList] = useState([]); 
@@ -37,7 +36,7 @@ function ClassDropdown({selectedClass, onClassChange}) {
     return (
         <> 
         <section id="classSection">
-        <label>Select Class:</label>
+        <label className="createLabel">Select Class:</label>
             <select 
                 id="classSelect" 
                 onChange={(e) => onClassChange(e.target.value)} 
@@ -49,7 +48,6 @@ function ClassDropdown({selectedClass, onClassChange}) {
                     </option>
                 ))}
             </select>
-            <p>{selectedClass}</p>
         </section>
         </>
     );

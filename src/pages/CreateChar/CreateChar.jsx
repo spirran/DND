@@ -1,14 +1,26 @@
 
 import React, { useState, useEffect } from 'react';
+import './CreateChar.css';
+import {Link} from 'react-router-dom'
+
+import CreateCharHeader from './components/CreateChar/CreateCharHeader';
 import ClassDropdown from './components/CreateChar/ClassDropdown';
 import RaceDropdown from './components/CreateChar/RaceDropdown';
-import SkillDropdown from './components/CreateChar/SkillDropdown';
+//import SkillDropdown from './components/CreateChar/SkillDropdown';
 import Attributes from './components/CreateChar/CharAttributes';
-function CreateChar() {
-  const [currentClass,setCurrentClass] = useState();
-  const [currentRace, setCurrentRace] = useState();
+import CharNameInput from './components/CreateChar/CharNameInput';
+import CharDescriptionInput from './components/CreateChar/CharacterDescription';
+import ClassLevelInput from './components/CreateChar/ClassLevelInput';
+import AlignmentDropdown from './components/CreateChar/AlignmentDropdown';
 
-  let initialAttributes = ["","","","","","",""];
+function CreateChar({onCharacterChange}) {
+  const [currentClass,setCurrentClass] = useState("Barbarian");
+  const [currentLevel, setCurrentLevel] = useState(1);
+  const [currentRace, setCurrentRace] = useState("Dragonborn");
+  const [currentName, setCurrentName] = useState("player");
+  const [currentDescription, setCurrentDescription] = useState("");
+  const [currentAlignment, setCurrentAlignment] = useState("");
+  let initialAttributes = [1,1,1,1,1,1,1];
 
   const [currentAttributes,setCurrentAttributes] = useState([initialAttributes]);
 
@@ -20,19 +32,24 @@ function CreateChar() {
 
   }
 
-  let message = "Class: " + currentClass + "\n Race: "+currentRace + "\n Attributes:"
-  +"\n Strength: "+currentAttributes[0] +
-  "\n Dexterity: "+currentAttributes[1] +
-  "\n Constitution: "+currentAttributes[2] +
-  "\n Intelligence: "+currentAttributes[3] +
-  "\n Wisdom: "+currentAttributes[4] +
-  "\n Charisma: "+currentAttributes[5];
+  let character = {
+    name: currentName,
+    class:currentClass,
+    level:currentLevel,
+    race:currentRace,
+    attributes:currentAttributes,
+    description:currentDescription,
+    alignment:currentAlignment,
+    img:"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
+  };
+
     return (
     <>
-    <h1>Create your character!</h1>
-       <ClassDropdown 
-       selectedClass ={currentClass}
-        onClassChange={(newClass) => setCurrentClass(newClass)} 
+      <CreateCharHeader />
+      
+      <div className="createPage-wrapper">
+      <CharNameInput
+      onNameChange={(newName) => setCurrentName(newName)}
       />
 
       <RaceDropdown
@@ -40,29 +57,48 @@ function CreateChar() {
       onRaceChange = {(newRace) => setCurrentRace(newRace)}
       />
 
-       <SkillDropdown
-       className ={currentClass} 
+      <section className="classSection">
+        <div id="classPart">
+          <ClassDropdown 
+          selectedClass ={currentClass}
+           onClassChange={(newClass) => setCurrentClass(newClass)} 
         />
-
-        <Attributes  
-        selectedAttributes = {currentAttributes}
-        onAttrChange = {handleAttrChange}
-    
+        </div>
+        <div id="levelPart">
+        <ClassLevelInput
+        onLevelChange ={(newLevel) => setCurrentLevel(newLevel)}
         />
+        </div>
+      </section>
+      
 
-        <button onClick={()=>testFunction(message)}>
-        Submit
-        </button>
+      <Attributes  
+      onAttrChange = {handleAttrChange}
+      />
+
+      <CharDescriptionInput 
+      onDescriptionChange={(newDescription) => setCurrentDescription(newDescription)}
+      />
+
+      <AlignmentDropdown 
+        selectedAlignmnent = {currentAlignment}
+        onAlignmentChange = {(newAlignment) => setCurrentAlignment(newAlignment)}
+      />
+
+      <Link to={"/"}>
+      <button className="createButton" id="createSubmitButton" onClick={()=>onCharacterChange(character)}>
+      Submit 
+      </button>
+      </Link>
+      
+
+      </div>
+      
     </>
     );
   };
 
 export default CreateChar;
-
-function testFunction(message)
-{
-  console.log(message);
-}
 
 
 

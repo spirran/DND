@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './CreateChar.css';
+
 const inputStyle = {
 border:"0.1rem",
 display:"grid",
 width:"2.5rem",
 };
-function Attributes({selectedAttributes,onAttrChange})
+function Attributes({onAttrChange})
 {
 
     return(

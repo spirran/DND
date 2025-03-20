@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 
 
-function CharacterBrowser() {
-
+function CharacterBrowser({characterList}) {
+/*
   const placeholderCharacters = [
     {
         image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
-        name: "Arthas",
-        level: 5,
-        class: "Druid"
+        name: character.name,
+        level: character.level,
+        class: character.class
       },
       {
         image: "https://i.pinimg.com/736x/af/7a/19/af7a194a8f2e759408ddaca3e1f5783e.jpg",
@@ -25,7 +25,8 @@ function CharacterBrowser() {
         class: "Ranger"
       }
   ];
-
+*/
+let placeholderCharacters = characterList;
   const [characters, setCharacters] = useState(placeholderCharacters);
 
   if(characters.length === 0) {
@@ -38,7 +39,7 @@ function CharacterBrowser() {
                 {characters.map((char, index) => (
                     <div key={index} className="browser-card">
                         <Link to={'/CharSheet'}>
-                            <img src={char.image} alt={char.name} className="browser-portrait" />
+                            <img src={char.img} alt={char.name} className="browser-portrait" />
                             <div className="hidden-text-wrapper">
                                 <p className="hidden-text">{char.name}</p>
                                 <p className="hidden-text">Level {char.level}</p>
