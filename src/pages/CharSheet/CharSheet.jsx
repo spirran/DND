@@ -21,7 +21,7 @@ function CharSheet() {
     experiencePoints: 0,
     portraitUrl: '',
     
-    // Ability scores
+    // ability scores
     strength: 10,
     dexterity: 10,
     constitution: 10,
@@ -29,7 +29,7 @@ function CharSheet() {
     wisdom: 10,
     charisma: 10,
 
-    // Skills
+    // skills
     acrobatics: false,
     animalHandling: false,
     arcana: false,
@@ -49,7 +49,7 @@ function CharSheet() {
     stealth: false,
     survival: false,
     
-    // Combat stats
+    // stats
     armorClass: 10,
     initiative: 0,
     speed: 30,
@@ -57,17 +57,20 @@ function CharSheet() {
     currentHitPoints: 10,
     temporaryHitPoints: 0,
     
-    // Equipment
+    // equipment
     equipment: '',
     
-    // Features & Traits
+    // features & traits
     featuresAndTraits: '',
+    
+    // notes
+    notes: '',
   });
 
-  // Use separate state for portrait URL to prevent typing issues
+  // separate state for portrait URL
   const [portraitUrl, setPortraitUrl] = useState('');
   
-  // Sync the separate portraitUrl state with character state when needed
+  // sync the separate portraitUrl state with character state
   useEffect(() => {
     setPortraitUrl(character.portraitUrl);
   }, [character.portraitUrl]);
@@ -77,7 +80,7 @@ function CharSheet() {
     return Math.floor((score - 10) / 2);
   };
 
-  // Handle input changes for most fields
+  // Handle input changes for fields
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setCharacter({
@@ -86,12 +89,12 @@ function CharSheet() {
     });
   };
   
-  // Separate handler for portrait URL
+  // handler for portrait URL
   const handlePortraitUrlChange = (e) => {
     setPortraitUrl(e.target.value);
   };
   
-  // Apply portrait URL to character state only when user is done typing
+  // apply portrait URL to state when user is done typing
   const applyPortraitUrl = () => {
     setCharacter({
       ...character,
@@ -99,7 +102,6 @@ function CharSheet() {
     });
   };
 
-  // Format modifier for display (+2, -1, etc.)
   const formatModifier = (modifier) => {
     return modifier >= 0 ? `+${modifier}` : `${modifier}`;
   };
@@ -127,10 +129,9 @@ function CharSheet() {
                   className="character-portrait" 
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = ""; // Clear the src on error
+                    e.target.src = "";
                     e.target.style.display = 'none';
                     alert('Error loading image. Please try another URL.');
-                    // Reset the portrait-placeholder div to be visible
                     const placeholder = e.target.parentNode.querySelector('.portrait-placeholder');
                     if (placeholder) placeholder.style.display = 'flex';
                   }}
@@ -139,7 +140,6 @@ function CharSheet() {
                 <div className="portrait-placeholder">CHARACTER PORTRAIT</div>
               )}
             </div>
-            {/* Improved input field with better focus handling */}
             <div className="portrait-url-wrapper">
               <input
                 type="text"
@@ -149,7 +149,6 @@ function CharSheet() {
                 onKeyDown={(e) => e.key === 'Enter' && applyPortraitUrl()}
                 placeholder="Enter image URL"
                 className="portrait-url-input"
-                // Make sure this field is clickable and focusable
                 tabIndex={0}
               />
             </div>
@@ -158,7 +157,6 @@ function CharSheet() {
 
         <div className="top-section">
           <div className="char-info">
-            {/* First row with character name and experience points (replacing player name) */}
             <div className="char-info-row">
               <div className="input-group">
                 <input
@@ -281,18 +279,6 @@ function CharSheet() {
               ))}
             </div>
 
-            {/* Inspiration */}
-            <div className="inspiration-box">
-              <div className="inspiration-circle"></div>
-              <label>INSPIRATION</label>
-            </div>
-
-            {/* Proficiency Bonus */}
-            <div className="proficiency-box">
-              <div className="proficiency-value">+2</div>
-              <label>PROFICIENCY BONUS</label>
-            </div>
-
             {/* Saving Throws */}
             <div className="saving-throws">
               <h3>SAVING THROWS</h3>
@@ -301,45 +287,6 @@ function CharSheet() {
                   <input type="checkbox" id={`save-${ability}`} />
                   <span className="save-modifier">{formatModifier(getAbilityModifier(character[ability]))}</span>
                   <label htmlFor={`save-${ability}`}>{ability.charAt(0).toUpperCase() + ability.slice(1)}</label>
-                </div>
-              ))}
-            </div>
-
-            {/* Skills */}
-            <div className="skills">
-              <h3>SKILLS</h3>
-              {[
-                { name: 'acrobatics', ability: 'dexterity', label: 'Acrobatics' },
-                { name: 'animalHandling', ability: 'wisdom', label: 'Animal Handling' },
-                { name: 'arcana', ability: 'intelligence', label: 'Arcana' },
-                { name: 'athletics', ability: 'strength', label: 'Athletics' },
-                { name: 'deception', ability: 'charisma', label: 'Deception' },
-                { name: 'history', ability: 'intelligence', label: 'History' },
-                { name: 'insight', ability: 'wisdom', label: 'Insight' },
-                { name: 'intimidation', ability: 'charisma', label: 'Intimidation' },
-                { name: 'investigation', ability: 'intelligence', label: 'Investigation' },
-                { name: 'medicine', ability: 'wisdom', label: 'Medicine' },
-                { name: 'nature', ability: 'intelligence', label: 'Nature' },
-                { name: 'perception', ability: 'wisdom', label: 'Perception' },
-                { name: 'performance', ability: 'charisma', label: 'Performance' },
-                { name: 'persuasion', ability: 'charisma', label: 'Persuasion' },
-                { name: 'religion', ability: 'intelligence', label: 'Religion' },
-                { name: 'sleightOfHand', ability: 'dexterity', label: 'Sleight of Hand' },
-                { name: 'stealth', ability: 'dexterity', label: 'Stealth' },
-                { name: 'survival', ability: 'wisdom', label: 'Survival' }
-              ].map((skill) => (
-                <div key={skill.name} className="skill-item">
-                  <input
-                    type="checkbox"
-                    name={skill.name}
-                    checked={character[skill.name]}
-                    onChange={handleInputChange}
-                    id={`skill-${skill.name}`}
-                  />
-                  <span className="skill-modifier">
-                    {formatModifier(getAbilityModifier(character[skill.ability]))}
-                  </span>
-                  <label htmlFor={`skill-${skill.name}`}>{skill.label}</label>
                 </div>
               ))}
             </div>
@@ -421,7 +368,65 @@ function CharSheet() {
               </div>
             </div>
 
-            {/* Equipment */}
+            {/* Skills */}
+            <div className="skills">
+              <h3>SKILLS</h3>
+              {[
+                { name: 'acrobatics', ability: 'dexterity', label: 'Acrobatics' },
+                { name: 'animalHandling', ability: 'wisdom', label: 'Animal Handling' },
+                { name: 'arcana', ability: 'intelligence', label: 'Arcana' },
+                { name: 'athletics', ability: 'strength', label: 'Athletics' },
+                { name: 'deception', ability: 'charisma', label: 'Deception' },
+                { name: 'history', ability: 'intelligence', label: 'History' },
+                { name: 'insight', ability: 'wisdom', label: 'Insight' },
+                { name: 'intimidation', ability: 'charisma', label: 'Intimidation' },
+                { name: 'investigation', ability: 'intelligence', label: 'Investigation' },
+                { name: 'medicine', ability: 'wisdom', label: 'Medicine' },
+                { name: 'nature', ability: 'intelligence', label: 'Nature' },
+                { name: 'perception', ability: 'wisdom', label: 'Perception' },
+                { name: 'performance', ability: 'charisma', label: 'Performance' },
+                { name: 'persuasion', ability: 'charisma', label: 'Persuasion' },
+                { name: 'religion', ability: 'intelligence', label: 'Religion' },
+                { name: 'sleightOfHand', ability: 'dexterity', label: 'Sleight of Hand' },
+                { name: 'stealth', ability: 'dexterity', label: 'Stealth' },
+                { name: 'survival', ability: 'wisdom', label: 'Survival' }
+              ].map((skill) => (
+                <div key={skill.name} className="skill-item">
+                  <input
+                    type="checkbox"
+                    name={skill.name}
+                    checked={character[skill.name]}
+                    onChange={handleInputChange}
+                    id={`skill-${skill.name}`}
+                  />
+                  <span className="skill-modifier">
+                    {formatModifier(getAbilityModifier(character[skill.ability]))}
+                  </span>
+                  <label htmlFor={`skill-${skill.name}`}>{skill.label}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="right-column">
+            {/* Proficiency Bonus */}
+            <div className="proficiency-box">
+              <div className="proficiency-value">+2</div>
+              <label>PROFICIENCY BONUS</label>
+            </div>
+            
+            {/* Features & Traits*/}
+            <div className="features-section">
+              <h3>FEATURES & TRAITS</h3>
+              <textarea
+                name="featuresAndTraits"
+                value={character.featuresAndTraits}
+                onChange={handleInputChange}
+                className="features-input"
+              />
+            </div>
+            
+            {/* Equipment - Moved from middle column to underneath Features & Traits */}
             <div className="equipment-section">
               <h3>EQUIPMENT</h3>
               <textarea
@@ -431,17 +436,15 @@ function CharSheet() {
                 className="equipment-input"
               />
             </div>
-          </div>
-
-          <div className="right-column">
-            {/* Features & Traits*/}
-            <div className="features-section">
-              <h3>FEATURES & TRAITS</h3>
+            
+            {/* Notes */}
+            <div className="notes-section">
+              <h3>NOTES</h3>
               <textarea
-                name="featuresAndTraits"
-                value={character.featuresAndTraits}
+                name="notes"
+                value={character.notes || ''}
                 onChange={handleInputChange}
-                className="features-input"
+                className="notes-input"
               />
             </div>
           </div>
