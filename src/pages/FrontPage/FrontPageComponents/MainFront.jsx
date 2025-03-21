@@ -1,5 +1,6 @@
 import FrontPageButton from './FrontPageButton';
 import backgroundImg from '../../../assets/images/front-background.jpg';
+import React from 'react';
 
 function MainFront() {
     return (
