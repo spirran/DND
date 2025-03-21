@@ -20,15 +20,14 @@ function App() {
     alignment:"Neutral",
     img:"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
   };
-
   const [characterList, setCharacterList] = useState([]);
+  let index = 0;
 
   const handleCharacterChange = (character) =>
     {
-      const newCharacterList = [...characterList];
-      newCharacterList.push(character);
-      setCharacterList(newCharacterList);
-      console.log("Character" + character.name + " added");
+     setCharacterList([...characterList,character]);
+     index++;
+     console.log("index is now:" + index);
     }
 
   const routeDefinitions = createRoutesFromElements(
