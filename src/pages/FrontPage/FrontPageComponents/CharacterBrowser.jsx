@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -28,6 +28,11 @@ function CharacterBrowser({characterList}) {
 */
 let placeholderCharacters = characterList;
   const [characters, setCharacters] = useState(placeholderCharacters);
+
+  useEffect(() => {
+    setCharacters(characterList || []);
+    console.log("Character list updated:", characterList);
+  }, [characterList]);
 
   if(characters.length === 0) {
     return <p>No characters created yet</p>
