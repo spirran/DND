@@ -1,55 +1,82 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-
-
-function CharacterBrowser({characterList}) {
-/*
-  const placeholderCharacters = [
-    {
-        image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
-        name: character.name,
-        level: character.level,
-        class: character.class
-      },
-      {
-        image: "https://i.pinimg.com/736x/af/7a/19/af7a194a8f2e759408ddaca3e1f5783e.jpg",
-        name: "Jaina",
-        level: 17,
-        class: "Fighter"
-      },
-      {
-        image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY",
-        name: "Thrall",
-        level: 2,
-        class: "Ranger"
+function CharacterBrowser({ characterList }) {
+  const [characters, setCharacters] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0);
+  
+  // Load characters from localStorage and props
+  useEffect(() => {
+    // First try to use the prop
+    if (characterList && characterList.length > 0) {
+      setCharacters(characterList);
+    } else {
+      // If prop is empty, try to get from localStorage as fallback
+      try {
+        const savedCharactersJSON = localStorage.getItem('characterList');
+        if (savedCharactersJSON) {
+          const savedCharacters = JSON.parse(savedCharactersJSON);
+          setCharacters(savedCharacters);
+        }
+      } catch (error) {
+        console.error("Error loading characters from localStorage:", error);
       }
-  ];
-*/
-let placeholderCharacters = characterList;
-  const [characters, setCharacters] = useState(placeholderCharacters);
+    }
+  }, [characterList, refreshKey]);
+  
+  // Listen for storage events to refresh the component
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      // Check if the change is relevant to our component
+      if (event.key === 'characterList' || 
+          event.key === 'deleteCharacter' || 
+          event.key === 'updatedCharacter') {
+        // Force re-render when relevant localStorage changes
+        setRefreshKey(prevKey => prevKey + 1);
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also set up a periodic refresh to catch any missed updates
+    const intervalId = setInterval(() => {
+      setRefreshKey(prevKey => prevKey + 1);
+    }, 2000);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(intervalId);
+    };
+  }, []);
 
-  if(characters.length === 0) {
+  if (characters.length === 0) {
     return <p>No characters created yet</p>
   }
 
-    return (
-            <div className='browser-wrapper'>
-                <h2>Characters</h2>
-                {characters.map((char, index) => (
-                    <div key={index} className="browser-card">
-                        <Link to={'/CharSheet'}>
-                            <img src={char.img} alt={char.name} className="browser-portrait" />
-                            <div className="hidden-text-wrapper">
-                                <p className="hidden-text">{char.name}</p>
-                                <p className="hidden-text">Level {char.level}</p>
-                                <p className="hidden-text">{char.class}</p>
-                            </div>
-                        </Link>
-                    </div>
-                ))}
+  return (
+    <div className='browser-wrapper'>
+      <h2>Characters</h2>
+      {characters.map((char, index) => (
+        <div key={`${index}-${refreshKey}-${char.name}`} className="browser-card">
+          <Link to={`/CharSheet`} state={{ character: char }}>
+            <img 
+              src={char.img} 
+              alt={char.name} 
+              className="browser-portrait" 
+              onError={(e) => {
+                e.target.src = "https://via.placeholder.com/150?text=No+Image";
+              }}
+            />
+            <div className="hidden-text-wrapper">
+              <p className="hidden-text">{char.name}</p>
+              <p className="hidden-text">Level {char.level}</p>
+              <p className="hidden-text">{char.class}</p>
             </div>
-    );
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default CharacterBrowser;

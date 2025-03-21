@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import dndLogo from '../../assets/images/dnd-logo2.png';
+
+
 import './CharSheet.css';
 
 function NavButton({ url, text }) {
@@ -11,6 +14,10 @@ function NavButton({ url, text }) {
 }
 
 function CharSheet() {
+  const location = useLocation();
+  const characterFromBrowser = location.state?.character;
+
+  // Default character state
   const [character, setCharacter] = useState({
     name: '',
     class: '',
@@ -20,7 +27,10 @@ function CharSheet() {
     alignment: '',
     experiencePoints: 0,
     portraitUrl: '',
-    
+
+    // proficiency bonus
+    proficiencyBonus: 2,
+
     // ability scores
     strength: 10,
     dexterity: 10,
@@ -28,6 +38,14 @@ function CharSheet() {
     intelligence: 10,
     wisdom: 10,
     charisma: 10,
+
+    // saving throws proficiencies
+    strengthSave: false,
+    dexteritySave: false,
+    constitutionSave: false,
+    intelligenceSave: false,
+    wisdomSave: false,
+    charismaSave: false,
 
     // skills
     acrobatics: false,
@@ -48,7 +66,7 @@ function CharSheet() {
     sleightOfHand: false,
     stealth: false,
     survival: false,
-    
+
     // stats
     armorClass: 10,
     initiative: 0,
@@ -56,28 +74,115 @@ function CharSheet() {
     hitPointMaximum: 10,
     currentHitPoints: 10,
     temporaryHitPoints: 0,
-    
+
     // equipment
     equipment: '',
-    
+
     // features & traits
     featuresAndTraits: '',
-    
+
     // notes
     notes: '',
   });
 
   // separate state for portrait URL
   const [portraitUrl, setPortraitUrl] = useState('');
-  
-  // sync the separate portraitUrl state with character state
+
+  // Initialize from created char
+  useEffect(() => {
+    if (characterFromBrowser) {
+      // default char copy
+      const updatedCharacter = { ...character };
+
+      // Basic character info
+      updatedCharacter.name = characterFromBrowser.name || '';
+      updatedCharacter.class = characterFromBrowser.class || '';
+      updatedCharacter.level = characterFromBrowser.level || 1;
+      updatedCharacter.race = characterFromBrowser.race || '';
+      updatedCharacter.alignment = characterFromBrowser.alignment || '';
+      updatedCharacter.background = characterFromBrowser.background || '';
+      updatedCharacter.experiencePoints = characterFromBrowser.experiencePoints || 0;
+      updatedCharacter.portraitUrl = characterFromBrowser.img || '';
+
+      // Proficiency bonus
+      updatedCharacter.proficiencyBonus = characterFromBrowser.proficiencyBonus || 2;
+
+      // map attributes array
+      if (characterFromBrowser.attributes && characterFromBrowser.attributes.length >= 6) {
+        updatedCharacter.strength = characterFromBrowser.attributes[0];
+        updatedCharacter.dexterity = characterFromBrowser.attributes[1];
+        updatedCharacter.constitution = characterFromBrowser.attributes[2];
+        updatedCharacter.intelligence = characterFromBrowser.attributes[3];
+        updatedCharacter.wisdom = characterFromBrowser.attributes[4];
+        updatedCharacter.charisma = characterFromBrowser.attributes[5];
+      }
+
+      // Skills
+      if (characterFromBrowser.skills) {
+        Object.keys(characterFromBrowser.skills).forEach(key => {
+          if (updatedCharacter.hasOwnProperty(key)) {
+            updatedCharacter[key] = characterFromBrowser.skills[key];
+          }
+        });
+      }
+
+      // Saving Throws
+      if (characterFromBrowser.saves) {
+        Object.keys(characterFromBrowser.saves).forEach(key => {
+          if (updatedCharacter.hasOwnProperty(key)) {
+            updatedCharacter[key] = characterFromBrowser.saves[key];
+          }
+        });
+      }
+
+      // Combat Stats
+      if (characterFromBrowser.combatStats) {
+        Object.keys(characterFromBrowser.combatStats).forEach(key => {
+          if (updatedCharacter.hasOwnProperty(key)) {
+            updatedCharacter[key] = characterFromBrowser.combatStats[key];
+          }
+        });
+      }
+
+      updatedCharacter.equipment = characterFromBrowser.equipment || '';
+
+      updatedCharacter.featuresAndTraits = characterFromBrowser.featuresAndTraits || '';
+
+      updatedCharacter.notes = characterFromBrowser.description || '';
+
+      setCharacter(updatedCharacter);
+      setPortraitUrl(characterFromBrowser.img || '');
+    }
+  }, [characterFromBrowser]);
+
+  // sync portraitUrl state with character state
   useEffect(() => {
     setPortraitUrl(character.portraitUrl);
   }, [character.portraitUrl]);
 
-  // Calculate ability modifier
+  // calculate ability modifier
   const getAbilityModifier = (score) => {
-    return Math.floor((score - 10) / 2);
+    return Math.floor((parseInt(score) - 10) / 2);
+  };
+
+  // Calculate saving throw bonus
+  const getSavingThrowBonus = (ability) => {
+    const abilityMod = getAbilityModifier(character[ability]);
+    const isProficient = character[`${ability}Save`];
+
+    return isProficient
+      ? abilityMod + parseInt(character.proficiencyBonus)
+      : abilityMod;
+  };
+
+  // Calculate skill bonus
+  const getSkillBonus = (skillName, abilityName) => {
+    const abilityMod = getAbilityModifier(character[abilityName]);
+    const isProficient = character[skillName];
+
+    return isProficient
+      ? abilityMod + parseInt(character.proficiencyBonus)
+      : abilityMod;
   };
 
   // Handle input changes for fields
@@ -88,18 +193,125 @@ function CharSheet() {
       [name]: type === 'checkbox' ? checked : value
     });
   };
-  
+
   // handler for portrait URL
   const handlePortraitUrlChange = (e) => {
     setPortraitUrl(e.target.value);
   };
-  
-  // apply portrait URL to state when user is done typing
+
+  // apply portrait when done typing
   const applyPortraitUrl = () => {
     setCharacter({
       ...character,
       portraitUrl: portraitUrl
     });
+  };
+
+  // delete current character
+  const deleteCharacter = () => {
+    if (window.confirm(`Are you sure you want to delete ${character.name}?`)) {
+      try {
+        const savedCharactersJSON = localStorage.getItem('characterList');
+
+        if (savedCharactersJSON) {
+          const savedCharacters = JSON.parse(savedCharactersJSON);
+
+          const updatedList = savedCharacters.filter(
+            char => char.name !== characterFromBrowser.name
+          );
+
+          // Save the updated list back to localStorage
+          localStorage.setItem('characterList', JSON.stringify(updatedList));
+
+          // Set deleted flag
+          localStorage.setItem('deleteCharacter', characterFromBrowser.name);
+
+          window.dispatchEvent(new Event('storage'));
+
+          alert(`Character ${characterFromBrowser.name} has been deleted. Use the Home button to return to the character list.`);
+        }
+      } catch (error) {
+        console.error("Error deleting character:", error);
+        alert("There was an error deleting the character. Please try again.");
+      }
+    }
+  };
+
+  const saveCharacter = () => {
+
+    const skills = {
+      acrobatics: character.acrobatics,
+      animalHandling: character.animalHandling,
+      arcana: character.arcana,
+      athletics: character.athletics,
+      deception: character.deception,
+      history: character.history,
+      insight: character.insight,
+      intimidation: character.intimidation,
+      investigation: character.investigation,
+      medicine: character.medicine,
+      nature: character.nature,
+      perception: character.perception,
+      performance: character.performance,
+      persuasion: character.persuasion,
+      religion: character.religion,
+      sleightOfHand: character.sleightOfHand,
+      stealth: character.stealth,
+      survival: character.survival
+    };
+
+    const saves = {
+      strengthSave: character.strengthSave,
+      dexteritySave: character.dexteritySave,
+      constitutionSave: character.constitutionSave,
+      intelligenceSave: character.intelligenceSave,
+      wisdomSave: character.wisdomSave,
+      charismaSave: character.charismaSave
+    };
+
+    const combatStats = {
+      armorClass: character.armorClass,
+      initiative: character.initiative,
+      speed: character.speed,
+      hitPointMaximum: character.hitPointMaximum,
+      currentHitPoints: character.currentHitPoints,
+      temporaryHitPoints: character.temporaryHitPoints
+    };
+
+    // Create an updated character in the format expected by the character list
+    const updatedCharacter = {
+      name: character.name,
+      class: character.class,
+      level: character.level,
+      race: character.race,
+      attributes: [
+        character.strength,
+        character.dexterity,
+        character.constitution,
+        character.intelligence,
+        character.wisdom,
+        character.charisma
+      ],
+      description: character.notes,
+      alignment: character.alignment,
+      background: character.background,
+      experiencePoints: character.experiencePoints,
+      proficiencyBonus: character.proficiencyBonus,
+      img: portraitUrl,
+      skills: skills,
+      saves: saves,
+      combatStats: combatStats,
+      equipment: character.equipment,
+      featuresAndTraits: character.featuresAndTraits
+    };
+
+    // Save to localStorage
+    window.localStorage.setItem('updatedCharacter', JSON.stringify(updatedCharacter));
+    window.localStorage.setItem('originalCharacterName', characterFromBrowser?.name || '');
+
+    window.dispatchEvent(new Event('storage'));
+
+    alert('Character saved successfully!');
   };
 
   const formatModifier = (modifier) => {
@@ -113,20 +325,20 @@ function CharSheet() {
         <NavButton url="/CreateChar" text="Create New Character" />
         <NavButton url="/DiceRoller" text="Dice Roller" />
       </div>
-      
+
       <div className="character-sheet">
         <div className="header">
           <div className="header-left">
-            <img src="/dnd-logo.png" alt="D&D Logo" className="dnd-logo" />
+            <img src={dndLogo} alt="D&D Logo" className="dnd-logo" />
           </div>
           <div className="header-title">CHARACTER SHEET</div>
           <div className="portrait-container">
             <div className="portrait-box">
-              {character.portraitUrl ? (
-                <img 
-                  src={character.portraitUrl} 
-                  alt="Character Portrait" 
-                  className="character-portrait" 
+              {portraitUrl ? (
+                <img
+                  src={portraitUrl}
+                  alt="Character Portrait"
+                  className="character-portrait"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = "";
@@ -155,6 +367,7 @@ function CharSheet() {
           </div>
         </div>
 
+        {/* Character Info */}
         <div className="top-section">
           <div className="char-info">
             <div className="char-info-row">
@@ -284,8 +497,16 @@ function CharSheet() {
               <h3>SAVING THROWS</h3>
               {['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].map((ability) => (
                 <div key={ability} className="save-item">
-                  <input type="checkbox" id={`save-${ability}`} />
-                  <span className="save-modifier">{formatModifier(getAbilityModifier(character[ability]))}</span>
+                  <input
+                    type="checkbox"
+                    id={`save-${ability}`}
+                    name={`${ability}Save`}
+                    checked={character[`${ability}Save`]}
+                    onChange={handleInputChange}
+                  />
+                  <span className="save-modifier">
+                    {formatModifier(getSavingThrowBonus(ability))}
+                  </span>
                   <label htmlFor={`save-${ability}`}>{ability.charAt(0).toUpperCase() + ability.slice(1)}</label>
                 </div>
               ))}
@@ -307,7 +528,7 @@ function CharSheet() {
                   </div>
                   <div className="stat-label">ARMOR CLASS</div>
                 </div>
-                
+
                 <div className="combat-stat">
                   <div className="stat-value">
                     <input
@@ -319,7 +540,7 @@ function CharSheet() {
                   </div>
                   <div className="stat-label">INITIATIVE</div>
                 </div>
-                
+
                 <div className="combat-stat">
                   <div className="stat-value">
                     <input
@@ -332,7 +553,7 @@ function CharSheet() {
                   <div className="stat-label">SPEED</div>
                 </div>
               </div>
-              
+
               <div className="hit-points">
                 <div className="hp-max">
                   <label>Hit Point Maximum</label>
@@ -343,7 +564,7 @@ function CharSheet() {
                     onChange={handleInputChange}
                   />
                 </div>
-                
+
                 <div className="current-hp">
                   <label>CURRENT HIT POINTS</label>
                   <input
@@ -354,7 +575,7 @@ function CharSheet() {
                     className="hp-input"
                   />
                 </div>
-                
+
                 <div className="temp-hp">
                   <label>TEMPORARY HIT POINTS</label>
                   <input
@@ -400,7 +621,7 @@ function CharSheet() {
                     id={`skill-${skill.name}`}
                   />
                   <span className="skill-modifier">
-                    {formatModifier(getAbilityModifier(character[skill.ability]))}
+                    {formatModifier(getSkillBonus(skill.name, skill.ability))}
                   </span>
                   <label htmlFor={`skill-${skill.name}`}>{skill.label}</label>
                 </div>
@@ -411,10 +632,18 @@ function CharSheet() {
           <div className="right-column">
             {/* Proficiency Bonus */}
             <div className="proficiency-box">
-              <div className="proficiency-value">+2</div>
+              <div className="proficiency-value">
+                <input
+                  type="number"
+                  name="proficiencyBonus"
+                  value={character.proficiencyBonus}
+                  onChange={handleInputChange}
+                  className="proficiency-input"
+                />
+              </div>
               <label>PROFICIENCY BONUS</label>
             </div>
-            
+
             {/* Features & Traits*/}
             <div className="features-section">
               <h3>FEATURES & TRAITS</h3>
@@ -425,8 +654,8 @@ function CharSheet() {
                 className="features-input"
               />
             </div>
-            
-            {/* Equipment - Moved from middle column to underneath Features & Traits */}
+
+            {/* Equipment */}
             <div className="equipment-section">
               <h3>EQUIPMENT</h3>
               <textarea
@@ -436,7 +665,7 @@ function CharSheet() {
                 className="equipment-input"
               />
             </div>
-            
+
             {/* Notes */}
             <div className="notes-section">
               <h3>NOTES</h3>
@@ -449,11 +678,12 @@ function CharSheet() {
             </div>
           </div>
         </div>
-        
-        <div className="action-buttons">
-          <button className="save-button">Save Character</button>
-          <NavButton url="/DiceRoller" text="Roll Dice" />
-        </div>
+      </div>
+
+      <div className="action-buttons">
+        <NavButton url="/" text="Home" />
+        <button className="save-button" onClick={saveCharacter}>Save Character</button>
+        <button className="delete-button" onClick={deleteCharacter}>Delete Character</button>
       </div>
     </div>
   );
