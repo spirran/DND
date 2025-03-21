@@ -1,9 +1,10 @@
-import { defineConfig } from "vite";
-export default defineConfig({
-test:{
-   environment:"jsdom",
-    include: ['**/*.test.jsx'],
-    globals: true
-}
+import { defineConfig } from 'vitest/config';
 
-})
+export default defineConfig({
+  test: {
+    setupFiles: './src/setupTests.js',
+    environment:"jsdom",
+    include: ['**/*.test.jsx'],
+    globals: true
+  },
+});
