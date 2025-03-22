@@ -1,7 +1,7 @@
 .header-wrapper {
     display: flex;
     justify-content: left;
-    align-items: center; 
+    align-items: center;
     width: 100%;
 }
 
@@ -9,7 +9,7 @@ header {
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 100%; 
+    width: 100%;
 }
 
 h1 {
@@ -17,8 +17,8 @@ h1 {
 }
 
 .nav-buttons {
-    gap: 20px; 
-    flex-grow: 1; 
+    gap: 20px;
+    flex-grow: 1;
     margin: 85px;
 }
 
@@ -40,10 +40,10 @@ h1 {
     display: flex;
     flex-grow: 1;
     width: 80%;
-    position: relative; 
+    position: relative;
 }
 
- #main-section-wrapper::before {
+#main-section-wrapper::before {
     content: '';
     position: absolute;
     top: 0;
@@ -53,12 +53,12 @@ h1 {
     background-image: url('../../assets/images/front-background.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.15; 
-    z-index: -1; 
+    opacity: 0.15;
+    z-index: -1;
 }
 
 .main-dice-wrapper {
-    position: relative; 
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;

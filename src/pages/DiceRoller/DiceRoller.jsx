@@ -189,7 +189,9 @@ function RollHistoryBoard({ rollHistory, clearHistory }) {
 const RollHistoryContext = React.createContext();
 
 /**
- * Provider component for roll history context
+ * Managing the roll history and the last result.
+ * This component stores the roll history in localStorage and allows updating 
+ * and clearing the history via context.
  * @param {Object} props - Component props
  * @returns {React.ReactElement} Provider component
  */
@@ -240,6 +242,7 @@ export function RollHistoryProvider({ children }) {
         <RollHistoryContext.Provider value={{
             rollHistory,
             lastResult,
+            setLastResult,
             clearHistory,
             addRoll
         }}>
@@ -259,7 +262,7 @@ export const useRollHistory = () => React.useContext(RollHistoryContext);
  * @returns {React.ReactElement} Main dice component
  */
 function MainDice() {
-    const { rollHistory, lastResult, clearHistory, addRoll } = useRollHistory();
+    const { rollHistory, lastResult, clearHistory, addRoll, setLastResult } = useRollHistory();
 
     const diceTypes = [
         { type: 'D4', color: '#FF5252' },
@@ -285,16 +288,27 @@ function MainDice() {
      * @param {string} diceType - Type of die to roll
      */
     const handleRoll = (diceType) => {
-        const rolledResult = RollDie(diceType);
+        let interval;
+        let finalResult;
 
-        const newRoll = {
-            diceType,
-            result: rolledResult,
-            timestamp: new Date().toLocaleTimeString(),
-            color: getDiceColor(diceType)
+        const simulateRoll = () => {
+            let randomResult = RollDie(diceType);
+            setLastResult(randomResult);
         };
 
-        addRoll(newRoll);
+        interval = setInterval(simulateRoll, 10);
+
+        setTimeout(() => {
+            clearInterval(interval);
+            finalResult = RollDie(diceType);
+            setLastResult(finalResult);
+            addRoll({
+                diceType,
+                result: finalResult,
+                timestamp: new Date().toLocaleTimeString(),
+                color: getDiceColor(diceType),
+            });
+        }, 1000);
     };
 
 
