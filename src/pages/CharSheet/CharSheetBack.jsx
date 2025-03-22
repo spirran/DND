@@ -113,6 +113,43 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         return '';
     };
 
+    // Helper to determine if placeholder show
+    const shouldShowAttackPlaceholder = (index, field) => {
+        // show placeholder only for first empty field
+        if (index > 0) {
+            for (let i = 0; i < index; i++) {
+                if (!getAttackValue(i, field)) {
+                    return false; 
+                }
+            }
+        }
+        return !getAttackValue(index, field); // Show placeholder if empty
+    };
+
+    const shouldShowCantripPlaceholder = (index) => {
+        // show placeholder only for first empty field
+        if (index > 0) {
+            for (let i = 0; i < index; i++) {
+                if (!getCantripName(i)) {
+                    return false;
+                }
+            }
+        }
+        return !getCantripName(index);
+    };
+
+    const shouldShowSpellPlaceholder = (level, index) => {
+        // show placeholder only for first empty spell field
+        if (index > 0) {
+            for (let i = 0; i < index; i++) {
+                if (!getSpellName(level, i)) {
+                    return false;
+                }
+            }
+        }
+        return !getSpellName(level, index);
+    };
+
     return (
         <div className="char-sheet-back">
             <div className="flip-arrow" onClick={onFlip}>
@@ -147,7 +184,7 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder={`Attack ${index + 1}`}
+                                            placeholder={shouldShowAttackPlaceholder(index, 'name') ? `New Attack` : ''}
                                             className="attack-input"
                                             value={getAttackValue(index, 'name')}
                                             onChange={(e) => handleAttackChange(index, 'name', e.target.value)}
@@ -156,7 +193,7 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="+0"
+                                            placeholder={shouldShowAttackPlaceholder(index, 'bonus') ? "+0" : ''}
                                             className="attack-input small-input"
                                             value={getAttackValue(index, 'bonus')}
                                             onChange={(e) => handleAttackChange(index, 'bonus', e.target.value)}
@@ -165,7 +202,7 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="1d8"
+                                            placeholder={shouldShowAttackPlaceholder(index, 'damage') ? "1d8" : ''}
                                             className="attack-input"
                                             value={getAttackValue(index, 'damage')}
                                             onChange={(e) => handleAttackChange(index, 'damage', e.target.value)}
@@ -174,7 +211,7 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="Slashing"
+                                            placeholder={shouldShowAttackPlaceholder(index, 'type') ? "Slashing" : ''}
                                             className="attack-input"
                                             value={getAttackValue(index, 'type')}
                                             onChange={(e) => handleAttackChange(index, 'type', e.target.value)}
@@ -241,7 +278,7 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
                                     <input
                                         key={`cantrip-${index}`}
                                         type="text"
-                                        placeholder={`Cantrip ${index + 1}`}
+                                        placeholder={shouldShowCantripPlaceholder(index) ? `New Cantrip` : ''}
                                         className="spell-input"
                                         value={getCantripName(index)}
                                         onChange={(e) => handleCantripChange(index, e.target.value)}
@@ -286,7 +323,7 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
                                             />
                                             <input
                                                 type="text"
-                                                placeholder={`Spell name`}
+                                                placeholder={shouldShowSpellPlaceholder(level, i) ? 'New Spell' : ''}
                                                 className="spell-input"
                                                 value={getSpellName(level, i)}
                                                 onChange={(e) => handleSpellNameChange(level, i, e.target.value)}

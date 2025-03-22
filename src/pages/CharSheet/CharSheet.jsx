@@ -41,7 +41,7 @@ function CharSheet() {
     setPortraitUrl(character.portraitUrl);
   }, [character.portraitUrl]);
 
-  // Handle page flip animation
+  // Handle flip animation
   const flipPage = () => {
     setIsFlipping(true);
     setTimeout(() => {
@@ -50,20 +50,20 @@ function CharSheet() {
     }, 300);
   };
 
-  // Enhanced handleInputChange function to handle nested objects
+  // handleInputChange function for nested objects
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Handle nested properties
+    // handle nested props
     if (name.includes('.')) {
       const parts = name.split('.');
       const [parent, ...nestedProps] = parts;
 
       setCharacter(prevCharacter => {
-        // Create a deep copy of the parent object
+        // create copy
         const newParentObject = JSON.parse(JSON.stringify(prevCharacter[parent] || {}));
 
-        // Navigate to the correct nested property
+        // navigate to nested property
         let currentObj = newParentObject;
         for (let i = 0; i < nestedProps.length - 1; i++) {
           if (!currentObj[nestedProps[i]]) {
@@ -72,18 +72,17 @@ function CharSheet() {
           currentObj = currentObj[nestedProps[i]];
         }
 
-        // Set the value
+        // set value and return to updated state
         const lastProp = nestedProps[nestedProps.length - 1];
         currentObj[lastProp] = type === 'checkbox' ? checked : value;
 
-        // Return the updated state
         return {
           ...prevCharacter,
           [parent]: newParentObject
         };
       });
     } else {
-      // Handle non-nested properties as before
+      // handle non-nested prop
       setCharacter(prevCharacter => ({
         ...prevCharacter,
         [name]: type === 'checkbox' ? checked : value
@@ -111,15 +110,15 @@ function CharSheet() {
       : abilityMod;
   };
 
-  // Parse class and level from combined input
+  // parse class and level from input
   const handleClassLevelChange = (e) => {
     const value = e.target.value;
 
-    // extract level from the end of the string
+    // extract level from string
     const match = value.match(/^(.*?)\s+(\d+)$/);
 
     if (match) {
-      // if match, extract class and level
+      // extract class and level
       const className = match[1].trim();
       const levelValue = parseInt(match[2], 10);
       const newProficiencyBonus = calculateProficiencyBonus(levelValue);
@@ -131,7 +130,7 @@ function CharSheet() {
         proficiencyBonus: newProficiencyBonus
       });
     } else {
-      // If no level is found, assume it's all class name
+      // If no level found, assume class only
       setCharacter({
         ...character,
         class: value,
@@ -139,15 +138,15 @@ function CharSheet() {
     }
   };
 
-  // Handle level up button
+  // handle level up button
   const handleLevelUp = () => {
-    // Increases level by 1, up to 20
+    // increases level by 1, up to max 20
     const newLevel = Math.min(parseInt(character.level) + 1, 20);
 
-    // Calculate new proficiency bonus
+    // calc new proficiency bonus
     const newProficiencyBonus = calculateProficiencyBonus(newLevel);
 
-    // Updates with new level and proficiency bonus
+    // updates with new level and proficiency bonus
     setCharacter({
       ...character,
       level: newLevel,

@@ -74,10 +74,10 @@ function App() {
         }
       }
       
-      // Check for deleted
+      // Check for delete
       const deletedCharacterName = window.localStorage.getItem('deleteCharacter');
       if (deletedCharacterName) {
-        // Update the state to remove deleted character
+        // Update the state to remove
         setCharacterList(prevList => {
           const updatedList = prevList.filter(char => char.name !== deletedCharacterName);
           
@@ -94,7 +94,7 @@ function App() {
 
     checkForUpdates();
 
-    // Set up event listener for storage changes
+    // event listener for storage change
     window.addEventListener('storage', checkForUpdates);
 
     const intervalId = setInterval(checkForUpdates, 1000);
