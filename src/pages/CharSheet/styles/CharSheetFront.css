@@ -195,7 +195,7 @@
     padding: 6px;
     background-color: #22af37;
     color: white;
-    border: none;
+    border: 1px solid #565656;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
