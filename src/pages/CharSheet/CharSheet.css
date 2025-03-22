@@ -116,8 +116,9 @@
 
 /* portrait container style */
 .portrait-container {
-  width: 230px;
+  width: 255px;
   margin-left: 20px;
+  margin-top:15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,14 +150,14 @@
 
 .portrait-url-wrapper {
   width: 80%;
-  margin-top: 15px;
+  margin-top: 7px;
   position: relative;
   z-index: 10;
 }
 
 .portrait-url-input {
   width: 100%;
-  font-size: 12px;
+  font-size: 10px;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -187,7 +188,7 @@
 /* top section styling */
 .top-section {
   margin-bottom: 15px;
-  margin-top: -100px;
+  margin-top: -120px;
   position: relative;
   z-index: 1;
 }
@@ -252,6 +253,7 @@ label {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .ability-score {
@@ -293,33 +295,73 @@ label {
   border-radius: 3px;
 }
 
+/* Level Up Button */
+.level-up-button {
+  display: block;
+  width: 45%;
+  margin: -32px auto 18px auto;
+  padding: 6px;
+  background-color:#22af37;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: background-color 0.3s;
+  position: relative;
+  z-index: 5;
+}
+
+.level-up-button:hover {
+  background-color:  #388622;
+}
+
+.level-up-button:active {
+  background-color: #3af970;
+}
+
 /* Proficiency */
 .proficiency-box {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 5px;
+  margin: 0px auto 10px auto;
+  margin-top: 10px;
   padding: 10px;
   border: 1px solid #000;
-  border-radius: 5px;
+  border-radius: 16px;
+  width: 70%;
+  position: relative;
+  z-index: 5;
 }
 
 .proficiency-value {
+  font-size: 25px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .proficiency-input {
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
+  width: 35px;
+  height: 35px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
   border: 1px solid #000;
   border-radius: 50%;
   padding: 0;
   background-color: white;
+}
+
+.proficiency-box label {
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid #ccc;
 }
 
 /* Saving Throws & Skills */
@@ -361,13 +403,14 @@ label {
 
 /* Combat Stats */
 .combat-stats {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .combat-stat-row {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .combat-stat {
@@ -376,7 +419,7 @@ label {
   flex-direction: column;
   align-items: center;
   border: 1px solid #000;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 5px;
 }
 
@@ -404,6 +447,7 @@ label {
   border: 1px solid #000;
   border-radius: 5px;
   padding: 10px;
+  margin-bottom: 20px;
 }
 
 .hp-max {
@@ -441,8 +485,8 @@ label {
   border-radius: 5px;
 }
 
-/* Equipment & Features & Notes */
-.equipment-section, .features-section, .notes-section {
+/* Equipment & Features & description */
+.equipment-section, .features-section, .description-section {
   border: 1px solid #000;
   border-radius: 5px;
   padding: 10px;
@@ -450,10 +494,10 @@ label {
 }
 
 .features-section {
-  margin-top: 10px;
+  margin-top: -3px;
 }
 
-.equipment-section h3, .features-section h3, .notes-section h3 {
+.equipment-section h3, .features-section h3, .description-section h3 {
   font-size: 14px;
   text-transform: uppercase;
   margin-top: 0;
@@ -465,7 +509,7 @@ label {
 
 .equipment-input {
   width: 100%;
-  height: 200px;
+  height: 180px;
   resize: none;
   border: none;
 }
@@ -473,15 +517,15 @@ label {
 /* features-input */
 .features-input {
   width: 100%;
-  height: 350px;
+  height: 295px;
   resize: none;
   border: none;
 }
 
-/* notes-input */
-.notes-input {
+/* description-input */
+.description-input {
   width: 100%;
-  height: 200px;
+  height: 180px;
   resize: none;
   border: none;
 }
