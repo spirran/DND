@@ -94,7 +94,7 @@ function CreateChar({ onCharacterChange }) {
                 />
 
                 <AlignmentDropdown
-                    selectedAlignmnent={currentAlignment}
+                    selectedAlignment={currentAlignment}
                     onAlignmentChange={(newAlignment) => setCurrentAlignment(newAlignment)}
                 />
 

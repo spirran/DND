@@ -28,7 +28,7 @@ function CharSheet() {
     experiencePoints: 0,
     portraitUrl: '',
 
-    // proficiency bonus
+    // default prof bonus
     proficiencyBonus: 2,
 
     // ability scores
@@ -39,7 +39,7 @@ function CharSheet() {
     wisdom: 10,
     charisma: 10,
 
-    // saving throws proficiencies
+    // saving throws prof
     strengthSave: false,
     dexteritySave: false,
     constitutionSave: false,
@@ -82,11 +82,16 @@ function CharSheet() {
     featuresAndTraits: '',
 
     // notes
-    notes: '',
+    description: '',
   });
 
   // state for portrait URL
   const [portraitUrl, setPortraitUrl] = useState('');
+
+  // Calculate proficiency based on correct dnd level
+  const calculateProficiencyBonus = (level) => {
+    return Math.floor((parseInt(level) - 1) / 4) + 2;
+  };
 
   // Initialize from created char
   useEffect(() => {
@@ -104,8 +109,8 @@ function CharSheet() {
       updatedCharacter.experiencePoints = characterFromBrowser.experiencePoints || 0;
       updatedCharacter.portraitUrl = characterFromBrowser.img || '';
 
-      // Proficiency bonus
-      updatedCharacter.proficiencyBonus = characterFromBrowser.proficiencyBonus || 2;
+      // calculate proficiency bonus
+      updatedCharacter.proficiencyBonus = calculateProficiencyBonus(updatedCharacter.level);
 
       // map attributes array
       if (characterFromBrowser.attributes && characterFromBrowser.attributes.length >= 6) {
@@ -148,7 +153,7 @@ function CharSheet() {
 
       updatedCharacter.featuresAndTraits = characterFromBrowser.featuresAndTraits || '';
 
-      updatedCharacter.notes = characterFromBrowser.description || '';
+      updatedCharacter.description = characterFromBrowser.description || '';
 
       setCharacter(updatedCharacter);
       setPortraitUrl(characterFromBrowser.img || '');
@@ -185,7 +190,7 @@ function CharSheet() {
       : abilityMod;
   };
 
-  // Handle input changes for fields
+  // handle input changes for fields
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setCharacter({
@@ -194,44 +199,49 @@ function CharSheet() {
     });
   };
 
-  // Handle the combined class and level input
+  // combined class and level input
   const handleClassLevelChange = (e) => {
     const value = e.target.value;
 
-    // Try to extract the level from the end of the string (format: "Class Name 5")
+    // extract level from the end of the string
     const match = value.match(/^(.*?)\s+(\d+)$/);
 
     if (match) {
-      // If we have a match, extract the class name and level
+      // if match, extract class  and level
       const className = match[1].trim();
       const levelValue = parseInt(match[2], 10);
+      const newProficiencyBonus = calculateProficiencyBonus(levelValue);
 
       setCharacter({
         ...character,
         class: className,
-        level: levelValue
+        level: levelValue,
+        proficiencyBonus: newProficiencyBonus
       });
     } else {
       // If no level is found, assume it's all class name
       setCharacter({
         ...character,
         class: value,
-        // Keep the existing level
       });
     }
   };
 
   const handleLevelUp = () => {
-    // Increment level by 1, ensuring it doesn't exceed 20 (max D&D level)
+    // Increases level by 1, up to 20
     const newLevel = Math.min(parseInt(character.level) + 1, 20);
+    
+    // Calculate new proficiency bonus
+    const newProficiencyBonus = calculateProficiencyBonus(newLevel);
 
-    // Update character state with new level
+    // Updates state with new level and proficiency bonus
     setCharacter({
       ...character,
-      level: newLevel
+      level: newLevel,
+      proficiencyBonus: newProficiencyBonus
     });
 
-    // Optional: Show notification to the user
+    // level notification
     alert(`${character.name} leveled up to level ${newLevel}!`);
   };
 
@@ -335,11 +345,11 @@ function CharSheet() {
         character.wisdom,
         character.charisma
       ],
-      description: character.notes,
+      description: character.description,
       alignment: character.alignment,
       background: character.background,
       experiencePoints: character.experiencePoints,
-      proficiencyBonus: character.proficiencyBonus,
+      proficiencyBonus: calculateProficiencyBonus(character.level), // Use calculated value
       img: portraitUrl,
       skills: skills,
       saves: saves,
@@ -384,9 +394,17 @@ function CharSheet() {
                   className="character-portrait"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "";
                     e.target.style.display = 'none';
-                    alert('Error loading image. Please try another URL.');
+                    alert('Error loading image. Please paste in a working address.');
+
+                    setPortraitUrl('');
+
+                    setCharacter({
+                      ...character,
+                      portraitUrl: ''
+                    });
+
+                    // Make sure the placeholder is visible
                     const placeholder = e.target.parentNode.querySelector('.portrait-placeholder');
                     if (placeholder) placeholder.style.display = 'flex';
                   }}
@@ -560,13 +578,7 @@ function CharSheet() {
             {/* Proficiency Bonus */}
             <div className="proficiency-box">
               <div className="proficiency-value">
-                <input
-                  type="number"
-                  name="proficiencyBonus"
-                  value={character.proficiencyBonus}
-                  onChange={handleInputChange}
-                  className="proficiency-input"
-                />
+                {`+${character.proficiencyBonus}`}
               </div>
               <label>PROFICIENCY BONUS</label>
             </div>
@@ -716,14 +728,14 @@ function CharSheet() {
               />
             </div>
 
-            {/* Notes */}
-            <div className="notes-section">
-              <h3>NOTES</h3>
+            {/* Description */}
+            <div className="description-section">
+              <h3>DESCRIPTION</h3>
               <textarea
-                name="notes"
-                value={character.notes || ''}
+                name="description"
+                value={character.description || ''}
                 onChange={handleInputChange}
-                className="notes-input"
+                className="description-input"
               />
             </div>
           </div>
