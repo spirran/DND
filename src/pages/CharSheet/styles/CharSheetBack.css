@@ -1,0 +1,212 @@
+/* Styles for the back side */
+
+.char-sheet-back {
+  font-family: 'Calibri', 'Arial', sans-serif;
+  max-width: 850px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  min-height: 1150px;
+}
+
+/* Backside content container */
+.back-content {
+  margin-top: 20px;
+}
+
+/* Attacks Section */
+.attacks-section {
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.attacks-section h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.attacks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.attacks-table th {
+  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.attacks-table td {
+  padding: 3px;
+}
+
+.attack-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.attack-input:focus {
+  outline: none;
+  border-bottom: 1px solid #7A0000;
+}
+
+.small-input {
+  text-align: center;
+}
+
+/* Spellcasting Section */
+.spellcasting-section {
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.spellcasting-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.spellcasting-header > div {
+  flex: 1;
+  min-width: 120px;
+}
+
+.spellcasting-header h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.spellcasting-input,
+.spellcasting-select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.number-input {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Spell Levels */
+.spell-level-section {
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.spell-level-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.spell-level-section h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 0;
+  flex: 1;
+}
+
+.spell-slots {
+  display: flex;
+  gap: 15px;
+}
+
+.spell-slots-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spell-slots-wrapper span {
+  font-size: 10px;
+  margin-bottom: 3px;
+}
+
+.spell-slot-input {
+  width: 35px;
+  text-align: center;
+  font-size: 14px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.spell-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 5px;
+}
+
+.spell-entry {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.prepared-checkbox {
+  width: 14px;
+  height: 14px;
+}
+
+.spell-input {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.spell-input:focus {
+  outline: none;
+  border-bottom: 1px solid #7A0000;
+}
+
+/* Cantrips section styling */
+.cantrips {
+  background-color: #f9f9f9;
+}
+
+/* Responsive adjustments for backside */
+@media (max-width: 768px) {
+  .spellcasting-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .spell-slots {
+    justify-content: center;
+  }
+
+  .spell-list {
+    grid-template-columns: 1fr;
+  }
+}
