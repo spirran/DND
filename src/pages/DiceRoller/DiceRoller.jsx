@@ -1,6 +1,18 @@
+/**
+ * @fileoverview D&D Character Builder with dicerolling function
+ * This component provides a visual dice roller with SVG representation
+ * 
+ * @module DiceRoller
+ * @requires React
+ */
+
 import './DiceRoller.css';
 import React, { useState } from 'react';
 
+/**
+ * The apps header and title
+ * @returns {React.ReactElement} Header component
+ */
 function Header() {
     return (
         <div className="header-wrapper">
@@ -11,6 +23,10 @@ function Header() {
     );
 }
 
+/**
+ * Component for character browser
+ * @returns {React.ReactElement} Character browser component
+ */
 function CharacterBrowser() {
     return (
         <div className='browser-wrapper'>
@@ -19,7 +35,20 @@ function CharacterBrowser() {
     );
 }
 
+/**
+ * This function will "paint" the dices and make every button to have a listner
+ * 
+ * @param {Object} props - Component props 
+ * @param {string} props.diceType - The die to render
+ * @param {string} props.color - Color for the specific die
+ * @param {Function} props.handleRoll - Function to call when dice is rolled 
+ * @returns {React.ReactElement} Dicebutton component
+ */
 function DiceButton({ diceType, color, handleRoll }) {
+    /**
+     * Renders the dice based on type
+     * @returns {React.ReactElement|null} SVG of all dices
+     */
     const renderDiceSVG = () => {
         switch (diceType) {
             case 'D4':
@@ -109,6 +138,10 @@ function DiceButton({ diceType, color, handleRoll }) {
     );
 }
 
+/**
+ * Rolling interface component, display all the dices and result
+ * @returns {React.ReactElement} Main dice component
+ */
 function MainDice() {
     const [result, setResult] = useState(0);
 
@@ -121,11 +154,20 @@ function MainDice() {
         { type: 'D20', color: '#9C27B0' }
     ];
 
+/**
+ * 
+ * @param {string} diceType - Type of die to roll
+ */
     const handleRoll = (diceType) => {
         const rolledResult = RollDie(diceType);
         setResult(rolledResult);
     };
 
+/**
+ * 
+ * @param {string} dieType - Type of die to roll
+ * @returns {number} Random result from rolling a die
+ */
     const RollDie = (dieType) => {
         switch (dieType) {
             case 'D4':
@@ -171,6 +213,11 @@ function MainDice() {
     );
 }
 
+/**
+ * Main component for the app
+ * Renders header, dice roller and character browser
+ * @returns {React.ReactElement} DiceRoller component
+ */
 function DiceRoller() {
     return (
         <>
