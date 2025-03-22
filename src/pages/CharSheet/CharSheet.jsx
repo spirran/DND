@@ -85,7 +85,7 @@ function CharSheet() {
     notes: '',
   });
 
-  // separate state for portrait URL
+  // state for portrait URL
   const [portraitUrl, setPortraitUrl] = useState('');
 
   // Initialize from created char
@@ -194,6 +194,47 @@ function CharSheet() {
     });
   };
 
+  // Handle the combined class and level input
+  const handleClassLevelChange = (e) => {
+    const value = e.target.value;
+
+    // Try to extract the level from the end of the string (format: "Class Name 5")
+    const match = value.match(/^(.*?)\s+(\d+)$/);
+
+    if (match) {
+      // If we have a match, extract the class name and level
+      const className = match[1].trim();
+      const levelValue = parseInt(match[2], 10);
+
+      setCharacter({
+        ...character,
+        class: className,
+        level: levelValue
+      });
+    } else {
+      // If no level is found, assume it's all class name
+      setCharacter({
+        ...character,
+        class: value,
+        // Keep the existing level
+      });
+    }
+  };
+
+  const handleLevelUp = () => {
+    // Increment level by 1, ensuring it doesn't exceed 20 (max D&D level)
+    const newLevel = Math.min(parseInt(character.level) + 1, 20);
+
+    // Update character state with new level
+    setCharacter({
+      ...character,
+      level: newLevel
+    });
+
+    // Optional: Show notification to the user
+    alert(`${character.name} leveled up to level ${newLevel}!`);
+  };
+
   // handler for portrait URL
   const handlePortraitUrlChange = (e) => {
     setPortraitUrl(e.target.value);
@@ -206,6 +247,8 @@ function CharSheet() {
       portraitUrl: portraitUrl
     });
   };
+
+
 
   // delete current character
   const deleteCharacter = () => {
@@ -278,7 +321,7 @@ function CharSheet() {
       temporaryHitPoints: character.temporaryHitPoints
     };
 
-    // Create an updated character in the format expected by the character list
+    // Create updated char  for character  list
     const updatedCharacter = {
       name: character.name,
       class: character.class,
@@ -407,9 +450,9 @@ function CharSheet() {
               <div className="input-group">
                 <input
                   type="text"
-                  name="class"
-                  value={character.class}
-                  onChange={handleInputChange}
+                  name="classAndLevel"
+                  value={`${character.class} ${character.level}`}
+                  onChange={handleClassLevelChange}
                   className="input-field"
                 />
                 <label>CLASS & LEVEL</label>
@@ -514,6 +557,19 @@ function CharSheet() {
           </div>
 
           <div className="middle-column">
+            {/* Proficiency Bonus */}
+            <div className="proficiency-box">
+              <div className="proficiency-value">
+                <input
+                  type="number"
+                  name="proficiencyBonus"
+                  value={character.proficiencyBonus}
+                  onChange={handleInputChange}
+                  className="proficiency-input"
+                />
+              </div>
+              <label>PROFICIENCY BONUS</label>
+            </div>
             {/* Combat Stats */}
             <div className="combat-stats">
               <div className="combat-stat-row">
@@ -630,19 +686,13 @@ function CharSheet() {
           </div>
 
           <div className="right-column">
-            {/* Proficiency Bonus */}
-            <div className="proficiency-box">
-              <div className="proficiency-value">
-                <input
-                  type="number"
-                  name="proficiencyBonus"
-                  value={character.proficiencyBonus}
-                  onChange={handleInputChange}
-                  className="proficiency-input"
-                />
-              </div>
-              <label>PROFICIENCY BONUS</label>
-            </div>
+            {/* Level Up Button */}
+            <button
+              className="level-up-button"
+              onClick={handleLevelUp}
+            >
+              Level Up
+            </button>
 
             {/* Features & Traits*/}
             <div className="features-section">

@@ -293,15 +293,46 @@ label {
   border-radius: 3px;
 }
 
+/* Level Up Button */
+.level-up-button {
+  display: block;
+  width: 60%;
+  margin: -48px auto 15px auto;
+  padding: 8px;
+  background-color: #388622;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: background-color 0.3s;
+  position: relative;
+  z-index: 5;
+}
+
+.level-up-button:hover {
+  background-color: #22af37;
+}
+
+.level-up-button:active {
+  background-color: #3af970;
+}
+
 /* Proficiency */
 .proficiency-box {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 5px;
+  margin: 0px auto 10px auto;
   padding: 10px;
   border: 1px solid #000;
   border-radius: 5px;
+  width: 60%;
+  position: relative;
+  z-index: 5;
 }
 
 .proficiency-value {
@@ -311,15 +342,20 @@ label {
 }
 
 .proficiency-input {
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
+  width: 35px;
+  height: 35px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
   border: 1px solid #000;
   border-radius: 50%;
   padding: 0;
   background-color: white;
+}
+
+.proficiency-box label {
+  font-size: 10px;
+  text-align: center;
 }
 
 /* Saving Throws & Skills */
