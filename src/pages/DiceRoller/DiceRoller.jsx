@@ -8,6 +8,8 @@
 
 import './DiceRoller.css';
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import backgroundImg from '../../assets/images/front-background.jpg';
 
 /**
  * The apps header and title
@@ -18,8 +20,21 @@ function Header() {
         <div className="header-wrapper">
             <header>
                 <h1>D&D Character Builder</h1>
+                <div className="nav-buttons">
+                    <NavButton url="/" text="Home" />
+                    <NavButton url="/CreateChar" text="Create New Character" />
+                    <NavButton url="/DiceRoller" text="Dice Roller" />
+                </div>
             </header>
         </div>
+    );
+}
+
+function NavButton({ url, text }) {
+    return (
+        <Link to={url}>
+            <button className='nav-button'>{text}</button>
+        </Link>
     );
 }
 
