@@ -187,32 +187,62 @@
     border-radius: 3px;
   }
   
-  /* Level Up Button */
-  .level-up-button {
-    display: block;
-    width: 45%;
-    margin: -32px auto 18px auto;
-    padding: 6px;
+/* Level Up Button with hover glow and enlarge */
+.level-up-button {
+  display: block;
+  width: 45%;
+  margin: -32px auto 18px auto;
+  padding: 6px;
+  background-color: #22af37;
+  color: white;
+  border: 1px solid #565656;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 5;
+}
+
+.level-up-button:hover {
+  background-color: #2ec057; /* Brighter green on hover */
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(58, 249, 112, 0.8),
+              0 0 30px rgba(58, 249, 112, 0.4); /* Green glow effect */
+}
+
+.level-up-button:active {
+  background-color: #3af970;
+}
+
+/* Animation level effect */
+.level-up-button.animate {
+  animation: button-dramatic-pulse 0.8s ease-in-out 3;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes button-dramatic-pulse {
+  0% {
+    transform: scale(1);
     background-color: #22af37;
-    color: white;
-    border: 1px solid #565656;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    text-align: center;
-    transition: background-color 0.3s;
-    position: relative;
-    z-index: 5;
+    box-shadow: 0 0 0 rgba(34, 175, 55, 0);
   }
-  
-  .level-up-button:hover {
-    background-color: #388622;
-  }
-  
-  .level-up-button:active {
+  50% {
+    transform: scale(1.15);
     background-color: #3af970;
+    box-shadow: 0 0 15px rgba(58, 249, 112, 0.8),
+                0 0 30px rgba(58, 249, 112, 0.4);
   }
+  100% {
+    transform: scale(1);
+    background-color: #22af37;
+    box-shadow: 0 0 0 rgba(34, 175, 55, 0);
+  }
+}
+  
   
   /* Proficiency */
   .proficiency-box {
