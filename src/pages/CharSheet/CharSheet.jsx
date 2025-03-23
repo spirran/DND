@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import CharSheetFront from './CharSheetFront';
 import CharSheetBack from './CharSheetBack';
+import FireworksEffects from './components/FireworksEffects';
 import { DEFAULT_CHARACTER, loadCharacterFromBrowser } from './utils/CharModel';
 import { calculateProficiencyBonus, getAbilityModifier } from './utils/CharUtils';
 import { saveCharacter, deleteCharacter } from './utils/CharStorage';
+
+import levelUpSound from '../../assets/sounds/level-up.mp3';
+import flipSheetSound from '../../assets/sounds/sheet-flip.mp3';
 
 import './styles/CharSheet.css';
 import './styles/CharSheetFront.css';
@@ -26,6 +30,11 @@ function CharSheet() {
   const [character, setCharacter] = useState(DEFAULT_CHARACTER);
   const [portraitUrl, setPortraitUrl] = useState('');
   const [isFlipping, setIsFlipping] = useState(false);
+  const [showFireworks, setShowFireworks] = useState(false);
+  const [buttonAnimating, setButtonAnimating] = useState(false);
+  const [newLevel, setNewLevel] = useState(null);
+  const levelSoundRef = useRef(new Audio(levelUpSound));
+  const flipSoundRef = useRef(new Audio(flipSheetSound));
 
   // Load character from browser data
   useEffect(() => {
@@ -43,6 +52,11 @@ function CharSheet() {
 
   // Handle flip animation
   const flipPage = () => {
+    // flip sound
+    flipSoundRef.current.currentTime = 0; // reset sound
+    flipSoundRef.current.play().catch(err => {
+      console.error("Error playing flip sound:", err);
+    });
     setIsFlipping(true);
     setTimeout(() => {
       setShowFrontside(!showFrontside);
@@ -138,23 +152,49 @@ function CharSheet() {
     }
   };
 
-  // handle level up button
+  // handle level up button (cool fireworks edition)
   const handleLevelUp = () => {
+    // play level up sound
+    levelSoundRef.current.currentTime = 0; // Reset sound to start
+    levelSoundRef.current.play().catch(err => {
+      console.error("Error playing sound:", err);
+    });
+
     // increases level by 1, up to max 20
-    const newLevel = Math.min(parseInt(character.level) + 1, 20);
+    const nextLevel = Math.min(parseInt(character.level) + 1, 20);
 
     // calc new proficiency bonus
-    const newProficiencyBonus = calculateProficiencyBonus(newLevel);
+    const newProficiencyBonus = calculateProficiencyBonus(nextLevel);
 
     // updates with new level and proficiency bonus
     setCharacter({
       ...character,
-      level: newLevel,
+      level: nextLevel,
       proficiencyBonus: newProficiencyBonus
     });
 
-    // level notification
-    alert(`${character.name} leveled up to level ${newLevel}!`);
+    // Store the new level for display
+    setNewLevel(nextLevel);
+
+    // Trigger fireworks animation
+    setShowFireworks(true);
+
+    // Animate the button
+    setButtonAnimating(true);
+    setTimeout(() => {
+      setButtonAnimating(false);
+    }, 1200);
+
+    // Show level notification after a delay to allow animations to be noticed first
+    setTimeout(() => {
+      alert(`${character.name} has reached level ${nextLevel}!`);
+    }, 2000);
+  };
+
+  // handelr fireworks completion
+  const handleFireworksComplete = () => {
+    setShowFireworks(false);
+    setNewLevel(null);
   };
 
   // Update portrait URL in state
@@ -183,10 +223,10 @@ function CharSheet() {
   // Delete character from storage
   const handleDeleteCharacter = () => {
     if (!characterFromBrowser) return;
-    
+
     if (window.confirm(`Are you sure you want to delete ${character.name}?`)) {
       const success = deleteCharacter(characterFromBrowser.name);
-      
+
       if (success) {
         alert(`Character ${characterFromBrowser.name} has been deleted. Use the Home button to return to the character list.`);
       } else {
@@ -198,16 +238,22 @@ function CharSheet() {
   // Save character to storage
   const handleSaveCharacter = () => {
     const message = saveCharacter(
-      character, 
-      portraitUrl, 
+      character,
+      portraitUrl,
       characterFromBrowser?.name || ''
     );
-    
+
     alert(message);
   };
 
   return (
     <div className="char-sheet-page">
+      <FireworksEffects
+        active={showFireworks}
+        onComplete={handleFireworksComplete}
+        level={newLevel}
+      />
+
       <div className="nav-buttons">
         <NavButton url="/" text="Home" />
         <NavButton url="/CreateChar" text="Create New Character" />
@@ -216,7 +262,7 @@ function CharSheet() {
 
       <div className={`character-sheet-container ${isFlipping ? 'flipping' : ''}`}>
         {showFrontside ? (
-          <CharSheetFront 
+          <CharSheetFront
             character={character}
             portraitUrl={portraitUrl}
             handleInputChange={handleInputChange}
@@ -228,6 +274,7 @@ function CharSheet() {
             getSavingThrowBonus={getSavingThrowBonus}
             getSkillBonus={getSkillBonus}
             flipPage={flipPage}
+            buttonAnimating={buttonAnimating}
           />
         ) : (
           <CharSheetBack
