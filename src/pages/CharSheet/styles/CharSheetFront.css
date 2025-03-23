@@ -1,0 +1,462 @@
+/* Styles specific to the front side*/
+
+.character-sheet.front {
+    font-family: 'Calibri', 'Arial', sans-serif;
+    max-width: 850px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  /* Portrait container style */
+  .portrait-container {
+    width: 255px;
+    margin-left: 20px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .portrait-box {
+    border: 1px solid #000;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .portrait-placeholder {
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .portrait-url-wrapper {
+    width: 80%;
+    margin-top: 7px;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .portrait-url-input {
+    width: 100%;
+    font-size: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    background-color: white;
+    position: relative;
+    z-index: 5;
+    outline: none;
+  }
+  
+  .portrait-url-input:focus {
+    border-color: #7A0000;
+    box-shadow: 0 0 3px rgba(122, 0, 0, 0.5);
+  }
+  
+  .character-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Top section styling */
+  .top-section {
+    margin-bottom: 15px;
+    margin-top: -120px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .char-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  /* Char info rows */
+  .char-info-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .char-info-row .input-group {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .input-field {
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 5px 0;
+    font-size: 16px;
+  }
+  
+  /* Main section layout */
+  .main-section {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .left-column {
+    width: 30%;
+  }
+  
+  .middle-column {
+    width: 33%;
+  }
+  
+  .right-column {
+    width: 33%;
+  }
+  
+  /* Ability Scores */
+  .ability-scores {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  
+  .ability-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px 5px;
+    position: relative;
+  }
+  
+  .ability-label {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .ability-modifier {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    margin: 5px 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ability-input {
+    width: 40px;
+    text-align: center;
+    font-size: 16px;
+    padding: 2px;
+    border: 1px solid #000;
+    border-radius: 3px;
+  }
+  
+/* Level Up Button with hover glow and enlarge */
+.level-up-button {
+  display: block;
+  width: 45%;
+  margin: -32px auto 18px auto;
+  padding: 6px;
+  background-color: #22af37;
+  color: white;
+  border: 1px solid #565656;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 5;
+}
+
+.level-up-button:hover {
+  background-color: #2ec057; /* Brighter green on hover */
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(58, 249, 112, 0.8),
+              0 0 30px rgba(58, 249, 112, 0.4); /* Green glow effect */
+}
+
+.level-up-button:active {
+  background-color: #3af970;
+}
+
+/* Animation level effect */
+.level-up-button.animate {
+  animation: button-dramatic-pulse 0.8s ease-in-out 3;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes button-dramatic-pulse {
+  0% {
+    transform: scale(1);
+    background-color: #22af37;
+    box-shadow: 0 0 0 rgba(34, 175, 55, 0);
+  }
+  50% {
+    transform: scale(1.15);
+    background-color: #3af970;
+    box-shadow: 0 0 15px rgba(58, 249, 112, 0.8),
+                0 0 30px rgba(58, 249, 112, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    background-color: #22af37;
+    box-shadow: 0 0 0 rgba(34, 175, 55, 0);
+  }
+}
+  
+  
+  /* Proficiency */
+  .proficiency-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin: 0px auto 10px auto;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 16px;
+    width: 70%;
+    position: relative;
+    z-index: 5;
+  }
+  
+  .proficiency-value {
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .proficiency-input {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 50%;
+    padding: 0;
+    background-color: white;
+  }
+  
+  .proficiency-box label {
+    font-size: 12px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+  }
+  
+  /* Saving Throws & Skills */
+  .saving-throws, .skills {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .saving-throws h3, .skills h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+  
+  .save-item, .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .save-modifier, .skill-modifier {
+    width: 25px;
+    text-align: center;
+  }
+  
+  /* Highlight proficiency */
+  .save-item input[type="checkbox"]:checked + .save-modifier,
+  .skill-item input[type="checkbox"]:checked + .skill-modifier {
+    color: #0f7224;
+    font-weight: bold;
+  }
+  
+  /* Combat Stats */
+  .combat-stats {
+    margin-bottom: 15px;
+  }
+  
+  .combat-stat-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  
+  .combat-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  
+  .stat-value {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .stat-value input {
+    width: 80%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  
+  .hit-points {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .hp-max {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+  
+  .hp-max input {
+    width: 50px;
+    text-align: center;
+    padding: 2px;
+    border: 1px solid #ccc;
+  }
+  
+  .current-hp, .temp-hp {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  
+  .current-hp label, .temp-hp label {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .hp-input {
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+  
+  /* Equipment & Features & description */
+  .equipment-section, .features-section, .description-section {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .features-section {
+    margin-top: -3px;
+  }
+  
+  .equipment-section h3, .features-section h3, .description-section h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+  
+  .equipment-input {
+    width: 100%;
+    height: 180px;
+    resize: none;
+    border: none;
+  }
+  
+  .features-input {
+    width: 100%;
+    height: 295px;
+    resize: none;
+    border: none;
+  }
+  
+  .description-input {
+    width: 100%;
+    height: 180px;
+    resize: none;
+    border: none;
+  }
+  
+  /* Responsive adjustments for front side */
+  @media (max-width: 768px) {
+    .main-section {
+      flex-direction: column;
+    }
+    
+    .left-column, .middle-column, .right-column {
+      width: 100%;
+    }
+  }

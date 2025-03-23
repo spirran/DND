@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-function AlignmentDropdown({selectedAlignment, onAlignmentChange}) {
+function AlignmentDropdown({ selectedAlignment, onAlignmentChange }) {
 
     const [alignmentList, setAlignmentList] = useState([]);
-    
+
     useEffect(() => { //inbyggd react grej?
         async function fetchAlignments() {
             try {
@@ -35,10 +35,13 @@ function AlignmentDropdown({selectedAlignment, onAlignmentChange}) {
 
     return (
         <>
-        <label className="createLabel" id="alignmentLabel">Alignment: </label>
-            <select id="alignmentSelect" 
-             onChange={(e) => onAlignmentChange(e.target.value)} 
-             value={selectedAlignment}>
+            <label className="createLabel" id="alignmentLabel">Alignment: </label>
+            <select
+                id="alignmentSelect"
+                onChange={(e) => onAlignmentChange(e.target.value)}
+                value={selectedAlignment || ""} // Handle null value
+            >
+                <option value="" disabled>Select Alignment</option>
                 {alignmentList.map((alignmentName, index) => (
                     <option key={index} value={alignmentName}>
                         {alignmentName}
