@@ -28,6 +28,7 @@ html, body, #root {
 
 .front-header-text {
     margin-left: 4rem;
+    font-family: "Cinzel", serif;
 }
 
 .header-content {
@@ -58,13 +59,18 @@ html, body, #root {
     border-right: 0.1rem solid black;
     overflow-y: auto;
     align-items: center;
+    font-family: "Cinzel", serif;
+}
+
+.browser-wrapper > h2 {
+    margin-bottom: 0.5rem;
 }
 
 .browser-card {
     position: relative;
     width: 10rem;
     height: 10rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     border: 0.1rem solid black;
     box-shadow: 0.2rem 0.1rem 0.1rem grey;
     border-radius: 100%;
@@ -88,12 +94,11 @@ html, body, #root {
 }
 
 .front-page-button {
-    width: 15rem;
-    height: 8rem;
+    width: 14rem;
+    height: 5rem;
     margin: 2rem;
-    border-radius: 15%;
-    background-color: #7A0000;
-    color: white;
+    border-radius: 10%;
+    background-color: #025c1c;
     transition: transform 0.2s ease-in-out;
     box-shadow: 0.2rem 0.1rem 0.1rem rgb(61, 27, 27);
     
@@ -102,6 +107,11 @@ html, body, #root {
 .front-page-button:hover {
     cursor: pointer;
     transform: scale(1.1);
+}
+
+.front-button-text {
+    color: rgb(255, 255, 255);
+    font-family: cinzel;
 }
 
 .hidden-text {

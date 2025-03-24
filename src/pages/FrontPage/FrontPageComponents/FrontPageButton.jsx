@@ -4,7 +4,7 @@ import React from 'react';
 function FrontPageButton({url, text}) {
     return (
         <Link to={url}>
-            <button className='front-page-button'>{text}</button>
+            <button className='front-page-button'><p className='front-button-text'>{text}</p></button>
         </Link>
         );
 }
