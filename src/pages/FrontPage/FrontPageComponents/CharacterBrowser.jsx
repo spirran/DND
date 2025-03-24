@@ -2,6 +2,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './CharacterBrowser.css'
 
+/**
+ * CharacterBrowser is a component that renders a sidebar on the left side of FrontPage that lists characters.
+ * It uses the 'characterList' prop to load characters or loads characters from localStorage as a fallback.
+ * It listens for changes to localStorage and updates the list.
+ * @param {Object} props - The properties passed to the component.
+ * @param {Array} props.characterList - The list of characters displayed. If not provided it tries to load the characters from localStorage as a fallback.
+ * @returns {JSX.Element} The rendered sidebar with character links.
+ */
 function CharacterBrowser({ characterList }) {
   const [characters, setCharacters] = useState([]);
   //const [refreshKey, setRefreshKey] = useState(0);
