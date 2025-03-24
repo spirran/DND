@@ -1,11 +1,11 @@
-import logo from '../../../assets/images/dnd-logo.png';
+import dndLogo from '../../../assets/images/dnd-logo2.png';
 
 function FrontPageHeader() {
     return(
         <div className="header-wrapper">
             <header className="header-content">
-                <img src={logo} alt="Logo" className="front-logo"/>
-                <h1>Dungeons & Dragons - Character Builder</h1>
+                <img src={dndLogo} alt="D&D Logo" className="dnd-logo-front" />
+                <h1 className='front-header-text'>Dungeons & Dragons - Character Builder</h1>
             </header>
         </div>
     );

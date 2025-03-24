@@ -11,6 +11,11 @@ html, body, #root {
     height: 100%;
 }
 
+.dnd-logo-front {
+    height: 4rem;
+    width: auto;
+}
+
 .header-wrapper {
     display: flex;
     height: 6rem;
@@ -19,6 +24,10 @@ html, body, #root {
     overflow: hidden;
     justify-content: flex-start;
     align-items: center;
+}
+
+.front-header-text {
+    margin-left: 4rem;
 }
 
 .header-content {
