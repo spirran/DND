@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
  * @param {Array} param0.currentCharacterList - The list of characters to display.
  * @returns {JSX.Element} The rendered FrontPage with all sections.
  */
+
 function FrontPage({currentCharacterList}) {
     // Local state to force refresh when character change
     const [characters, setCharacters] = useState(currentCharacterList);

@@ -11,11 +11,12 @@
     overflow: hidden;
     justify-content: flex-start;
     align-items: center;
+    background-color: rgb(240, 169, 63);
 }
 
 .front-header-text {
     margin-left: 4rem;
-    font-family: "Cinzel", serif;
+    font-family: 'Cinzel', serif;
 }
 
 .header-content {

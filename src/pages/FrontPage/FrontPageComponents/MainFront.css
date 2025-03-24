@@ -1,8 +1,25 @@
 .main-front-wrapper {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+
+.mainfront-text-wrapper > p {
+    display: flex;
+    font-family:'Cinzel';
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.main-front-button-wrapper {
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     flex-grow: 1;
     overflow: hidden;
+    height: auto;
 }

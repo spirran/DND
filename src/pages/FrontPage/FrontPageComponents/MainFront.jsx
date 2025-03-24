@@ -11,11 +11,17 @@ import './MainFront.css'
  */
 function MainFront() {
     return (
-        <div className='main-front-wrapper' >
-            
-            <FrontPageButton text={"Create New Character"} url={"/CreateChar"} />
-            <FrontPageButton text={"Dice Roller"} url={"/DiceRoller"}/>
-            
+        <div className='main-front-wrapper'>
+            <div className='mainfront-text-wrapper'>
+                <p>Build your own character and start your adventure!<br />
+                    Click on a character portrait and get transported directly to a character sheet.<br />
+                    Forgot your dice? We got you covered with our Dice Roller.
+                </p>
+            </div>
+            <div className='main-front-button-wrapper' >
+                <FrontPageButton text={"Create New Character"} url={"/CreateChar"} />
+                <FrontPageButton text={"Dice Roller"} url={"/DiceRoller"}/>              
+            </div>
         </div>
     );
 }
