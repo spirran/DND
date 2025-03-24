@@ -2,6 +2,7 @@ import './FrontPage.css';
 import FrontPageHeader from './FrontPageComponents/FrontPageHeader';
 import CharacterBrowser from './FrontPageComponents/CharacterBrowser';
 import MainFront from './FrontPageComponents/MainFront';
+import backgroundImg from '../../assets/images/front-background.jpg';
 import { useEffect, useState } from 'react';
 
 function FrontPage({currentCharacterList}) {
@@ -29,9 +30,9 @@ function FrontPage({currentCharacterList}) {
 
     return (
         <>
-            <div id='frontpage-wrapper'>
+            <div id='frontpage-wrapper' >
                 <FrontPageHeader />
-                <div id='main-section-wrapper'>
+                <div id='main-section-wrapper' style={{ backgroundImage: `url(${backgroundImg})` }}>
                     <CharacterBrowser characterList={characters} />
                     <MainFront />
                 </div>

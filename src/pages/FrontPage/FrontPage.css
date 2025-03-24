@@ -44,6 +44,10 @@ html, body, #root {
     display: flex;
     height: 100%;
     overflow: hidden;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .browser-wrapper {
@@ -81,10 +85,6 @@ html, body, #root {
     align-items: center;
     flex-grow: 1;
     overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
 }
 
 .front-page-button {
