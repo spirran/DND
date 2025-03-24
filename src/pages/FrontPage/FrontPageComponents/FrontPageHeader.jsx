@@ -1,4 +1,5 @@
 import dndLogo from '../../../assets/images/dnd-logo2.png';
+import './FrontPageHeader.css'
 
 function FrontPageHeader() {
     return(

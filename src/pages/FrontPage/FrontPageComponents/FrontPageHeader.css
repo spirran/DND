@@ -1,0 +1,24 @@
+.dnd-logo-front {
+    height: auto;
+    width: 15rem;
+}
+
+.header-wrapper {
+    display: flex;
+    height: 6rem;
+    padding: 1rem;
+    border-bottom: 0.1rem solid black;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.front-header-text {
+    margin-left: 4rem;
+    font-family: "Cinzel", serif;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}

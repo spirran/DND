@@ -1,5 +1,6 @@
 import FrontPageButton from './FrontPageButton';
 import React from 'react';
+import './MainFront.css'
 
 function MainFront() {
     return (
