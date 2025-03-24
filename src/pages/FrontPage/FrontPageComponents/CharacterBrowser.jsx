@@ -50,7 +50,11 @@ function CharacterBrowser({ characterList }) {
   }, []);
 
   if (characters.length === 0) {
-    return <p>No characters created yet</p>
+    return (
+    <div className="browser-wrapper">
+      <p>No characters created yet</p>
+    </div>
+    )
   }
 
   return (
