@@ -12,8 +12,8 @@ html, body, #root {
 }
 
 .dnd-logo-front {
-    height: 4rem;
-    width: auto;
+    height: auto;
+    width: 15rem;
 }
 
 .header-wrapper {
