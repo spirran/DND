@@ -4,7 +4,7 @@ import './CharacterBrowser.css'
 
 function CharacterBrowser({ characterList }) {
   const [characters, setCharacters] = useState([]);
-  const [refreshKey, setRefreshKey] = useState(0);
+  //const [refreshKey, setRefreshKey] = useState(0);
   
   // Load characters from localStorage and props
   useEffect(() => {
@@ -23,7 +23,7 @@ function CharacterBrowser({ characterList }) {
         console.error("Error loading characters from localStorage:", error);
       }
     }
-  }, [characterList, refreshKey]);
+  }, [characterList]);
   
   // Listen for storage events to refresh the component
   useEffect(() => {
@@ -32,21 +32,26 @@ function CharacterBrowser({ characterList }) {
       if (event.key === 'characterList' || 
           event.key === 'deleteCharacter' || 
           event.key === 'updatedCharacter') {
+        const savedCharactersJSON = localStorage.getItem('characterList');
+        if(savedCharactersJSON) {
+          const savedCharacters = JSON.parse(savedCharactersJSON);
+          setCharacters(savedCharacters)
+        }
         // Force re-render when relevant localStorage changes
-        setRefreshKey(prevKey => prevKey + 1);
+        //setRefreshKey(prevKey => prevKey + 1);
       }
     };
     
     window.addEventListener('storage', handleStorageChange);
     
     // Also set up a periodic refresh to catch any missed updates
-    const intervalId = setInterval(() => {
+    /*const intervalId = setInterval(() => {
       setRefreshKey(prevKey => prevKey + 1);
-    }, 2000);
+    }, 2000);*/
     
     return () => {
       window.removeEventListener('storage', handleStorageChange);
-      clearInterval(intervalId);
+      //clearInterval(intervalId);
     };
   }, []);
 
@@ -62,7 +67,7 @@ function CharacterBrowser({ characterList }) {
       <div className='browser-wrapper'>
         <h2>Characters</h2>
         {characters.map((char, index) => (
-          <Link key={`${index}-${refreshKey}-${char.name}`}
+          <Link key={`${index}-${char.name}`}
            className="browser-card"
            to={`/CharSheet`}
            state={{ character: char }}
