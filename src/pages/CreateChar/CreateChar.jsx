@@ -14,12 +14,19 @@ import ClassLevelInput from './components/CreateChar/ClassLevelInput';
 import AlignmentDropdown from './components/CreateChar/AlignmentDropdown';
 import CharFeatureInput from './components/CreateChar/CharFeatures';
 import CharEquipmentInput from './components/CreateChar/CharEquipment';
-
+/**
+ * 
+ * @param {onCharacterChange} onCharacterChange event handler prop from parent component for when a character is created
+ * @returns the CreateChar component which is the main/parent component of the CreateChar page which contains other smaller components
+ */
 function CreateChar({ onCharacterChange }) {
     const navigate = useNavigate();
 
+    /**
+     *  Local state variables to store the current character information
+     */
     const [currentClass, setCurrentClass] = useState("Barbarian");
-    const [currentLevel, setCurrentLevel] = useState(1);
+    const [currentLevel, setCurrentLevel] = useState(5);
     const [currentRace, setCurrentRace] = useState("Dragonborn");
     const [currentName, setCurrentName] = useState("player");
     const [currentDescription, setCurrentDescription] = useState("");
@@ -31,6 +38,11 @@ function CreateChar({ onCharacterChange }) {
 
     const [character, setCharacter] = useState(null);
 
+    /**
+     * 
+     * @param {integer} index the index of the attribute to be changed 
+     * @param {integer} value value of the attribute to be changed
+     */
     const handleAttrChange = (index, value) => {
         const updatedAttributes = [...currentAttributes];
         updatedAttributes[index] = value;
@@ -71,7 +83,10 @@ function CreateChar({ onCharacterChange }) {
         return true;
     }
 
-
+/**
+ * function called when the Submit button is clicked
+ * it creates a new character object and sends it to the parent component
+ */
     const handleSubmit = () => {
         const newCharacter = {
             name: currentName,
@@ -99,6 +114,9 @@ function CreateChar({ onCharacterChange }) {
        
     };
 
+    /**
+     * useEffect hook that navigates back to the front page after the character has been submitted
+     */
     useEffect(() => {
         if (character) {
             navigate('/'); // Navigate back to the front page after submitting
@@ -161,6 +179,8 @@ function CreateChar({ onCharacterChange }) {
                 <section id="rightCreateSection">
                     <CharFeatureInput
                         onFeatureChange={(newFeatures) => setCurrentFeatures(newFeatures)}
+                        selectedClass={currentClass}
+                        selectedLevel={currentLevel}
                     />
 
                     <CharEquipmentInput
@@ -175,6 +195,11 @@ function CreateChar({ onCharacterChange }) {
     );
 };
 
+/**
+ * 
+ * @param {string} value the value to be tested
+ * @return {boolean} whether the value is a number or not
+ */
 function isNumeric(value) {
     //Regex from: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
     return /^-?\d+$/.test(value);
