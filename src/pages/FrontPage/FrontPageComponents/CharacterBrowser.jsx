@@ -12,7 +12,6 @@ import './CharacterBrowser.css'
  */
 function CharacterBrowser({ characterList }) {
   const [characters, setCharacters] = useState([]);
-  //const [refreshKey, setRefreshKey] = useState(0);
   
   // Load characters from localStorage and props
   useEffect(() => {
@@ -45,17 +44,10 @@ function CharacterBrowser({ characterList }) {
           const savedCharacters = JSON.parse(savedCharactersJSON);
           setCharacters(savedCharacters)
         }
-        // Force re-render when relevant localStorage changes
-        //setRefreshKey(prevKey => prevKey + 1);
       }
     };
     
     window.addEventListener('storage', handleStorageChange);
-    
-    // Also set up a periodic refresh to catch any missed updates
-    /*const intervalId = setInterval(() => {
-      setRefreshKey(prevKey => prevKey + 1);
-    }, 2000);*/
     
     return () => {
       window.removeEventListener('storage', handleStorageChange);
