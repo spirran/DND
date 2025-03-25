@@ -39,7 +39,7 @@
 .browser-card:hover .browser-portrait {
     cursor: pointer;
     transform: scale(1.1);
-    border-color: rgb(240, 169, 63);
+    border-color: black;
 }
 
 .hidden-text {
