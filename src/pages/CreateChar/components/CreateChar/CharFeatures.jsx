@@ -15,8 +15,7 @@ function CharFeatureInput({onFeatureChange, selectedLevel, selectedClass})
                         headers: myHeaders,
                         redirect: "follow"
                     };
-                    //Vad ska hämtas?
-                    console.log("class:"+ selectedClass);
+            
                     let allFeatures = [];
                     for (let i = 1; i <= selectedLevel; i++) {
     
@@ -28,10 +27,10 @@ function CharFeatureInput({onFeatureChange, selectedLevel, selectedClass})
 
                         const featureData = await response.json();
                         allFeatures = [...allFeatures, ...featureData.results.map(item => item.name)];
-                        console.log("data:"+featureData.results.map(item => item.name));
+                        
                     }
                     setFeaturesList(allFeatures);
-                    console.log(allFeatures);
+                    
                     
 
                 } catch (error) {

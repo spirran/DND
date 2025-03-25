@@ -1,48 +1,45 @@
 import React, { useState, useEffect } from 'react';
 
-const inputStyle = {
-border:"0.1rem",
-display:"grid",
-width:"2.5rem",
-};
-function Attributes({onAttrChange, currentAttributes})
+
+function Attributes({onAttrChange, currentAttributes, selectStandard})
 {
     const [selectedItems, setSelectedItems] = useState([]);
     const standardArray = [15,14,13,12,10,8];
-    let something = 0;
-
-    const handleSelectItems = (e) =>{
-        setSelectedItems([...selectedItems,e.target.value]);
-        console.log("items:"+ selectedItems);
-    }
-
-if(something == 0)
+    const attr = ["STR","DEX","CON","INT","WIS","CHA"];
+if(selectStandard == true)
 {
     return (
         <>
-        <p>Second Option</p>
-        <div>
+        <div style={{display:"flex", margintop:"2rem",}}> 
             {Array.from({ length: 6 }).map((_, index) => (
+                <div id="attrDiv">
+                    <label>{attr[index]}:</label>
                 <select key={index} onChange={(e) => {
                     const value = parseInt(e.target.value, 10);
                     if (!selectedItems.includes(value)) {
                         const updatedItems = [...selectedItems];
                         updatedItems[index] = value;
                         setSelectedItems(updatedItems);
+                        onAttrChange(index, value);
+                        console.log("was changed");
                     }
                 }}>
-                    <option value="">Select</option>
+                    <option value="">--</option>
                     {standardArray.filter((item) => !selectedItems.includes(item) || selectedItems[index] === item)
                         .map((item, idx) => (
-                            <option key={idx} value={item}>{item}</option>
+                            <option key={idx} value={item}
+                            >{item}
+                            
+                            </option>
                         ))}
                 </select>
+                </div>
             ))}
         </div>
         </>
     );
 }
-else if(something == 1) 
+else 
 {
     return(
         <>

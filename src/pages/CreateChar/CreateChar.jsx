@@ -15,6 +15,7 @@ import AlignmentDropdown from './components/CreateChar/AlignmentDropdown';
 import CharFeatureInput from './components/CreateChar/CharFeatures';
 import CharEquipmentInput from './components/CreateChar/CharEquipment';
 import CharImageInput from './components/CreateChar/CharImageInput';
+import SelectAttrCheckbox from './components/CreateChar/selectAttrCheckbox';
 /**
  * 
  * @param {onCharacterChange} onCharacterChange event handler prop from parent component for when a character is created
@@ -38,6 +39,7 @@ function CreateChar({ onCharacterChange }) {
     const [currentAttributes, setCurrentAttributes] = useState([10, 10, 10, 10, 10, 10]);
     const[currentImage, setCurrentImage] = useState("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY");
     const [character, setCharacter] = useState(null);
+    const [useStandard,setUseStandard] = useState(false);
 
     /**
      * 
@@ -47,13 +49,18 @@ function CreateChar({ onCharacterChange }) {
     const handleAttrChange = (index, value) => {
         const updatedAttributes = [...currentAttributes];
         updatedAttributes[index] = value;
+        console.log(updatedAttributes);
         setCurrentAttributes(updatedAttributes);
 
     };
-
+/*
+    const changeStandard = (state) =>
+    {
+        setUseStandard(state);   
+    }
+*/
     const handleInput = (character) =>
     {
-        alert(character.name.length);
         if(character.name.length <= 0 || character.name.length > 20)
         {
             alert("Name must be between 1 and 20 characters");
@@ -155,11 +162,15 @@ function CreateChar({ onCharacterChange }) {
                             />
                         </div>
                     </section>
-
+                    <SelectAttrCheckbox 
+                    onSelectChange={(state) => setUseStandard(state)}
+                    useStandard={useStandard}
+                    />
 
                     <Attributes
                         onAttrChange={handleAttrChange}
                         currentAttributes={currentAttributes}
+                        selectStandard={useStandard}
                     />
 
                     <CharDescriptionInput
