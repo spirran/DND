@@ -1,0 +1,21 @@
+.front-page-button {
+    width: 16rem;
+    height: 6rem;
+    margin: 2.5rem;
+    border-radius: 10%;
+    background-color: rgb(240, 169, 63);
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0.2rem 0.1rem 0.1rem rgb(61, 27, 27);
+    
+}
+
+.front-page-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.front-button-text {
+    color: black;
+    font-family: cinzel;
+    font-weight: 500;
+}
