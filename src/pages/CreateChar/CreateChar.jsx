@@ -14,6 +14,7 @@ import ClassLevelInput from './components/CreateChar/ClassLevelInput';
 import AlignmentDropdown from './components/CreateChar/AlignmentDropdown';
 import CharFeatureInput from './components/CreateChar/CharFeatures';
 import CharEquipmentInput from './components/CreateChar/CharEquipment';
+import CharImageInput from './components/CreateChar/CharImageInput';
 /**
  * 
  * @param {onCharacterChange} onCharacterChange event handler prop from parent component for when a character is created
@@ -35,7 +36,7 @@ function CreateChar({ onCharacterChange }) {
     const [currentAlignment, setCurrentAlignment] = useState("Neutral");
 
     const [currentAttributes, setCurrentAttributes] = useState([10, 10, 10, 10, 10, 10]);
-
+    const[currentImage, setCurrentImage] = useState("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY");
     const [character, setCharacter] = useState(null);
 
     /**
@@ -98,7 +99,7 @@ function CreateChar({ onCharacterChange }) {
             equipment:currentEquipment,
             features: currentFeatures,
             alignment: currentAlignment,
-            img: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
+            img: currentImage
         };
 
         if(handleInput(newCharacter) == true)
@@ -177,6 +178,10 @@ function CreateChar({ onCharacterChange }) {
                     </Link>
                 </section>
                 <section id="rightCreateSection">
+                    <CharImageInput 
+                    onImageChange={(newImage) => setCurrentImage(newImage)}
+                    selectedImage={currentImage}
+                    />
                     <CharFeatureInput
                         onFeatureChange={(newFeatures) => setCurrentFeatures(newFeatures)}
                         selectedClass={currentClass}

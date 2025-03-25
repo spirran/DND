@@ -7,7 +7,43 @@ width:"2.5rem",
 };
 function Attributes({onAttrChange, currentAttributes})
 {
+    const [selectedItems, setSelectedItems] = useState([]);
+    const standardArray = [15,14,13,12,10,8];
+    let something = 0;
 
+    const handleSelectItems = (e) =>{
+        setSelectedItems([...selectedItems,e.target.value]);
+        console.log("items:"+ selectedItems);
+    }
+
+if(something == 0)
+{
+    return (
+        <>
+        <p>Second Option</p>
+        <div>
+            {Array.from({ length: 6 }).map((_, index) => (
+                <select key={index} onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    if (!selectedItems.includes(value)) {
+                        const updatedItems = [...selectedItems];
+                        updatedItems[index] = value;
+                        setSelectedItems(updatedItems);
+                    }
+                }}>
+                    <option value="">Select</option>
+                    {standardArray.filter((item) => !selectedItems.includes(item) || selectedItems[index] === item)
+                        .map((item, idx) => (
+                            <option key={idx} value={item}>{item}</option>
+                        ))}
+                </select>
+            ))}
+        </div>
+        </>
+    );
+}
+else if(something == 1) 
+{
     return(
         <>
         <section style={{display:"flex", margintop:"2rem",}}>
@@ -62,5 +98,10 @@ function Attributes({onAttrChange, currentAttributes})
         </section>
         </>
     )
+
+
+
+}
+   
 }
 export default Attributes;

@@ -104,6 +104,19 @@ margin-top:1.5rem;
     height:10rem;
 }
 
+
+.imageInput{
+    margin-bottom:1rem;
+    margin-top:2rem;
+    width:20rem;
+    
+}
+
+.imageSection
+{
+    display:flex;
+    flex-direction:column;
+}
 .createHeader-wrapper{
     height: 6rem;
     width:100%;
@@ -116,10 +129,10 @@ margin-top:1.5rem;
 }
 
 .createPageH1{
-margin-left:15rem;
+margin-left:5rem;
 }
 
 #createSubmitButton
 {
-    margin-left:10rem;
+    margin-left:0;
 }
