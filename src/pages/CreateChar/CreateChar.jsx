@@ -26,7 +26,7 @@ function CreateChar({ onCharacterChange }) {
      *  Local state variables to store the current character information
      */
     const [currentClass, setCurrentClass] = useState("Barbarian");
-    const [currentLevel, setCurrentLevel] = useState(5);
+    const [currentLevel, setCurrentLevel] = useState(1);
     const [currentRace, setCurrentRace] = useState("Dragonborn");
     const [currentName, setCurrentName] = useState("player");
     const [currentDescription, setCurrentDescription] = useState("");

@@ -40,7 +40,7 @@ function CharFeatureInput({onFeatureChange, selectedLevel, selectedClass})
                 }
             }
             fetchFeatures();
-        }, []);
+        }, [selectedLevel, selectedClass]);
 
     return(
         <>
