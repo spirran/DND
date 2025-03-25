@@ -47,7 +47,7 @@ function CharFeatureInput({onFeatureChange, selectedLevel, selectedClass})
         <label className="createLabel">Character Features & Traits</label>
         <textarea type="text" className="featureInput" id="features" placeholder="Enter the features and traits of your character" 
             onChange={(e) => onFeatureChange(e.target.value)} 
-            value = {featureList}
+            value = {displayFeatures(featureList)}
         ></textarea>
         
         </>
@@ -55,3 +55,12 @@ function CharFeatureInput({onFeatureChange, selectedLevel, selectedClass})
 
 }
 export default CharFeatureInput;
+
+
+function displayFeatures(features) {
+    let featureString = "";
+    for (let i = 0; i < features.length; i++) {
+        featureString += features[i] + "\n";
+    }
+    return featureString;
+}
