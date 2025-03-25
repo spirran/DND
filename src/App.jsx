@@ -18,7 +18,7 @@ function App() {
     img:"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
   };
   const [characterList, setCharacterList] = useState([]);
-  let index = 0;
+
 
   // Load character list from localStorage
   useEffect(() => {
@@ -74,10 +74,10 @@ function App() {
         }
       }
       
-      // Check for deleted
+      // Check for delete
       const deletedCharacterName = window.localStorage.getItem('deleteCharacter');
       if (deletedCharacterName) {
-        // Update the state to remove deleted character
+        // Update the state to remove
         setCharacterList(prevList => {
           const updatedList = prevList.filter(char => char.name !== deletedCharacterName);
           
@@ -94,7 +94,7 @@ function App() {
 
     checkForUpdates();
 
-    // Set up event listener for storage changes
+    // event listener for storage change
     window.addEventListener('storage', checkForUpdates);
 
     const intervalId = setInterval(checkForUpdates, 1000);
