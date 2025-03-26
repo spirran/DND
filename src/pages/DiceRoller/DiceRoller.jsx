@@ -6,6 +6,7 @@
  * @requires React
  */
 
+import CharacterBrowser from '../FrontPage/FrontPageComponents/CharacterBrowser';
 import './DiceRoller.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -42,13 +43,13 @@ function NavButton({ url, text }) {
  * Component for character browser
  * @returns {React.ReactElement} Character browser component
  */
-function CharacterBrowser() {
+/*function CharacterBrowser() {
     return (
         <div className='browser-wrapper'>
 
         </div>
     );
-}
+}*/
 
 /**
  * This function will "paint" the dices and make every button to have a listner
@@ -370,7 +371,30 @@ function MainDice() {
  * Renders header, dice roller and character browser
  * @returns {React.ReactElement} DiceRoller component
  */
-function DiceRoller() {
+function DiceRoller({currentCharacterList}) {
+
+     // Local state to force refresh when character change
+     const [characters, setCharacters] = useState(currentCharacterList);
+    
+     // Update when prop changes
+     useEffect(() => {
+         setCharacters(currentCharacterList);
+     }, [currentCharacterList]);
+     
+     // Listen for storage events to handle changes
+     useEffect(() => {
+         const handleStorageChange = () => {
+             // force rerender with the latest data
+             setCharacters([...currentCharacterList]);
+         };
+         
+         window.addEventListener('storage', handleStorageChange);
+         
+         return () => {
+             window.removeEventListener('storage', handleStorageChange);
+         };
+     }, [currentCharacterList]);
+
     return (
         <>
             <RollHistoryProvider>

@@ -126,7 +126,8 @@ function App() {
       onCharacterChange = {handleCharacterChange}
       />} />
       <Route path="/CharSheet" element={<CharSheet />} />
-      <Route path="/DiceRoller" element={<DiceRoller />} />
+      <Route path="/DiceRoller" element={<DiceRoller 
+        currentCharacterList = {characterList}/>} />
     </Route>
   );
   

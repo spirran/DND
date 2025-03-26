@@ -15,7 +15,6 @@ html, body, #root {
     display: flex;
     height: 100%;
     overflow: hidden;
-    height: 100%;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
