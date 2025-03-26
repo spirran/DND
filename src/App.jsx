@@ -1,3 +1,8 @@
+/**
+ * @file App.jsx
+ * @description Root component of the D&D Character Builder app, handling routing and character management.
+ */
+
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import './App.css'
 import FrontPage from './pages/FrontPage/FrontPage.jsx'
@@ -5,6 +10,15 @@ import CharSheet from './pages/CharSheet/CharSheet.jsx';
 import CreateChar from './pages/CreateChar/CreateChar.jsx';
 import DiceRoller from './pages/DiceRoller/DiceRoller.jsx';
 import React, { useState, useEffect } from 'react';
+
+/**
+ * @typedef {Object} Character
+ */
+
+/**
+ * Root component of the app.
+ * @returns {JSX.Element} The App component.
+ */
 
 function App() {
   let defaultCharacter = {
@@ -20,7 +34,9 @@ function App() {
   const [characterList, setCharacterList] = useState([]);
 
 
-  // Load character list from localStorage
+  /**
+   * Load character list from localStorage
+   */ 
   useEffect(() => {
     const loadCharactersFromStorage = () => {
       try {
@@ -106,6 +122,11 @@ function App() {
     };
   }, []);
 
+  /**
+   * Handles the addition of a new character.
+   * @param {Character} character - The character to be added
+   */
+
   const handleCharacterChange = (character) => {
     const newCharacterList = [...characterList];
     newCharacterList.push(character);
@@ -126,7 +147,8 @@ function App() {
       onCharacterChange = {handleCharacterChange}
       />} />
       <Route path="/CharSheet" element={<CharSheet />} />
-      <Route path="/DiceRoller" element={<DiceRoller />} />
+      <Route path="/DiceRoller" element={<DiceRoller 
+        currentCharacterList = {characterList}/>} />
     </Route>
   );
   

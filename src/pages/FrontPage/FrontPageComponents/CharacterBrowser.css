@@ -33,13 +33,15 @@
     object-fit: cover;
     border-radius: 50%;
     border: 0.1rem solid black;
-    transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out, filter 0.2s ease;
+    filter: brightness(100%);
   }
 
 .browser-card:hover .browser-portrait {
     cursor: pointer;
     transform: scale(1.1);
-    border-color: rgb(240, 169, 63);
+    border-color: black;
+    filter: brightness(115%);
 }
 
 .hidden-text {
