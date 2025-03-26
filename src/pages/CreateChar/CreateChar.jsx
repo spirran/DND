@@ -14,10 +14,19 @@ import ClassLevelInput from './components/CreateChar/ClassLevelInput';
 import AlignmentDropdown from './components/CreateChar/AlignmentDropdown';
 import CharFeatureInput from './components/CreateChar/CharFeatures';
 import CharEquipmentInput from './components/CreateChar/CharEquipment';
-
+import CharImageInput from './components/CreateChar/CharImageInput';
+import SelectAttrCheckbox from './components/CreateChar/selectAttrCheckbox';
+/**
+ * 
+ * @param {onCharacterChange} onCharacterChange event handler prop from parent component for when a character is created
+ * @returns the CreateChar component which is the main/parent component of the CreateChar page which contains other smaller components
+ */
 function CreateChar({ onCharacterChange }) {
     const navigate = useNavigate();
 
+    /**
+     *  Local state variables to store the current character information
+     */
     const [currentClass, setCurrentClass] = useState("Barbarian");
     const [currentLevel, setCurrentLevel] = useState(1);
     const [currentRace, setCurrentRace] = useState("Dragonborn");
@@ -28,19 +37,30 @@ function CreateChar({ onCharacterChange }) {
     const [currentAlignment, setCurrentAlignment] = useState("Neutral");
 
     const [currentAttributes, setCurrentAttributes] = useState([10, 10, 10, 10, 10, 10]);
-
+    const[currentImage, setCurrentImage] = useState("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY");
     const [character, setCharacter] = useState(null);
+    const [useStandard,setUseStandard] = useState(false);
 
+    /**
+     * 
+     * @param {integer} index the index of the attribute to be changed 
+     * @param {integer} value value of the attribute to be changed
+     */
     const handleAttrChange = (index, value) => {
         const updatedAttributes = [...currentAttributes];
         updatedAttributes[index] = value;
+        console.log(updatedAttributes);
         setCurrentAttributes(updatedAttributes);
 
     };
-
+/*
+    const changeStandard = (state) =>
+    {
+        setUseStandard(state);   
+    }
+*/
     const handleInput = (character) =>
     {
-        alert(character.name.length);
         if(character.name.length <= 0 || character.name.length > 20)
         {
             alert("Name must be between 1 and 20 characters");
@@ -71,7 +91,10 @@ function CreateChar({ onCharacterChange }) {
         return true;
     }
 
-
+/**
+ * function called when the Submit button is clicked
+ * it creates a new character object and sends it to the parent component
+ */
     const handleSubmit = () => {
         const newCharacter = {
             name: currentName,
@@ -83,7 +106,7 @@ function CreateChar({ onCharacterChange }) {
             equipment:currentEquipment,
             features: currentFeatures,
             alignment: currentAlignment,
-            img: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
+            img: currentImage
         };
 
         if(handleInput(newCharacter) == true)
@@ -99,6 +122,9 @@ function CreateChar({ onCharacterChange }) {
        
     };
 
+    /**
+     * useEffect hook that navigates back to the front page after the character has been submitted
+     */
     useEffect(() => {
         if (character) {
             navigate('/'); // Navigate back to the front page after submitting
@@ -136,11 +162,15 @@ function CreateChar({ onCharacterChange }) {
                             />
                         </div>
                     </section>
-
+                    <SelectAttrCheckbox 
+                    onSelectChange={(state) => setUseStandard(state)}
+                    useStandard={useStandard}
+                    />
 
                     <Attributes
                         onAttrChange={handleAttrChange}
                         currentAttributes={currentAttributes}
+                        selectStandard={useStandard}
                     />
 
                     <CharDescriptionInput
@@ -159,8 +189,14 @@ function CreateChar({ onCharacterChange }) {
                     </Link>
                 </section>
                 <section id="rightCreateSection">
+                    <CharImageInput 
+                    onImageChange={(newImage) => setCurrentImage(newImage)}
+                    selectedImage={currentImage}
+                    />
                     <CharFeatureInput
                         onFeatureChange={(newFeatures) => setCurrentFeatures(newFeatures)}
+                        selectedClass={currentClass}
+                        selectedLevel={currentLevel}
                     />
 
                     <CharEquipmentInput
@@ -175,6 +211,11 @@ function CreateChar({ onCharacterChange }) {
     );
 };
 
+/**
+ * 
+ * @param {string} value the value to be tested
+ * @return {boolean} whether the value is a number or not
+ */
 function isNumeric(value) {
     //Regex from: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
     return /^-?\d+$/.test(value);

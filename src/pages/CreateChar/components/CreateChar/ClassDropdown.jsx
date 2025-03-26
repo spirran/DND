@@ -36,7 +36,7 @@ function ClassDropdown({selectedClass, onClassChange}) {
     return (
         <> 
         <section id="classSection">
-        <label className="createLabel">Select Class:</label>
+        <label className="createLabel">Select Class:
             <select 
                 id="classSelect" 
                 onChange={(e) => onClassChange(e.target.value)} 
@@ -48,6 +48,7 @@ function ClassDropdown({selectedClass, onClassChange}) {
                     </option>
                 ))}
             </select>
+        </label>
         </section>
         </>
     );
