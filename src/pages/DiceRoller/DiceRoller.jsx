@@ -8,8 +8,8 @@
 
 import './DiceRoller.css';
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import backgroundImg from '../../assets/images/front-background.jpg';
+import { Link } from 'react-router-dom';
+import dndLogo from '../../assets/images/dnd-logo2.png';
 
 /**
  * The apps header and title
@@ -19,7 +19,7 @@ function Header() {
     return (
         <div className="header-wrapper">
             <header>
-                <h1>D&D Character Builder</h1>
+                <img src={dndLogo} alt="D&D Logo" className="dnd-logo-front" />
                 <div className="nav-buttons">
                     <NavButton url="/" text="Home" />
                     <NavButton url="/CreateChar" text="Create New Character" />
