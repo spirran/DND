@@ -1,3 +1,8 @@
+/**
+ * @file App.jsx
+ * @description Root component of the D&D Character Builder app, handling routing and character management.
+ */
+
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import './App.css'
 import FrontPage from './pages/FrontPage/FrontPage.jsx'
@@ -5,6 +10,11 @@ import CharSheet from './pages/CharSheet/CharSheet.jsx';
 import CreateChar from './pages/CreateChar/CreateChar.jsx';
 import DiceRoller from './pages/DiceRoller/DiceRoller.jsx';
 import React, { useState, useEffect } from 'react';
+
+/**
+ * Root component of the app.
+ * @returns {JSX.Element} The App component.
+ */
 
 function App() {
   let defaultCharacter = {
