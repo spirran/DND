@@ -1,12 +1,14 @@
+// Dependencies
+// 1. React
 import React, { useState, useEffect } from 'react';
-import './CreateChar.css';
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-
+//2. Styling
+import './CreateChar.css';
+//3. Components
 import CreateCharHeader from './components/CreateChar/CreateCharHeader';
 import ClassDropdown from './components/CreateChar/ClassDropdown';
 import RaceDropdown from './components/CreateChar/RaceDropdown';
-//import SkillDropdown from './components/CreateChar/SkillDropdown';
 import Attributes from './components/CreateChar/CharAttributes';
 import CharNameInput from './components/CreateChar/CharNameInput';
 import CharDescriptionInput from './components/CreateChar/CharacterDescriptionInput';
@@ -17,10 +19,19 @@ import CharEquipmentInput from './components/CreateChar/CharEquipment';
 import CharImageInput from './components/CreateChar/CharImageInput';
 import SelectAttrCheckbox from './components/CreateChar/selectAttrCheckbox';
 /**
+ * CreateChar Component
  * 
- * @param {onCharacterChange} onCharacterChange event handler prop from parent component for when a character is created
- * @returns the CreateChar component which is the main/parent component of the CreateChar page which contains other smaller components
+ * This component represents the main character creation page in the application.
+ * It allows users to input various details about their character, such as name, class, race, attributes, and more.
+ * The component is composed of several child components that handle specific parts of the character creation process.
+ * 
+ * @component
+ * @param {Object} props - The props object.
+ * @param {Function} props.onCharacterChange - Event handler prop from the parent component for when a character is created.
+ * 
+ * @returns {JSX.Element} The CreateChar component.
  */
+
 function CreateChar({ onCharacterChange }) {
     const navigate = useNavigate();
 
@@ -42,10 +53,12 @@ function CreateChar({ onCharacterChange }) {
     const [useStandard,setUseStandard] = useState(false);
 
     /**
-     * 
-     * @param {integer} index the index of the attribute to be changed 
-     * @param {integer} value value of the attribute to be changed
-     */
+ * Handles the change of a specific attribute value.
+ * 
+ * @function
+ * @param {number} index - The index of the attribute to be changed.
+ * @param {number} value - The new value of the attribute.
+ */
     const handleAttrChange = (index, value) => {
         const updatedAttributes = [...currentAttributes];
         updatedAttributes[index] = value;
@@ -53,12 +66,19 @@ function CreateChar({ onCharacterChange }) {
         setCurrentAttributes(updatedAttributes);
 
     };
-/*
-    const changeStandard = (state) =>
-    {
-        setUseStandard(state);   
-    }
-*/
+
+/**
+ * Validates the input for the character creation form.
+ * 
+ * @function
+ * @param {Object} character - The character object to validate.
+ * @param {string} character.name - The name of the character.
+ * @param {Array<number>} character.attributes - The array of character attributes.
+ * @param {number} character.level - The level of the character.
+ * 
+ * @returns {boolean} Returns true if the input is valid, otherwise false.
+ */
+
     const handleInput = (character) =>
     {
         if(character.name.length <= 0 || character.name.length > 20)
@@ -92,8 +112,10 @@ function CreateChar({ onCharacterChange }) {
     }
 
 /**
- * function called when the Submit button is clicked
- * it creates a new character object and sends it to the parent component
+ * Handles the submission of the character creation form.
+ * 
+ * @function
+ * Creates a new character object and sends it to the parent component if the input is valid.
  */
     const handleSubmit = () => {
         const newCharacter = {
@@ -111,7 +133,6 @@ function CreateChar({ onCharacterChange }) {
 
         if(handleInput(newCharacter) == true)
         {
-            alert("Character is valid");
             setCharacter(newCharacter);
             onCharacterChange(newCharacter); // Update the character list
         }
@@ -122,9 +143,16 @@ function CreateChar({ onCharacterChange }) {
        
     };
 
-    /**
-     * useEffect hook that navigates back to the front page after the character has been submitted
-     */
+   /**
+ * useEffect Hook
+ * 
+ * Navigates back to the front page after the character has been successfully submitted.
+ * 
+ * @function
+ * @param {Object} character - The character object that was submitted.
+ * @param {Function} navigate - The navigation function from react-router-dom.
+ */
+
     useEffect(() => {
         if (character) {
             navigate('/'); // Navigate back to the front page after submitting
@@ -140,7 +168,6 @@ function CreateChar({ onCharacterChange }) {
                 <section id="leftCreateSection">
                     <CharNameInput
                         onNameChange={(newName) => setCurrentName(newName)}
-                        selectedName={currentName}
                     />
 
                     <RaceDropdown
@@ -212,9 +239,12 @@ function CreateChar({ onCharacterChange }) {
 };
 
 /**
+ * Checks if a given value is numeric.
  * 
- * @param {string} value the value to be tested
- * @return {boolean} whether the value is a number or not
+ * @function
+ * @param {string} value - The value to be tested.
+ * 
+ * @returns {boolean} Returns true if the value is a valid number, otherwise false.
  */
 function isNumeric(value) {
     //Regex from: https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number

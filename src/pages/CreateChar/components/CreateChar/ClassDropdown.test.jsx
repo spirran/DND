@@ -48,4 +48,79 @@ describe('ClassDropdown', () => {
         });
     });
 
+    it('calls onClassChange when a class is selected', async () => {
+        const mockClasses = {
+            results: [
+                { name: 'Barbarian' },
+                { name: 'Wizard' },
+                { name: 'Rogue' },
+            ],
+        };
+
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve(mockClasses),
+            })
+        );
+
+        render(<ClassDropdown selectedClass="" onClassChange={mockOnClassChange} />);
+
+        await waitFor(() => {
+            expect(screen.getByText('Barbarian')).toBeInTheDocument();
+        });
+
+        const dropdown = screen.getByLabelText('Select Class:');
+        dropdown.value = 'Wizard';
+        dropdown.dispatchEvent(new Event('change', { bubbles: true })); //check if change event in parent component is called
+
+        expect(mockOnClassChange).toHaveBeenCalledWith('Wizard');
+    });
+
+    it('displays an empty dropdown when fetch fails', async () => {
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                ok: false,
+            })
+        );
+
+        render(<ClassDropdown selectedClass="" onClassChange={mockOnClassChange} />);
+
+        await waitFor(() => {
+            expect(screen.queryByText('Barbarian')).not.toBeInTheDocument();
+            expect(screen.queryByText('Wizard')).not.toBeInTheDocument();
+            expect(screen.queryByText('Rogue')).not.toBeInTheDocument();
+        });
+
+        const dropdown = screen.getByLabelText('Select Class:');
+        expect(dropdown.children.length).toBe(0);
+    });
+
+    it('renders the correct selected class', async () => {
+        const mockClasses = {
+            results: [
+                { name: 'Barbarian' },
+                { name: 'Wizard' },
+                { name: 'Rogue' },
+            ],
+        };
+
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve(mockClasses),
+            })
+        );
+
+        render(<ClassDropdown selectedClass="Wizard" onClassChange={mockOnClassChange} />);
+
+        await waitFor(() => {
+            expect(screen.getByText('Barbarian')).toBeInTheDocument();
+            expect(screen.getByText('Wizard')).toBeInTheDocument();
+            expect(screen.getByText('Rogue')).toBeInTheDocument();
+        });
+
+        const dropdown = screen.getByLabelText('Select Class:');
+        expect(dropdown.value).toBe('Wizard');
+    });
 });
