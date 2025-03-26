@@ -12,6 +12,10 @@ import DiceRoller from './pages/DiceRoller/DiceRoller.jsx';
 import React, { useState, useEffect } from 'react';
 
 /**
+ * @typedef {Object} Character
+ */
+
+/**
  * Root component of the app.
  * @returns {JSX.Element} The App component.
  */
@@ -30,7 +34,9 @@ function App() {
   const [characterList, setCharacterList] = useState([]);
 
 
-  // Load character list from localStorage
+  /**
+   * Load character list from localStorage
+   */ 
   useEffect(() => {
     const loadCharactersFromStorage = () => {
       try {
@@ -115,6 +121,11 @@ function App() {
       clearInterval(intervalId);
     };
   }, []);
+
+  /**
+   * Handles the addition of a new character.
+   * @param {Character} character - The character to be added
+   */
 
   const handleCharacterChange = (character) => {
     const newCharacterList = [...characterList];
