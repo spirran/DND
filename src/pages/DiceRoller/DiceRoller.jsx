@@ -361,14 +361,14 @@ function MainDice() {
  */
 function DiceRoller() {
     return (
-        <>
+        <>  
             <RollHistoryProvider>
                 <Header />
                 <div id='main-section-wrapper'>
                     <CharacterBrowser />
                     <MainDice />
                 </div>
-            </RollHistoryProvider>
+            </RollHistoryProvider>  
         </>
     );
 }

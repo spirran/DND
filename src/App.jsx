@@ -1,3 +1,8 @@
+/**
+ * @file App.jsx
+ * @description Root component of the D&D Character Builder app, handling routing and character management.
+ */
+
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import './App.css'
 import FrontPage from './pages/FrontPage/FrontPage.jsx'
@@ -5,6 +10,15 @@ import CharSheet from './pages/CharSheet/CharSheet.jsx';
 import CreateChar from './pages/CreateChar/CreateChar.jsx';
 import DiceRoller from './pages/DiceRoller/DiceRoller.jsx';
 import React, { useState, useEffect } from 'react';
+
+/**
+ * @typedef {Object} Character
+ */
+
+/**
+ * Root component of the app.
+ * @returns {JSX.Element} The App component.
+ */
 
 function App() {
   let defaultCharacter = {
@@ -18,9 +32,11 @@ function App() {
     img:"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6BxQy30QTJ0xs2dH44TQPwcota6v4dFDO479kTRptRCJw8aCY"
   };
   const [characterList, setCharacterList] = useState([]);
-  let index = 0;
 
-  // Load character list from localStorage
+
+  /**
+   * Load character list from localStorage
+   */ 
   useEffect(() => {
     const loadCharactersFromStorage = () => {
       try {
@@ -74,10 +90,10 @@ function App() {
         }
       }
       
-      // Check for deleted
+      // Check for delete
       const deletedCharacterName = window.localStorage.getItem('deleteCharacter');
       if (deletedCharacterName) {
-        // Update the state to remove deleted character
+        // Update the state to remove
         setCharacterList(prevList => {
           const updatedList = prevList.filter(char => char.name !== deletedCharacterName);
           
@@ -94,7 +110,7 @@ function App() {
 
     checkForUpdates();
 
-    // Set up event listener for storage changes
+    // event listener for storage change
     window.addEventListener('storage', checkForUpdates);
 
     const intervalId = setInterval(checkForUpdates, 1000);
@@ -105,6 +121,11 @@ function App() {
       clearInterval(intervalId);
     };
   }, []);
+
+  /**
+   * Handles the addition of a new character.
+   * @param {Character} character - The character to be added
+   */
 
   const handleCharacterChange = (character) => {
     const newCharacterList = [...characterList];
@@ -126,7 +147,8 @@ function App() {
       onCharacterChange = {handleCharacterChange}
       />} />
       <Route path="/CharSheet" element={<CharSheet />} />
-      <Route path="/DiceRoller" element={<DiceRoller />} />
+      <Route path="/DiceRoller" element={<DiceRoller 
+        currentCharacterList = {characterList}/>} />
     </Route>
   );
   

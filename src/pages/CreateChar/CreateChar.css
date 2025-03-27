@@ -1,12 +1,13 @@
 html, body, #root {
     height: 100%;
     margin: 0;
+    background-color:rgb(242, 232, 231);
 }
 
 #attrDiv{
     
     margin-right:2rem;
-    margin-top:3rem;
+    margin-top:1rem;
     border-radius: 0.5rem;
     padding:0.2rem;
     border-width: 0.15rem;
@@ -17,14 +18,23 @@ html, body, #root {
 {
     width:2rem;
 }
+.selectAttrCheckLabel
+{
+    margin-top:2rem;
+}
 
 .createPage-wrapper
 {
-    margin:2rem;
+    margin:4rem;
+    margin-left:20rem;
     border-style:solid;
     border-radius:15%;
-    padding:3rem;
+    padding:5rem;
     border-width: 0.1rem;
+    width:70rem;
+    display:flex;
+    background-color:white;
+    box-shadow: 0.2rem 0.1rem 0.1rem rgb(61, 27, 27);
 }
 
 label,select{
@@ -67,7 +77,9 @@ flex-direction: column;
 
 #createHeaderButton
 {
-margin-top:1.5rem;
+margin-top:2rem;
+margin-left:10rem;
+margin-bottom:2rem;
 }
 
 .classSection{
@@ -91,22 +103,55 @@ margin-top:1.5rem;
     height:10rem;
 }
 
+.equipmentInput{
+    margin-bottom:1rem;
+    width:20rem;
+    height:10rem;
+}
+
+.featureInput{
+    margin-bottom:1rem;
+    width:20rem;
+    height:10rem;
+}
+
+
+.imageInput{
+    margin-bottom:1rem;
+    margin-top:2rem;
+    width:20rem;
+    
+}
+
+.imageSection
+{
+    display:flex;
+    flex-direction:column;
+}
+
+.charImage{
+    width:15rem;
+    height:15rem;
+    margin-top:1rem;
+}
 .createHeader-wrapper{
-    height: 6rem;
+    height: 7rem;
     width:100%;
     border-bottom: 0.1rem solid black;
+    background-color:rgba(255, 255, 255, 0.6);
 }
 .createPageHeader
 {
     display:flex;
-    margin-top:1rem;
 }
 
 .createPageH1{
-margin-left:15rem;
+margin-left:5rem;
 }
 
 #createSubmitButton
 {
-    margin-left:10rem;
+    margin-left:0;
+    background-color:#4caf50;
 }
+

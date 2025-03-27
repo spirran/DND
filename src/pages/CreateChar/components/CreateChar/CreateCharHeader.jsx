@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import logo from '../../../../assets/images/dnd-logo.png';
+import logo from '../../../../assets/images/dnd-logo2.png';
 
 
 function CreateCharHeader()
@@ -11,11 +11,10 @@ function CreateCharHeader()
         <div className="createHeader-wrapper">
             <header className="createPageHeader">
                 <img src={logo} alt="Logo" className="createPage-logo"/>
+                <h1 className="createPageH1">CREATE YOUR CHARACTER!</h1>
                 <Link to={"/"}>
                 <button className="createButton" id="createHeaderButton">Home</button>
                 </Link>
-                
-                <h1 className="createPageH1">Create your character!</h1>
             </header>
         </div>
 
