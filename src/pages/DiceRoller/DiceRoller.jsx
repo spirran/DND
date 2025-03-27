@@ -6,6 +6,7 @@
  * @requires React
  */
 
+import CharacterBrowser from '../FrontPage/FrontPageComponents/CharacterBrowser';
 import './DiceRoller.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -35,17 +36,6 @@ function NavButton({ url, text }) {
         <Link to={url}>
             <button className='nav-button'>{text}</button>
         </Link>
-    );
-}
-
-/**
- * @returns {React.ReactElement} Character browser component
- */
-function CharacterBrowser() {
-    return (
-        <div className='browser-wrapper'>
-
-        </div>
     );
 }
 
