@@ -40,7 +40,7 @@ h1 {
     overflow-y: auto;
 }
 
-#main-section-wrapper {
+#main-section-wrapper-dice-roller {
     display: flex;
     background-size: cover;
     background-position: center;
@@ -58,7 +58,7 @@ h1 {
     position: relative;
 }
 
-#main-section-wrapper::before {
+#main-section-wrapper-dice-roller::before {
     content: "";
     position: absolute;
     top: 0;

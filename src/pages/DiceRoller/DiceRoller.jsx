@@ -364,7 +364,7 @@ function DiceRoller() {
         <>  
             <RollHistoryProvider>
                 <Header />
-                <div id='main-section-wrapper'>
+                <div id='main-section-wrapper-dice-roller'>
                     <CharacterBrowser />
                     <MainDice />
                 </div>
