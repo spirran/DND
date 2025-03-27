@@ -5,12 +5,13 @@
 
 .header-wrapper {
     display: flex;
-    height: 6rem;
+    height: 8rem;
     padding: 1rem;
     border-bottom: 0.1rem solid black;
     overflow: hidden;
     justify-content: flex-start;
     align-items: center;
+    background-color: white;
 }
 
 .front-header-text {
