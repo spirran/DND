@@ -39,7 +39,6 @@ function NavButton({ url, text }) {
 }
 
 /**
- * Component for character browser
  * @returns {React.ReactElement} Character browser component
  */
 function CharacterBrowser() {
