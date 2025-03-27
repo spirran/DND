@@ -1,41 +1,63 @@
+
 import React, { useState, useEffect } from 'react';
 
-
+/**
+ * A React component for managing and displaying character attributes.
+ * 
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {function} props.onAttrChange - Callback function to handle attribute changes. 
+ *                                         It receives the index of the attribute and the new value.
+ * @param {Array<number|string>} props.currentAttributes - An array representing the current values of the attributes.
+ * @param {boolean} props.selectStandard - A flag indicating whether to use the standard array for attribute selection.
+ * 
+ * @returns {JSX.Element} The rendered Attributes component.
+ */
 function Attributes({onAttrChange, currentAttributes, selectStandard})
 {
     const [selectedItems, setSelectedItems] = useState([]);
     const standardArray = [15,14,13,12,10,8];
-    const attr = ["STR","DEX","CON","INT","WIS","CHA"];
+    const attribute = ["STR","DEX","CON","INT","WIS","CHA"];
 if(selectStandard == true)
 {
     return (
         <>
-        <div style={{display:"flex", margintop:"2rem",}}> 
-            {Array.from({ length: 6 }).map((_, index) => (
-                <div id="attrDiv">
-                    <label>{attr[index]}:</label>
-                <select key={index} onChange={(e) => {
-                    const value = parseInt(e.target.value, 10);
+       <div style={{ display: "flex"}}>
+    {Array.from({ length: 6 }).map((_, index) => (
+        <div id="attrDiv" key={index}>
+            <label htmlFor={`attr-select-${index}`}>{attribute[index]}:</label>
+            <select
+                id={`attr-select-${index}`}
+                value={selectedItems[index] ?? ""}
+                onChange={(e) => {
+                    const value = e.target.value === "" ? "" : parseInt(e.target.value, 10);
                     if (!selectedItems.includes(value)) {
                         const updatedItems = [...selectedItems];
                         updatedItems[index] = value;
                         setSelectedItems(updatedItems);
                         onAttrChange(index, value);
-                        console.log("was changed");
+                        console.log("value: " + value + " was changed");
+                        console.log("updatedItems: " + updatedItems);
+                        console.log("selectedItems: " + selectedItems);
                     }
-                }}>
-                    <option value="">--</option>
-                    {standardArray.filter((item) => !selectedItems.includes(item) || selectedItems[index] === item)
-                        .map((item, idx) => (
-                            <option key={idx} value={item}
-                            >{item}
-                            
-                            </option>
-                        ))}
-                </select>
-                </div>
-            ))}
+                }}
+            >
+                <option value="">--</option>
+                {standardArray
+                    .filter(
+                        (item) =>
+                            !selectedItems.includes(item) ||
+                            selectedItems[index] === item
+                    )
+                    .map((item, idx) => (
+                        <option key={idx} value={item}>
+                            {item}
+                        </option>
+                    ))}
+            </select>
         </div>
+    ))}
+</div>
         </>
     );
 }
