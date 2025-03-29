@@ -1,9 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * ClassDropdown React Component
+ * 
+ * This component provides a dropdown menu for selecting a character's Dungeons and Dragons class
+ * by calling the DnD5e API to fetch the list of available classes such as Barbarian, Wizard, etc.
+ * 
+ * @component
+ * @param {Object} props - The component props object.
+ * @param {string} props.selectedClass - The currently selected class.
+ * @param {Function} props.onClassChange - Event handler prop from the parent component for when the class is updated.
+ *
+ * @returns {JSX.Element} The ClassDropdown component.
+ * 
+ */
 function ClassDropdown({selectedClass, onClassChange}) {
     const [classList, setClassList] = useState([]); 
-    //const [selectedClass,setSelectedClass] = useState();
-    useEffect(() => { //inbyggd react grej?
+    
+ //useEffect hook that runs once when the component mounts so there arent multiple API calls
+    useEffect(() => { 
         async function fetchClasses() {
             try {
                 //Instructions from API

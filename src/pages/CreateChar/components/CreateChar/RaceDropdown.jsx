@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
-
+/**
+ * RaceDropdown React Component
+ * 
+ * This component provides a dropdown menu for selecting a character's Dungeons and Dragons race
+ * by calling the DnD5e API to fetch the list of available races such as Dwarf, Elf, etc.
+ * 
+ * @component
+ * @param {Object} props - The component props object.
+ * @param {Function} props.onFeatureChange - Event handler prop from the parent component for when the features are updated.
+ * @param {string} selectedRace - The currently selected character race.
+ * 
+ * @returns {JSX.Element} The RaceDropdown component.
+ */
 function RaceDropdown({selectedRace, onRaceChange}) {
     const [raceList, setRaceList] = useState([]); 
 
-    useEffect(() => { //inbyggd react grej?
+  //useEffect hook that runs once when the component mounts so there arent multiple API calls
+    useEffect(() => { 
         async function fetchRaces() {
             try {
                 //Instructions from API

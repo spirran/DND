@@ -1,4 +1,18 @@
-function SelectAttrCheckbox({onSelectChange, useStandard})
+
+/**
+ * SelectAttrCheckbox React component
+ * 
+ * This component provides a checkbox for the user to select whether to use the standard array method for 
+ * selecting Dungeons and Dragons character attributes.
+ * 
+ * @component
+ * @param {Object} props - The component props object.
+ * @param {Function} props.onSelectChange - Event handler prop from the parent component for when the checkbox state changes.
+ * 
+ * @returns {JSX.Element} The SelectAttrCheckbox component.
+ */
+
+function SelectAttrCheckbox({onSelectChange})
 {
 
     return(

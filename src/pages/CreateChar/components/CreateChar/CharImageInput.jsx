@@ -1,3 +1,18 @@
+/**
+ * CharImageInput React Component
+ * 
+ * This is a component that provides an input field for the user to input a custom image URL for their character
+ * 
+ * @component
+ * @param {Object} props - The component props object.
+ * @param {string} props.selectedImage - The currently selected image URL.
+ * @param {Function} props.onImageChange - Event handler prop from the parent component for when the image URL is updated.
+ * 
+ * @returns {JSX.Element} The CharImageInput component.
+ * 
+ */
+
+
 function CharImageInput({selectedImage,onImageChange})
 {
 

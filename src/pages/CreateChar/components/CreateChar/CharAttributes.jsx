@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from 'react';
 
 /**
- * A React component for managing and displaying character attributes.
+ * Attributes React Component
+ * 
+ * This is a  component that provides input fields or dropdown menues for managing and displaying the character's Dungeons and Dragons attributes.
+ * [Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma]
  * 
  * @component
  * @param {Object} props - The properties passed to the component.
@@ -11,7 +14,7 @@ import React, { useState, useEffect } from 'react';
  * @param {Array<number|string>} props.currentAttributes - An array representing the current values of the attributes.
  * @param {boolean} props.selectStandard - A flag indicating whether to use the standard array for attribute selection.
  * 
- * @returns {JSX.Element} The rendered Attributes component.
+ * @returns {JSX.Element} The Attributes component.
  */
 function Attributes({onAttrChange, currentAttributes, selectStandard})
 {

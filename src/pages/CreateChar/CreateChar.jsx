@@ -19,14 +19,14 @@ import CharEquipmentInput from './components/CreateChar/CharEquipment';
 import CharImageInput from './components/CreateChar/CharImageInput';
 import SelectAttrCheckbox from './components/CreateChar/selectAttrCheckbox';
 /**
- * CreateChar Component
+ * CreateChar React Component
  * 
  * This component represents the main character creation page in the application.
  * It allows users to input various details about their character, such as name, class, race, attributes, and more.
  * The component is composed of several child components that handle specific parts of the character creation process.
  * 
  * @component
- * @param {Object} props - The props object.
+ * @param {Object} props - The component props object.
  * @param {Function} props.onCharacterChange - Event handler prop from the parent component for when a character is created.
  * 
  * @returns {JSX.Element} The CreateChar component.
@@ -191,7 +191,6 @@ function CreateChar({ onCharacterChange }) {
                     </section>
                     <SelectAttrCheckbox 
                     onSelectChange={(state) => setUseStandard(state)}
-                    useStandard={useStandard}
                     />
 
                     <Attributes

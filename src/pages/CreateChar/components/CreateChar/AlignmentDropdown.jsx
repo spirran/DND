@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
-
+/**
+ * AlignmentDropdown React Component
+ * 
+ * This component provides a dropdown menu for selecting a character's Dungeons and Dragons alignment
+ * by calling the DnD5e API to fetch the list of available alignments.
+ * 
+ * @component
+ * @param {Object} props - The component props object.
+ * @param {string} props.selectedAlignment - The currently selected alignment.
+ * @param {Function} props.onAlignmentChange - Event handler prop from the parent component for when the alignment is updated.
+ * @returns {JSX.Element} The AlignmentDropdown component.
+ */
 function AlignmentDropdown({ selectedAlignment, onAlignmentChange }) {
 
     const [alignmentList, setAlignmentList] = useState([]);
 
-    useEffect(() => { //inbyggd react grej?
+    //useEffect hook that runs once when the component mounts so there arent multiple API calls
+    useEffect(() => { 
         async function fetchAlignments() {
             try {
                 //Instructions from API
@@ -16,7 +28,7 @@ function AlignmentDropdown({ selectedAlignment, onAlignmentChange }) {
                     headers: myHeaders,
                     redirect: "follow"
                 };
-                //Vad ska hämtas?
+                
                 const response = await fetch("https://www.dnd5eapi.co/api/alignments/", requestOptions);
 
                 if (!response.ok) {
