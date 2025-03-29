@@ -7,6 +7,22 @@ import {
   getAbilityScoresList
 } from './utils/CharUtils';
 
+/**
+ * Renders the front side of a character sheet
+ * @param {Object} props - Component props
+ * @param {Object} props.character - Character data object
+ * @param {string} props.portraitUrl - URL for character portrait
+ * @param {Function} props.handleInputChange - Function to handle input changes
+ * @param {Function} props.handleClassLevelChange - Function to handle class and level changes
+ * @param {Function} props.handleLevelUp - Function to handle level up action
+ * @param {Function} props.handlePortraitUrlChange - Function to handle portrait URL changes
+ * @param {Function} props.applyPortraitUrl - Function to apply portrait URL to character
+ * @param {Function} props.handlePortraitError - Function to handle portrait loading errors
+ * @param {Function} props.getSavingThrowBonus - Function to calculate saving throw bonus
+ * @param {Function} props.getSkillBonus - Function to calculate skill bonus
+ * @param {Function} props.flipPage - Function to flip character sheet
+ * @returns {JSX.Element} The front of the character sheet
+ */
 function CharSheetFront({
   character,
   portraitUrl,
@@ -20,15 +36,11 @@ function CharSheetFront({
   getSkillBonus,
   flipPage
 }) {
-  // Get list of ability scores
   const abilityScores = getAbilityScoresList();
-  
-  // Get list of skills with abilities
   const skills = getSkillsList();
 
   return (
     <div className="character-sheet frontside">
-      {/* Flip Arrow */}
       <div className="flip-arrow" onClick={flipPage}>
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M9 4L4 9L9 14" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -36,7 +48,6 @@ function CharSheetFront({
         </svg>
       </div>
       
-      {/* Header with Logo and Portrait */}
       <div className="header">
         <div className="header-left">
           <img src={dndLogo} alt="D&D Logo" className="dnd-logo" />
@@ -54,7 +65,6 @@ function CharSheetFront({
                   e.target.style.display = 'none';
                   handlePortraitError();
                   
-                  // Make placeholder visible
                   const placeholder = e.target.parentNode.querySelector('.portrait-placeholder');
                   if (placeholder) placeholder.style.display = 'flex';
                 }}
@@ -78,7 +88,6 @@ function CharSheetFront({
         </div>
       </div>
 
-      {/* Character Info Section */}
       <div className="top-section">
         <div className="char-info">
           <div className="char-info-row">
@@ -184,7 +193,6 @@ function CharSheetFront({
 
       <div className="main-section">
         <div className="left-column">
-          {/* Ability Scores */}
           <div className="ability-scores">
             {abilityScores.map((ability) => (
               <div key={ability} className="ability-score">
@@ -203,7 +211,6 @@ function CharSheetFront({
             ))}
           </div>
 
-          {/* Saving Throws */}
           <div className="saving-throws">
             <h3>SAVING THROWS</h3>
             {abilityScores.map((ability) => (
@@ -225,7 +232,6 @@ function CharSheetFront({
         </div>
 
         <div className="middle-column">
-          {/* Proficiency Bonus */}
           <div className="proficiency-box">
             <div className="proficiency-value">
               {`+${character.proficiencyBonus}`}
@@ -233,7 +239,6 @@ function CharSheetFront({
             <label>PROFICIENCY BONUS</label>
           </div>
           
-          {/* Combat Stats */}
           <div className="combat-stats">
             <div className="combat-stat-row">
               <div className="combat-stat">
@@ -308,7 +313,6 @@ function CharSheetFront({
             </div>
           </div>
 
-          {/* Skills */}
           <div className="skills">
             <h3>SKILLS</h3>
             {skills.map((skill) => (
@@ -330,7 +334,6 @@ function CharSheetFront({
         </div>
 
         <div className="right-column">
-          {/* Level Up Button */}
           <button
             className="level-up-button"
             onClick={handleLevelUp}
@@ -338,7 +341,6 @@ function CharSheetFront({
             Level Up
           </button>
 
-          {/* Features & Traits*/}
           <div className="features-section">
             <h3>FEATURES & TRAITS</h3>
             <textarea
@@ -349,7 +351,6 @@ function CharSheetFront({
             />
           </div>
 
-          {/* Equipment */}
           <div className="equipment-section">
             <h3>EQUIPMENT</h3>
             <textarea
@@ -360,7 +361,6 @@ function CharSheetFront({
             />
           </div>
 
-          {/* Description */}
           <div className="description-section">
             <h3>DESCRIPTION</h3>
             <textarea

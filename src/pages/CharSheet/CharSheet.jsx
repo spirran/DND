@@ -14,7 +14,13 @@ import './styles/CharSheet.css';
 import './styles/CharSheetFront.css';
 import './styles/CharSheetBack.css';
 
-// NavButton component
+/**
+ * Navigation button component for character sheet
+ * @param {Object} props - Component props
+ * @param {string} props.url - Navigation URL
+ * @param {string} props.text - Button text
+ * @returns {JSX.Element} Navigation button
+ */
 function NavButton({ url, text }) {
   return (
     <Link to={url}>
@@ -23,6 +29,10 @@ function NavButton({ url, text }) {
   );
 }
 
+/**
+ * Character sheet component for displaying and editing character information
+ * @returns {JSX.Element} Character sheet page
+ */
 function CharSheet() {
   const location = useLocation();
   const characterFromBrowser = location.state?.character;
@@ -36,7 +46,6 @@ function CharSheet() {
   const levelSoundRef = useRef(new Audio(levelUpSound));
   const flipSoundRef = useRef(new Audio(flipSheetSound));
 
-  // Load character from browser data
   useEffect(() => {
     if (characterFromBrowser) {
       const updatedCharacter = loadCharacterFromBrowser(characterFromBrowser);
@@ -45,15 +54,15 @@ function CharSheet() {
     }
   }, [characterFromBrowser]);
 
-  // sync portraitUrl state with character state
   useEffect(() => {
     setPortraitUrl(character.portraitUrl);
   }, [character.portraitUrl]);
 
-  // Handle flip animation
+  /**
+   * Handles the character sheet flip animation
+   */
   const flipPage = () => {
-    // flip sound
-    flipSoundRef.current.currentTime = 0; // reset sound
+    flipSoundRef.current.currentTime = 0;
     flipSoundRef.current.play().catch(err => {
       console.error("Error playing flip sound:", err);
     });
@@ -64,20 +73,20 @@ function CharSheet() {
     }, 300);
   };
 
-  // handleInputChange function for nested objects
+  /**
+   * Handles input changes for character properties
+   * @param {Object} e - Event object
+   */
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // handle nested props
     if (name.includes('.')) {
       const parts = name.split('.');
       const [parent, ...nestedProps] = parts;
 
       setCharacter(prevCharacter => {
-        // create copy
         const newParentObject = JSON.parse(JSON.stringify(prevCharacter[parent] || {}));
 
-        // navigate to nested property
         let currentObj = newParentObject;
         for (let i = 0; i < nestedProps.length - 1; i++) {
           if (!currentObj[nestedProps[i]]) {
@@ -86,7 +95,6 @@ function CharSheet() {
           currentObj = currentObj[nestedProps[i]];
         }
 
-        // set value and return to updated state
         const lastProp = nestedProps[nestedProps.length - 1];
         currentObj[lastProp] = type === 'checkbox' ? checked : value;
 
@@ -96,7 +104,6 @@ function CharSheet() {
         };
       });
     } else {
-      // handle non-nested prop
       setCharacter(prevCharacter => ({
         ...prevCharacter,
         [name]: type === 'checkbox' ? checked : value
@@ -104,7 +111,11 @@ function CharSheet() {
     }
   };
 
-  // Calculate saving throw bonus
+  /**
+   * Calculates saving throw bonus for a given ability
+   * @param {string} ability - Ability name
+   * @returns {number} Saving throw bonus
+   */
   const getSavingThrowBonus = (ability) => {
     const abilityMod = getAbilityModifier(character[ability]);
     const isProficient = character[`${ability}Save`];
@@ -114,7 +125,12 @@ function CharSheet() {
       : abilityMod;
   };
 
-  // Calculate skill bonus
+  /**
+   * Calculates skill bonus based on ability and proficiency
+   * @param {string} skillName - Skill name
+   * @param {string} abilityName - Associated ability name
+   * @returns {number} Skill bonus
+   */
   const getSkillBonus = (skillName, abilityName) => {
     const abilityMod = getAbilityModifier(character[abilityName]);
     const isProficient = character[skillName];
@@ -124,15 +140,16 @@ function CharSheet() {
       : abilityMod;
   };
 
-  // parse class and level from input
+  /**
+   * Handles changes to the class and level field
+   * @param {Object} e - Event object
+   */
   const handleClassLevelChange = (e) => {
     const value = e.target.value;
 
-    // extract level from string
     const match = value.match(/^(.*?)\s+(\d+)$/);
 
     if (match) {
-      // extract class and level
       const className = match[1].trim();
       const levelValue = parseInt(match[2], 10);
       const newProficiencyBonus = calculateProficiencyBonus(levelValue);
@@ -144,7 +161,6 @@ function CharSheet() {
         proficiencyBonus: newProficiencyBonus
       });
     } else {
-      // If no level found, assume class only
       setCharacter({
         ...character,
         class: value,
@@ -152,57 +168,56 @@ function CharSheet() {
     }
   };
 
-  // handle level up button (cool fireworks edition)
+  /**
+   * Handles level up action with animations and sound effects
+   */
   const handleLevelUp = () => {
-    // play level up sound
-    levelSoundRef.current.currentTime = 0; // Reset sound to start
+    levelSoundRef.current.currentTime = 0;
     levelSoundRef.current.play().catch(err => {
       console.error("Error playing sound:", err);
     });
 
-    // increases level by 1, up to max 20
     const nextLevel = Math.min(parseInt(character.level) + 1, 20);
-
-    // calc new proficiency bonus
     const newProficiencyBonus = calculateProficiencyBonus(nextLevel);
 
-    // updates with new level and proficiency bonus
     setCharacter({
       ...character,
       level: nextLevel,
       proficiencyBonus: newProficiencyBonus
     });
 
-    // Store the new level for display
     setNewLevel(nextLevel);
-
-    // Trigger fireworks animation
     setShowFireworks(true);
-
-    // Animate the button
     setButtonAnimating(true);
+    
     setTimeout(() => {
       setButtonAnimating(false);
     }, 1200);
 
-    // Show level notification after a delay to allow animations to be noticed first
     setTimeout(() => {
       alert(`${character.name} has reached level ${nextLevel}!`);
     }, 2000);
   };
 
-  // handelr fireworks completion
+  /**
+   * Handles fireworks animation completion
+   */
   const handleFireworksComplete = () => {
     setShowFireworks(false);
     setNewLevel(null);
   };
 
-  // Update portrait URL in state
+  /**
+   * Updates portrait URL in state
+   * @param {Object} e - Event object
+   */
   const handlePortraitUrlChange = (e) => {
     setPortraitUrl(e.target.value);
   };
 
-  // Apply portrait URL to character
+  /**
+   * Applies portrait URL to character
+   */
   const applyPortraitUrl = () => {
     setCharacter({
       ...character,
@@ -210,7 +225,9 @@ function CharSheet() {
     });
   };
 
-  // Handle portrait error
+  /**
+   * Handles portrait loading error
+   */
   const handlePortraitError = () => {
     alert('Error loading image. Please paste in a working address.');
     setPortraitUrl('');
@@ -220,7 +237,9 @@ function CharSheet() {
     });
   };
 
-  // Delete character from storage
+  /**
+   * Deletes character from storage after confirmation
+   */
   const handleDeleteCharacter = () => {
     if (!characterFromBrowser) return;
 
@@ -235,7 +254,9 @@ function CharSheet() {
     }
   };
 
-  // Save character to storage
+  /**
+   * Saves character to storage
+   */
   const handleSaveCharacter = () => {
     const message = saveCharacter(
       character,
