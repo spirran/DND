@@ -40,18 +40,6 @@ function NavButton({ url, text }) {
 }
 
 /**
- * Component for character browser
- * @returns {React.ReactElement} Character browser component
- */
-/*function CharacterBrowser() {
-    return (
-        <div className='browser-wrapper'>
-
-        </div>
-    );
-}*/
-
-/**
  * This function will "paint" the dices and make every button to have a listner
  * 
  * @param {Object} props - Component props 
@@ -371,43 +359,18 @@ function MainDice() {
  * Renders header, dice roller and character browser
  * @returns {React.ReactElement} DiceRoller component
  */
-function DiceRoller({currentCharacterList}) {
-
-     // Local state to force refresh when character change
-     const [characters, setCharacters] = useState(currentCharacterList);
-    
-     // Update when prop changes
-     useEffect(() => {
-         setCharacters(currentCharacterList);
-     }, [currentCharacterList]);
-     
-     // Listen for storage events to handle changes
-     useEffect(() => {
-         const handleStorageChange = () => {
-             // force rerender with the latest data
-             setCharacters([...currentCharacterList]);
-         };
-         
-         window.addEventListener('storage', handleStorageChange);
-         
-         return () => {
-             window.removeEventListener('storage', handleStorageChange);
-         };
-     }, [currentCharacterList]);
-
+function DiceRoller() {
     return (
-        <>
-            <div className='dice-roller-wrapper'>
-                <RollHistoryProvider>
-                    <Header />
-                    <div id='main-section-wrapper'>
-                        <CharacterBrowser />
-                        <MainDice />
-                    </div>
-                </RollHistoryProvider>
-            </div>
+        <>  
+            <RollHistoryProvider>
+                <Header />
+                <div id='main-section-wrapper-dice-roller'>
+                    <CharacterBrowser />
+                    <MainDice />
+                </div>
+            </RollHistoryProvider>  
         </>
     );
 }
-
+ 
 export default DiceRoller;

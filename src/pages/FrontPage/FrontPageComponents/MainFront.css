@@ -10,7 +10,7 @@
 .mainfront-text-wrapper {
     display: flex;
     background-color: rgba(255, 255, 255, 0.85);
-    margin-top: 6rem;
+    margin-top: 10rem;
     border: 0.1rem solid gray;
     }
     
@@ -21,6 +21,7 @@
     text-align: center; 
     font-family:"Cinzel", serif;
     font-weight: 550;
+    font-size: larger;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     padding-bottom: 1rem;

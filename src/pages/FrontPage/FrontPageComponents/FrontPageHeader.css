@@ -1,16 +1,17 @@
 .dnd-logo-front {
     height: auto;
-    width: 15rem;
+    width: 20rem;
 }
 
 .header-wrapper {
     display: flex;
-    height: 6rem;
+    height: 9rem;
     padding: 1rem;
     border-bottom: 0.1rem solid black;
     overflow: hidden;
     justify-content: flex-start;
     align-items: center;
+    background-color: white;
 }
 
 .front-header-text {
