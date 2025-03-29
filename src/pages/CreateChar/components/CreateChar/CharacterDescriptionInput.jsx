@@ -10,16 +10,15 @@
  * @returns {JSX.Element} The CharDescriptionInput component.
  * 
  */
-function CharDescriptionInput({onDescriptionChange})
-{
+function CharDescriptionInput({ onDescriptionChange }) {
 
-    return(
+    return (
         <>
-        <label className="createLabel">Character Description</label>
-        <textarea type="text" className="descriptionInput" id="description" placeholder="Enter a description of your character"  
-            onChange={(e) => onDescriptionChange(e.target.value)} 
-        ></textarea>
-        
+            <label className="createLabel">Character Description</label>
+            <textarea type="text" className="descriptionInput" id="description" placeholder="Enter a description of your character"
+                onChange={(e) => onDescriptionChange(e.target.value)}
+            ></textarea>
+
         </>
     )
 

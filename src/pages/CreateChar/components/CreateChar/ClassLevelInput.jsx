@@ -11,16 +11,15 @@ import React from 'react';
  * 
  * @returns {JSX.Element} The ClassLevelInput component.
  */
-function ClassLevelInput({onLevelChange, currentLevel})
-{
+function ClassLevelInput({ onLevelChange, currentLevel }) {
 
-    return(
+    return (
         <>
-        <label className="createLabel" id="levelLabel">Level:</label>
-        <input type="text" className="levelInput" id="level"
-        value={currentLevel ?? ""}   
-            onChange={(e) => onLevelChange(e.target.value)} 
-        ></input>
+            <label className="createLabel" id="levelLabel">Level:</label>
+            <input type="text" className="levelInput" id="level"
+                value={currentLevel ?? ""}
+                onChange={(e) => onLevelChange(e.target.value)}
+            ></input>
         </>
     )
 

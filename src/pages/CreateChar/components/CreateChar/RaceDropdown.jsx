@@ -12,11 +12,11 @@ import React, { useState, useEffect } from 'react';
  * 
  * @returns {JSX.Element} The RaceDropdown component.
  */
-function RaceDropdown({selectedRace, onRaceChange}) {
-    const [raceList, setRaceList] = useState([]); 
+function RaceDropdown({ selectedRace, onRaceChange }) {
+    const [raceList, setRaceList] = useState([]);
 
-  //useEffect hook that runs once when the component mounts so there arent multiple API calls
-    useEffect(() => { 
+    //useEffect hook that runs once when the component mounts so there arent multiple API calls
+    useEffect(() => {
         async function fetchRaces() {
             try {
                 //Instructions from API
@@ -47,12 +47,12 @@ function RaceDropdown({selectedRace, onRaceChange}) {
 
     return (
 
-        <> 
-        <label className="createLabel">Race: </label>
+        <>
+            <label className="createLabel">Race: </label>
             <select id="raceSelect"
-            onChange={(e) => onRaceChange(e.target.value)} 
-            value={selectedRace}
-            > 
+                onChange={(e) => onRaceChange(e.target.value)}
+                value={selectedRace}
+            >
                 {raceList.map((raceName, index) => (
                     <option key={index} value={raceName}>
                         {raceName}

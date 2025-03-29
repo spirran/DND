@@ -16,7 +16,7 @@ function AlignmentDropdown({ selectedAlignment, onAlignmentChange }) {
     const [alignmentList, setAlignmentList] = useState([]);
 
     //useEffect hook that runs once when the component mounts so there arent multiple API calls
-    useEffect(() => { 
+    useEffect(() => {
         async function fetchAlignments() {
             try {
                 //Instructions from API
@@ -28,7 +28,7 @@ function AlignmentDropdown({ selectedAlignment, onAlignmentChange }) {
                     headers: myHeaders,
                     redirect: "follow"
                 };
-                
+
                 const response = await fetch("https://www.dnd5eapi.co/api/alignments/", requestOptions);
 
                 if (!response.ok) {

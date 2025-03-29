@@ -14,11 +14,11 @@ import React, { useState, useEffect } from 'react';
  * @returns {JSX.Element} The ClassDropdown component.
  * 
  */
-function ClassDropdown({selectedClass, onClassChange}) {
-    const [classList, setClassList] = useState([]); 
-    
- //useEffect hook that runs once when the component mounts so there arent multiple API calls
-    useEffect(() => { 
+function ClassDropdown({ selectedClass, onClassChange }) {
+    const [classList, setClassList] = useState([]);
+
+    //useEffect hook that runs once when the component mounts so there arent multiple API calls
+    useEffect(() => {
         async function fetchClasses() {
             try {
                 //Instructions from API
@@ -39,7 +39,7 @@ function ClassDropdown({selectedClass, onClassChange}) {
 
                 const classData = await response.json();
                 setClassList(classData.results.map(item => item.name));
-                
+
             } catch (error) {
                 console.error(error);
             }
@@ -49,22 +49,22 @@ function ClassDropdown({selectedClass, onClassChange}) {
 
     }, []);
     return (
-        <> 
-        <section id="classSection">
-        <label className="createLabel">Select Class:
-            <select 
-                id="classSelect" 
-                onChange={(e) => onClassChange(e.target.value)} 
-                value={selectedClass}
-            > 
-                {classList.map((className, index) => (
-                    <option key={index} value={className}>
-                        {className}
-                    </option>
-                ))}
-            </select>
-        </label>
-        </section>
+        <>
+            <section id="classSection">
+                <label className="createLabel">Select Class:
+                    <select
+                        id="classSelect"
+                        onChange={(e) => onClassChange(e.target.value)}
+                        value={selectedClass}
+                    >
+                        {classList.map((className, index) => (
+                            <option key={index} value={className}>
+                                {className}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+            </section>
         </>
     );
 }

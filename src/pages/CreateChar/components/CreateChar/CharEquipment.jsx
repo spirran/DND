@@ -9,16 +9,15 @@
  * @returns {JSX.Element} The CharEquipmentInput component.
  * 
  */
-function CharEquipmentInput({onEquipmentChange})
-{
+function CharEquipmentInput({ onEquipmentChange }) {
 
-    return(
+    return (
         <>
-        <label className="createLabel">Character Equipment</label>
-        <textarea type="text" className="equipmentInput" id="equipment" placeholder="Enter the equipment your character has"   
-            onChange={(e) => onEquipmentChange(e.target.value)} 
-        ></textarea>
-        
+            <label className="createLabel">Character Equipment</label>
+            <textarea type="text" className="equipmentInput" id="equipment" placeholder="Enter the equipment your character has"
+                onChange={(e) => onEquipmentChange(e.target.value)}
+            ></textarea>
+
         </>
     )
 

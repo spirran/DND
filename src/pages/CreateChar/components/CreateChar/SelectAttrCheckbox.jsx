@@ -12,18 +12,17 @@
  * @returns {JSX.Element} The SelectAttrCheckbox component.
  */
 
-function SelectAttrCheckbox({onSelectChange})
-{
+function SelectAttrCheckbox({ onSelectChange }) {
 
-    return(
+    return (
         <>
-        <label className="selectAttrCheckLabel">Use standard array?</label>
-        <input 
-            type="checkbox" 
-            className="selectAttrCheck"
-            defaultChecked={false} 
-            onChange={(e) => onSelectChange(e.target.checked)}
-        />
+            <label className="selectAttrCheckLabel">Use standard array?</label>
+            <input
+                type="checkbox"
+                className="selectAttrCheck"
+                defaultChecked={false}
+                onChange={(e) => onSelectChange(e.target.checked)}
+            />
         </>
     )
 
