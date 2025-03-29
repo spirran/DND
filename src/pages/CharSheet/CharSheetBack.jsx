@@ -2,17 +2,39 @@ import React from 'react';
 import './styles/CharSheetBack.css';
 import dndLogo from '../../assets/images/dnd-logo2.png';
 
+/**
+ * Renders the back side of a character sheet
+ * @param {Object} props - Component props
+ * @param {Object} props.character - Character data object
+ * @param {Function} props.handleInputChange - Function to handle input changes
+ * @param {Function} props.onFlip - Function to handle sheet flip action
+ * @returns {JSX.Element} The back of the character sheet
+ */
 function CharSheetBack({ character, handleInputChange, onFlip }) {
+    /**
+     * Calculates ability modifier from ability score
+     * @param {number} score - Ability score
+     * @returns {number} Ability modifier
+     */
     const getAbilityModifier = (score) => {
         return Math.floor((parseInt(score) - 10) / 2);
     };
 
-    // format to include '+'
+    /**
+     * Formats modifier to include '+' sign when positive
+     * @param {number} modifier - The modifier value
+     * @returns {string} Formatted modifier string
+     */
     const formatModifier = (modifier) => {
         return modifier >= 0 ? `+${modifier}` : `${modifier}`;
     };
 
-    // Process spell slot
+    /**
+     * Handles changes to spell slot values
+     * @param {number} level - Spell level
+     * @param {string} field - Field name (total or used)
+     * @param {string|number} value - New value
+     */
     const handleSpellSlotChange = (level, field, value) => {
         handleInputChange({
             target: {
@@ -22,6 +44,12 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         });
     };
 
+    /**
+     * Handles changes to spell names
+     * @param {number} level - Spell level
+     * @param {number} index - Spell index
+     * @param {string} value - New spell name
+     */
     const handleSpellNameChange = (level, index, value) => {
         handleInputChange({
             target: {
@@ -31,7 +59,12 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         });
     };
 
-    // Handles spell prepared status
+    /**
+     * Handles changes to spell prepared status
+     * @param {number} level - Spell level
+     * @param {number} index - Spell index
+     * @param {boolean} checked - New prepared status
+     */
     const handleSpellPreparedChange = (level, index, checked) => {
         handleInputChange({
             target: {
@@ -42,7 +75,11 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         });
     };
 
-    // handle cantrip
+    /**
+     * Handles changes to cantrip names
+     * @param {number} index - Cantrip index
+     * @param {string} value - New cantrip name
+     */
     const handleCantripChange = (index, value) => {
         handleInputChange({
             target: {
@@ -52,7 +89,12 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         });
     };
 
-    // Handle attack row input
+    /**
+     * Handles changes to attack details
+     * @param {number} index - Attack index
+     * @param {string} field - Attack field name
+     * @param {string} value - New value
+     */
     const handleAttackChange = (index, field, value) => {
         handleInputChange({
             target: {
@@ -62,18 +104,27 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         });
     };
 
-    // function to get spell slot values
+    /**
+     * Gets spell slot value for a level and field
+     * @param {number} level - Spell level
+     * @param {string} field - Field name (total or used)
+     * @returns {number} Spell slot value
+     */
     const getSpellSlotValue = (level, field) => {
         if (character.spellSlots && 
             character.spellSlots[`level${level}`] && 
             character.spellSlots[`level${level}`][field] !== undefined) {
             return character.spellSlots[`level${level}`][field];
         }
-        // Default
         return field === 'total' ? (level <= 3 ? 4 - level + 1 : (level <= 5 ? 3 : (level <= 7 ? 2 : 1))) : 0;
     };
 
-    // Get spell at specified level and index
+    /**
+     * Gets spell name at specified level and index
+     * @param {number} level - Spell level
+     * @param {number} index - Spell index
+     * @returns {string} Spell name
+     */
     const getSpellName = (level, index) => {
         if (character.spells && 
             character.spells[`level${level}`] && 
@@ -84,7 +135,12 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         return '';
     };
 
-    // Get spell prepared status
+    /**
+     * Gets spell prepared status
+     * @param {number} level - Spell level
+     * @param {number} index - Spell index
+     * @returns {boolean} Prepared status
+     */
     const getSpellPrepared = (level, index) => {
         if (character.spells && 
             character.spells[`level${level}`] && 
@@ -95,7 +151,11 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         return false;
     };
 
-    // Get cantrip name
+    /**
+     * Gets cantrip name at specified index
+     * @param {number} index - Cantrip index
+     * @returns {string} Cantrip name
+     */
     const getCantripName = (index) => {
         if (character.cantrips && character.cantrips[index] !== undefined) {
             return character.cantrips[index];
@@ -103,7 +163,12 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         return '';
     };
 
-    // Get attack field value
+    /**
+     * Gets attack field value
+     * @param {number} index - Attack index
+     * @param {string} field - Field name
+     * @returns {string} Attack field value
+     */
     const getAttackValue = (index, field) => {
         if (character.attacks && 
             character.attacks[index] && 
@@ -113,9 +178,13 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         return '';
     };
 
-    // Helper to determine if placeholder show
+    /**
+     * Determines if attack placeholder should be shown
+     * @param {number} index - Attack index
+     * @param {string} field - Field name
+     * @returns {boolean} True if placeholder should be shown
+     */
     const shouldShowAttackPlaceholder = (index, field) => {
-        // show placeholder only for first empty field
         if (index > 0) {
             for (let i = 0; i < index; i++) {
                 if (!getAttackValue(i, field)) {
@@ -123,11 +192,15 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
                 }
             }
         }
-        return !getAttackValue(index, field); // Show placeholder if empty
+        return !getAttackValue(index, field);
     };
 
+    /**
+     * Determines if cantrip placeholder should be shown
+     * @param {number} index - Cantrip index
+     * @returns {boolean} True if placeholder should be shown
+     */
     const shouldShowCantripPlaceholder = (index) => {
-        // show placeholder only for first empty field
         if (index > 0) {
             for (let i = 0; i < index; i++) {
                 if (!getCantripName(i)) {
@@ -138,8 +211,13 @@ function CharSheetBack({ character, handleInputChange, onFlip }) {
         return !getCantripName(index);
     };
 
+    /**
+     * Determines if spell placeholder should be shown
+     * @param {number} level - Spell level
+     * @param {number} index - Spell index
+     * @returns {boolean} True if placeholder should be shown
+     */
     const shouldShowSpellPlaceholder = (level, index) => {
-        // show placeholder only for first empty spell field
         if (index > 0) {
             for (let i = 0; i < index; i++) {
                 if (!getSpellName(level, i)) {

@@ -1,340 +1,340 @@
 /* Fireworks Animation for Level Up */
 .firework {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0.5rem;
-    aspect-ratio: 1;
-    background: radial-gradient(circle, rgba(255, 255, 59, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.5rem;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(255, 255, 59, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 1000;
+  pointer-events: none;
+  animation: firework-animation 1.2s ease-out forwards;
+  filter: blur(0.125rem);
+  box-shadow: 0 0 1.25rem 0.625rem rgba(255, 255, 200, 0.7);
+}
+
+@keyframes firework-animation {
+  0% {
+    transform: translate(-50%, -50%) scale(0.01);
     opacity: 0;
-    z-index: 1000;
-    pointer-events: none;
-    animation: firework-animation 1.2s ease-out forwards;
-    filter: blur(2px);
-    box-shadow: 0 0 20px 10px rgba(255, 255, 200, 0.7);
+    filter: blur(0.1875rem);
   }
-  
-  @keyframes firework-animation {
-    0% {
-      transform: translate(-50%, -50%) scale(0.01);
-      opacity: 0;
-      filter: blur(3px);
-    }
-    5% {
-      opacity: 0.2;
-    }
-    40% {
-      opacity: 1;
-      filter: blur(0px);
-    }
-    60% {
-      transform: translate(-50%, -50%) scale(2.5);
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(3);
-      opacity: 0;
-      filter: blur(4px);
-    }
+  5% {
+    opacity: 0.2;
   }
-  
-  .fireworks-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1000;
-    perspective: 800px;
+  40% {
+    opacity: 1;
+    filter: blur(0);
   }
-  
-  .particle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+  60% {
+    transform: translate(-50%, -50%) scale(2.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
     opacity: 0;
-    pointer-events: none;
-    box-shadow: 0 0 6px 3px currentColor;
-    animation: particle-animation 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    filter: blur(0.25rem);
   }
-  
-  @keyframes particle-animation {
-    0% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      filter: brightness(1.5);
-    }
-    50% {
-      opacity: 0.8;
-      filter: brightness(1.2);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(
-        calc(-50% + var(--x) * 160px),
-        calc(-50% + var(--y) * 160px)
-      ) scale(0.15);
-      filter: brightness(0.8);
-    }
+}
+
+.fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  perspective: 50rem;
+}
+
+.particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 0.375rem 0.1875rem currentColor;
+  animation: particle-animation 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes particle-animation {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: brightness(1.5);
   }
-  
-  /* Stars animations */
-  .shooting-star {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 4px;
-    background-color: white;
-    border-radius: 50%;
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.2);
+  }
+  100% {
     opacity: 0;
-    filter: blur(1px);
-    box-shadow: 0 0 5px 2px white, 0 0 10px 5px rgba(255, 255, 255, 0.5);
-    z-index: 999;
-    pointer-events: none;
-    transform-origin: center center;
-    animation: shooting-star-animation 0.8s linear forwards;
+    transform: translate(
+      calc(-50% + var(--x) * 10rem),
+      calc(-50% + var(--y) * 10rem)
+    ) scale(0.15);
+    filter: brightness(0.8);
   }
-  
-  .shooting-star::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background: linear-gradient(to top, 
-      rgba(255, 255, 255, 0.5), 
-      rgba(255, 255, 255, 0));
-    transform: translateY(-20px);
-    opacity: 0.6;
-  }
-  
-  @keyframes shooting-star-animation {
-    0% {
-      opacity: 0;
-      transform: translateY(0) translateX(0) rotate(var(--rotate));
-    }
-    10% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(calc(var(--y) * 100vh)) translateX(calc(var(--x) * 100vw)) rotate(var(--rotate));
-    }
-  }
-  
-  /* Screen Flash */
-  .level-flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(255, 255, 200, 0.3) 0%, rgba(255, 255, 200, 0) 70%);
-    z-index: 998;
-    pointer-events: none;
+}
+
+/* Stars animations */
+.shooting-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.25rem;
+  height: 0.25rem;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(0.0625rem);
+  box-shadow: 0 0 0.3125rem 0.125rem white, 0 0 0.625rem 0.3125rem rgba(255, 255, 255, 0.5);
+  z-index: 999;
+  pointer-events: none;
+  transform-origin: center center;
+  animation: shooting-star-animation 0.8s linear forwards;
+}
+
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1.25rem;
+  background: linear-gradient(to top, 
+    rgba(255, 255, 255, 0.5), 
+    rgba(255, 255, 255, 0));
+  transform: translateY(-1.25rem);
+  opacity: 0.6;
+}
+
+@keyframes shooting-star-animation {
+  0% {
     opacity: 0;
-    animation: flash-animation 0.6s ease-out forwards;
+    transform: translateY(0) translateX(0) rotate(var(--rotate));
   }
-  
-  @keyframes flash-animation {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  10% {
+    opacity: 1;
   }
-  
-  /* Level button animation */
-  .level-up-button.animate {
-    animation: button-dramatic-pulse 0.4s ease-in-out 3;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .level-up-button.animate::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  100% {
     opacity: 0;
-    animation: button-glow 1.2s ease-in-out forwards;
-    z-index: -1;
+    transform: translateY(calc(var(--y) * 100vh)) translateX(calc(var(--x) * 100vw)) rotate(var(--rotate));
   }
-  
-  @keyframes button-dramatic-pulse {
-    0% {
-      transform: scale(1);
-      background-color: #22af37;
-      box-shadow: 0 0 0 rgba(34, 175, 55, 0);
-    }
-    50% {
-      transform: scale(1.15);
-      background-color: #3af970;
-      box-shadow: 0 0 15px rgba(58, 249, 112, 0.8);
-    }
-    100% {
-      transform: scale(1);
-      background-color: #22af37;
-      box-shadow: 0 0 0 rgba(34, 175, 55, 0);
-    }
+}
+
+/* Screen Flash */
+.level-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 200, 0.3) 0%, rgba(255, 255, 200, 0) 70%);
+  z-index: 998;
+  pointer-events: none;
+  opacity: 0;
+  animation: flash-animation 0.6s ease-out forwards;
+}
+
+@keyframes flash-animation {
+  0% {
+    opacity: 0;
   }
-  
-  @keyframes button-glow {
-    0% {
-      opacity: 0;
-      transform: scale(0.1);
-    }
-    50% {
-      opacity: 0.8;
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1);
-    }
+  50% {
+    opacity: 1;
   }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Level button animation */
+.level-up-button.animate {
+  animation: button-dramatic-pulse 0.4s ease-in-out 3;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-up-button.animate::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  opacity: 0;
+  animation: button-glow 1.2s ease-in-out forwards;
+  z-index: -1;
+}
+
+@keyframes button-dramatic-pulse {
+  0% {
+    transform: scale(1);
+    background-color: #22af37;
+    box-shadow: 0 0 0 rgba(34, 175, 55, 0);
+  }
+  50% {
+    transform: scale(1.15);
+    background-color: #3af970;
+    box-shadow: 0 0 0.9375rem rgba(58, 249, 112, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    background-color: #22af37;
+    box-shadow: 0 0 0 rgba(34, 175, 55, 0);
+  }
+}
+
+@keyframes button-glow {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
 
 /* Number Animation */
 .level-number-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    z-index: 1001;
-    perspective: 1000px;
-  }
-  
-  .level-number {
-    font-size: 20rem;
-    font-weight: bold;
-    font-family: 'Cinzel', serif;
-    color: rgba(250, 250, 250, 0.95);
-    text-shadow: 
-      0 0 10px #ffeb3b,
-      0 0 20px #ffeb3b,
-      0 0 30px #ff9800,
-      0 0 40px #ff9800,
-      0 0 70px rgba(255, 152, 0, 0.7),
-      0 0 80px rgba(255, 152, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1001;
+  perspective: 62.5rem;
+}
+
+.level-number {
+  font-size: 20rem;
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+  color: rgba(250, 250, 250, 0.95);
+  text-shadow: 
+    0 0 0.625rem #ffeb3b,
+    0 0 1.25rem #ffeb3b,
+    0 0 1.875rem #ff9800,
+    0 0 2.5rem #ff9800,
+    0 0 4.375rem rgba(255, 152, 0, 0.7),
+    0 0 5rem rgba(255, 152, 0, 0.5);
+  opacity: 0;
+  transform: scale(0.1) rotate3d(1, 0, 0, 30deg);
+  animation: level-number-animation 2.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  position: relative;
+}
+
+.level-number::before {
+  content: 'LEVEL';
+  position: absolute;
+  font-size: 2rem;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-shadow: 
+    0 0 0.3125rem #ff9800,
+    0 0 0.625rem #ff9800;
+  opacity: 0;
+  animation: level-label-animation 2.5s ease-out forwards 0.5s;
+}
+
+@keyframes level-number-animation {
+  0% {
     opacity: 0;
     transform: scale(0.1) rotate3d(1, 0, 0, 30deg);
-    animation: level-number-animation 2.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-    position: relative;
+    filter: blur(0.625rem);
   }
-  
-  .level-number::before {
-    content: 'LEVEL';
-    position: absolute;
-    font-size: 2rem;
-    top: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    text-shadow: 
-      0 0 5px #ff9800,
-      0 0 10px #ff9800;
+  20% {
+    opacity: 0.8;
+    transform: scale(1.2) rotate3d(1, 0, 0, 0deg);
+    filter: blur(0);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1) rotate3d(0, 0, 0, 0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) rotate3d(0, 0, 0, 0);
+    filter: blur(0);
+  }
+  100% {
     opacity: 0;
-    animation: level-label-animation 2.5s ease-out forwards 0.5s;
+    transform: scale(1.5) rotate3d(0, 0, 1, 10deg);
+    filter: blur(1.25rem);
   }
-  
-  @keyframes level-number-animation {
-    0% {
-      opacity: 0;
-      transform: scale(0.1) rotate3d(1, 0, 0, 30deg);
-      filter: blur(10px);
-    }
-    20% {
-      opacity: 0.8;
-      transform: scale(1.2) rotate3d(1, 0, 0, 0deg);
-      filter: blur(0);
-    }
-    40% {
-      opacity: 1;
-      transform: scale(1) rotate3d(0, 0, 0, 0);
-    }
-    80% {
-      opacity: 1;
-      transform: scale(1) rotate3d(0, 0, 0, 0);
-      filter: blur(0);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1.5) rotate3d(0, 0, 1, 10deg);
-      filter: blur(20px);
-    }
-  }
-  
-  @keyframes level-label-animation {
-    0% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(20px);
-    }
-    20% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    80% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(-20px);
-    }
-  }
-  
-  /* glow around level number */
-  .level-glow-ring {
-    position: absolute;
-    width: 300%;
-    height: 300%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(
-      circle,
-      rgba(255, 215, 0, 0.2) 0%,
-      rgba(255, 152, 0, 0.1) 30%,
-      rgba(255, 152, 0, 0) 70%
-    );
-    border-radius: 50%;
+}
+
+@keyframes level-label-animation {
+  0% {
     opacity: 0;
-    animation: glow-ring-animation 2.5s ease-out forwards;
+    transform: translateX(-50%) translateY(1.25rem);
   }
-  
-  @keyframes glow-ring-animation {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.1);
-    }
-    30% {
-      opacity: 0.8;
-      transform: translate(-50%, -50%) scale(0.5);
-    }
-    70% {
-      opacity: 0.6;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(1.5);
-    }
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-1.25rem);
+  }
+}
+
+/* glow around level number */
+.level-glow-ring {
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.2) 0%,
+    rgba(255, 152, 0, 0.1) 30%,
+    rgba(255, 152, 0, 0) 70%
+  );
+  border-radius: 50%;
+  opacity: 0;
+  animation: glow-ring-animation 2.5s ease-out forwards;
+}
+
+@keyframes glow-ring-animation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  30% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  70% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}

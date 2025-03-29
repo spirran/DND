@@ -9,14 +9,9 @@ import { createCharacterData } from './CharModel';
  */
 export const saveCharacter = (character, portraitUrl, originalName) => {
   try {
-    // Create character data in storage format
     const updatedCharacter = createCharacterData(character, portraitUrl);
-    
-    // Save to localStorage
     window.localStorage.setItem('updatedCharacter', JSON.stringify(updatedCharacter));
     window.localStorage.setItem('originalCharacterName', originalName || '');
-    
-    // Notify other components
     window.dispatchEvent(new Event('storage'));
     
     return 'Character saved successfully!';
@@ -39,7 +34,6 @@ export const deleteCharacter = (characterName) => {
     const savedCharacters = JSON.parse(savedCharactersJSON);
     const updatedList = savedCharacters.filter(char => char.name !== characterName);
     
-    // Save updated list and set deletion flag
     localStorage.setItem('characterList', JSON.stringify(updatedList));
     localStorage.setItem('deleteCharacter', characterName);
     
@@ -53,7 +47,7 @@ export const deleteCharacter = (characterName) => {
 
 /**
  * Load characters list from localStorage
- * @returns {Array} - Array of characters / empty if nont found
+ * @returns {Array} - Array of characters / empty if none found
  */
 export const loadCharactersList = () => {
   try {

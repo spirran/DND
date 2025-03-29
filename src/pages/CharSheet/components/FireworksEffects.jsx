@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Fireworks.css';
 
+/**
+ * Component for displaying fireworks and level up animations
+ * @param {Object} props - Component props
+ * @param {boolean} props.active - Whether the fireworks effect is active
+ * @param {Function} props.onComplete - Callback function when animation completes
+ * @param {number} props.level - The new level to display
+ * @returns {JSX.Element|null} Fireworks display or null when inactive
+ */
 const FireworksEffects = ({ active, onComplete, level }) => {
   const [fireworks, setFireworks] = useState([]);
   const [particles, setParticles] = useState([]);
@@ -8,20 +16,19 @@ const FireworksEffects = ({ active, onComplete, level }) => {
   const [showFlash, setShowFlash] = useState(false);
   const [showLevelNumber, setShowLevelNumber] = useState(false);
 
+  /**
+   * Effect to manage fireworks animation lifecycle
+   */
   useEffect(() => {
     if (active) {
-      // flash
       setShowFlash(true);
       setTimeout(() => setShowFlash(false), 600);
       
-      // Show level with delay
       setTimeout(() => setShowLevelNumber(true), 150);
       
-      // effects with varied timing
       createShootingStars();
       setTimeout(() => createFireworks(), 300);
       
-      // Clear effects after animation
       const timer = setTimeout(() => {
         if (onComplete) onComplete();
         setFireworks([]);
@@ -34,34 +41,36 @@ const FireworksEffects = ({ active, onComplete, level }) => {
     }
   }, [active, onComplete]);
 
-  // Create star effect
+  /**
+   * Creates shooting star animation elements
+   */
   const createShootingStars = () => {
     const stars = [];
     for (let i = 0; i < 15; i++) {
       stars.push({
         id: `star-${Date.now()}-${i}`,
-        x: Math.random() * 2 - 1, // -1 to 1 x
-        y: Math.random() * 1 + 0.2, // 0.2 to 1.2 y
-        left: Math.random() * 100, // random starting position
-        top: Math.random() * 30, // start from top 30% of screen
-        rotate: Math.random() * 360, // random rotation
-        delay: Math.random() * 1500 // staggered timing
+        x: Math.random() * 2 - 1,
+        y: Math.random() * 1 + 0.2,
+        left: Math.random() * 100,
+        top: Math.random() * 30,
+        rotate: Math.random() * 360,
+        delay: Math.random() * 1500
       });
     }
     setShootingStars(stars);
   };
 
-  // Create fireworks elements
+  /**
+   * Creates firework and particle animation elements
+   */
   const createFireworks = () => {
     const newFireworks = [];
     const newParticles = [];
     
-    // Create more fireworks
     for (let i = 0; i < 8; i++) {
-      const x = 10 + Math.random() * 80; // 10-90% width
-      const y = 10 + Math.random() * 60; // 10-70% height
+      const x = 10 + Math.random() * 80;
+      const y = 10 + Math.random() * 60;
       
-      // colors
       const colors = [
         '#FF5252', // red
         '#4CAF50', // green
@@ -75,28 +84,26 @@ const FireworksEffects = ({ active, onComplete, level }) => {
       
       const selectedColor = colors[Math.floor(Math.random() * colors.length)];
       
-      // Add firework with varied delay
       newFireworks.push({
         id: `firework-${Date.now()}-${i}`,
         x: `${x}%`,
         y: `${y}%`,
         color: selectedColor,
-        size: 0.4 + Math.random() * 0.6, // Varies sizes
-        delay: i * 150 + Math.random() * 200 // Random stagger
+        size: 0.4 + Math.random() * 0.6,
+        delay: i * 150 + Math.random() * 200
       });
       
-      // Add more particles
-      const particleCount = 15 + Math.floor(Math.random() * 10); // 15-24 particles per
+      const particleCount = 15 + Math.floor(Math.random() * 10);
       for (let j = 0; j < particleCount; j++) {
         newParticles.push({
           id: `particle-${Date.now()}-${i}-${j}`,
           x: x,
           y: y,
           color: selectedColor,
-          size: 0.7 + Math.random() * 0.6, // different sizes
+          size: 0.7 + Math.random() * 0.6,
           xSpeed: Math.random() * 2 - 1,
           ySpeed: Math.random() * 2 - 1,
-          delay: i * 150 + Math.random() * 100 // randomized timing
+          delay: i * 150 + Math.random() * 100
         });
       }
     }
@@ -105,15 +112,12 @@ const FireworksEffects = ({ active, onComplete, level }) => {
     setParticles(newParticles);
   };
 
-  // if inactive, don't render
   if (!active) return null;
 
   return (
     <>
-      {/* flash effect */}
       {showFlash && <div className="level-flash"></div>}
       
-      {/* level number display */}
       {showLevelNumber && (
         <div className="level-number-container">
           <div className="level-number">
@@ -123,7 +127,6 @@ const FireworksEffects = ({ active, onComplete, level }) => {
         </div>
       )}
       
-      {/* stars effect */}
       {shootingStars.map(star => (
         <div
           key={star.id}
@@ -139,7 +142,6 @@ const FireworksEffects = ({ active, onComplete, level }) => {
         />
       ))}
       
-      {/* Fireworks Effect */}
       <div className="fireworks-container">
         {fireworks.map((fw) => (
           <div
@@ -156,7 +158,6 @@ const FireworksEffects = ({ active, onComplete, level }) => {
           />
         ))}
         
-        {/* particles */}
         {particles.map((p) => (
           <div
             key={p.id}
