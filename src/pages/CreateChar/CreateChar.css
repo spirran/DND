@@ -1,61 +1,61 @@
-html, body, #root {
+html,
+body,
+#root {
     height: 100%;
     margin: 0;
-    background-color:rgb(242, 232, 231);
+    background-color: rgb(242, 232, 231);
 }
 
-#attrDiv{
-    
-    margin-right:2rem;
-    margin-top:1rem;
+#attrDiv {
+
+    margin-right: 2rem;
+    margin-top: 1rem;
     border-radius: 0.5rem;
-    padding:0.2rem;
+    padding: 0.2rem;
     border-width: 0.15rem;
     border-style: solid;
 }
 
-.attrInput
-{
-    width:2rem;
-}
-.selectAttrCheckLabel
-{
-    margin-top:2rem;
+.attrInput {
+    width: 2rem;
 }
 
-.createPage-wrapper
-{
-    margin:4rem;
-    margin-left:20rem;
-    border-style:solid;
-    border-radius:15%;
-    padding:5rem;
+.selectAttrCheckLabel {
+    margin-top: 2rem;
+}
+
+.createPage-wrapper {
+    margin: 4rem;
+    margin-left: 20rem;
+    border-style: solid;
+    border-radius: 15%;
+    padding: 5rem;
     border-width: 0.1rem;
-    width:70rem;
-    display:flex;
-    background-color:white;
+    width: 70rem;
+    display: flex;
+    background-color: white;
     box-shadow: 0.2rem 0.1rem 0.1rem rgb(61, 27, 27);
 }
 
-label,select{
-display:Flex;
-flex-direction: column;
+label,
+select {
+    display: Flex;
+    flex-direction: column;
 }
 
-.createLabel{
-    margin-top:1rem;
+.createLabel {
+    margin-top: 1rem;
 }
 
-.levelInput
-{
-    width:2.2rem;
-    height:1.4rem;
-    border-radius:1rem;
+.levelInput {
+    width: 2.2rem;
+    height: 1.4rem;
+    border-radius: 1rem;
 }
-.createPage-logo
-{
+
+.createPage-logo {
     height: 6rem;
-    margin-right: 1.5rem; 
+    margin-right: 1.5rem;
 }
 
 
@@ -75,83 +75,78 @@ flex-direction: column;
     transform: scale(1.1);
 }
 
-#createHeaderButton
-{
-margin-top:2rem;
-margin-left:10rem;
-margin-bottom:2rem;
+#createHeaderButton {
+    margin-top: 2rem;
+    margin-left: 10rem;
+    margin-bottom: 2rem;
 }
 
-.classSection{
-    display:flex;
+.classSection {
+    display: flex;
 }
 
-#levelPart
-{
-    margin-left:2rem;
+#levelPart {
+    margin-left: 2rem;
 }
 
-#alignmentSelect
-{
-    margin-bottom:1rem;
+#alignmentSelect {
+    margin-bottom: 1rem;
 }
 
 
-.descriptionInput{
-    margin-bottom:1rem;
-    width:20rem;
-    height:10rem;
+.descriptionInput {
+    margin-bottom: 1rem;
+    width: 20rem;
+    height: 10rem;
 }
 
-.equipmentInput{
-    margin-bottom:1rem;
-    width:20rem;
-    height:10rem;
+.equipmentInput {
+    margin-bottom: 1rem;
+    width: 20rem;
+    height: 10rem;
 }
 
-.featureInput{
-    margin-bottom:1rem;
-    width:20rem;
-    height:10rem;
+.featureInput {
+    margin-bottom: 1rem;
+    width: 20rem;
+    height: 10rem;
 }
 
 
-.imageInput{
-    margin-bottom:1rem;
-    margin-top:2rem;
-    width:20rem;
-    
+.imageInput {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    width: 20rem;
+
 }
 
-.imageSection
-{
-    display:flex;
-    flex-direction:column;
+.imageSection {
+    display: flex;
+    flex-direction: column;
 }
 
-.charImage{
-    width:15rem;
-    height:15rem;
-    margin-top:1rem;
+.charImage {
+    width: 15rem;
+    height: 15rem;
+    margin-top: 1rem;
 }
-.createHeader-wrapper{
+
+.createHeader-wrapper {
     height: 7rem;
-    width:100%;
+    width: 100%;
     border-bottom: 0.1rem solid black;
-    background-color:rgba(255, 255, 255, 0.6);
-}
-.createPageHeader
-{
-    display:flex;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
-.createPageH1{
-margin-left:5rem;
+.createPageHeader {
+    display: flex;
 }
 
-#createSubmitButton
-{
-    margin-left:0;
-    background-color:#4caf50;
+.createPageH1 {
+    margin-left: 5rem;
 }
 
+#createSubmitButton {
+    margin-left: 0;
+    background-color: #4caf50;
+}
